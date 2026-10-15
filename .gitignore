@@ -1,0 +1,5 @@
+tmp/
+*.ppm
+*.exe
+.playwright-cli/
+node_modules/

@@ -1,0 +1,166 @@
+[
+  {
+    "n": 1,
+    "title": "Motor driver on the board",
+    "need": [
+      "DRV8833 (pins soldered on)",
+      "breadboard"
+    ],
+    "text": "Push the little DRV8833 board in across the middle groove, at the LEFT end, in columns 5 to 10. The pin labelled IN1 goes in hole d5, so the IN1…IN4 row is on the bottom half and the OUT row is on the top half.",
+    "check": "All 12 pins are pushed all the way in, and IN1 is in d5. Its two rows of pins land in rows h and d, so rows c, b and a stay free underneath. Columns 16 to 30 stay empty — that space is for the ESP32.",
+    "why": "Across the groove, every pin gets its own column, so no two pins touch by accident.",
+    "fun": "The groove down the middle is the breadboard's moat. Chips sit on the bridge.",
+    "optional": false,
+    "svg": "/media/steps/step-01.svg"
+  },
+  {
+    "n": 2,
+    "title": "ESP32 on the board",
+    "need": [
+      "ESP32"
+    ],
+    "text": "Gold antenna end on the LEFT, USB plug on the RIGHT. Push it in at the RIGHT END of the board: the row of pins that says D32, D33… goes in row b, columns 16 to 30 (EN in b16, VIN in b30). The silver USB socket must hang off the end of the breadboard.",
+    "check": "Row a is still empty: you can see one open hole under every pin. Hold the USB cable next to the socket: the plug sticks out past the end of the board and touches nothing.",
+    "why": "Two reasons for the right end. (1) The ESP32 is so wide it fills rows b to j, so row a is the ONLY free hole next to its pins — every ESP32 wire starts in row a. (2) The USB plug is about 18 mm long, which is 7 whole columns. Put the board in the middle and that plug lands on top of the next part. Hanging it off the edge costs nothing.",
+    "fun": "Antenna LEFT. An upside-down ESP32 only works in the Upside Down.",
+    "optional": false,
+    "svg": "/media/steps/step-02.svg"
+  },
+  {
+    "n": 3,
+    "title": "Ground wires",
+    "need": [
+      "2 black jumper wires (male-male)"
+    ],
+    "text": "Black wire from a29 (ESP32 GND) into the − rail. Second black wire from c8 (driver GND) into the − rail.",
+    "check": "Both black wires are in the blue − rail at the bottom, not the red + rail.",
+    "why": "A signal is a voltage compared to ground. Without a shared ground, the driver can't \"hear\" the ESP32.",
+    "fun": "Ground wires are black, boring and totally required. Like socks.",
+    "optional": false,
+    "svg": "/media/steps/step-03.svg"
+  },
+  {
+    "n": 4,
+    "title": "Left motor signal wires",
+    "need": [
+      "green + blue jumper wires"
+    ],
+    "text": "Green: a21 (D32) to c5 (IN1). Blue: a22 (D33) to c6 (IN2).",
+    "check": "Follow each wire with your finger: pin label at one end, the matching IN label at the other.",
+    "why": "Two wires per motor: one ON = forward, the other ON = backward. The code sets how strongly.",
+    "fun": "The motor doesn't care about colours. You will, when you're checking it later.",
+    "optional": false,
+    "svg": "/media/steps/step-04.svg"
+  },
+  {
+    "n": 5,
+    "title": "Right motor signal wires",
+    "need": [
+      "yellow + orange jumper wires"
+    ],
+    "text": "Yellow: a23 (D25) to c9 (IN3). Orange: a24 (D26) to c10 (IN4).",
+    "check": "Four coloured wires now run from the ESP32 to the driver.",
+    "why": "",
+    "fun": "Yellow and orange: official pumpkin colours. Coincidence? Yes.",
+    "optional": false,
+    "svg": "/media/steps/step-05.svg"
+  },
+  {
+    "n": 6,
+    "title": "The driver's ON switch",
+    "need": [
+      "purple jumper wire (a long one)"
+    ],
+    "text": "Purple: j10 (EEP, top half) across to a25 (D27) on the ESP32.",
+    "check": "j10 is in the TOP half of the board, a25 in the bottom half.",
+    "why": "EEP wakes the driver up. The code switches D27 on when the boat starts; without this wire the motors never move.",
+    "fun": "No EEP, no go. Without it the driver sleeps like a vampire at noon.",
+    "optional": false,
+    "svg": "/media/steps/step-06.svg"
+  },
+  {
+    "n": 7,
+    "title": "Power up + Wi-Fi test",
+    "need": [
+      "USB-C power bank",
+      "USB-C to micro-USB cable",
+      "tablet or phone"
+    ],
+    "text": "Plug the power bank into the ESP32. On the tablet, join the Wi-Fi SS-JACKOLANTERN (password change-me-2026), tap \"stay connected\", and open 192.168.4.1.",
+    "check": "Push the stick: the blue light on the ESP32 comes on. Let go: it goes off within 1 second.",
+    "why": "That 1-second switch-off is the fail-safe: if the tablet loses the boat, the motors stop by themselves.",
+    "fun": "Blue light on? IT'S ALIVE! (Mad scientist laugh optional.)",
+    "optional": false,
+    "svg": "/media/steps/step-07.svg"
+  },
+  {
+    "n": 8,
+    "title": "Motor wires",
+    "need": [
+      "2 motors (props OFF)",
+      "4 WAGO lever clips",
+      "4 jumper wires (male-male)"
+    ],
+    "text": "Fold each motor wire's bare end in half so it's thicker. Put it in one side of a WAGO clip, a jumper pin in the other side, close both levers. Left motor to j8 and j9, right motor to j6 and j7.",
+    "check": "Tug each wire gently. Nothing slides out.",
+    "why": "",
+    "fun": "WAGO clips are the only thing on this boat allowed to bite.",
+    "optional": false,
+    "svg": "/media/steps/step-08.svg"
+  },
+  {
+    "n": 9,
+    "title": "Motor battery",
+    "need": [
+      "8×AA holder: 6 AA batteries + 2 dummy cells",
+      "1 red jumper wire"
+    ],
+    "text": "Load the holder with 6 AA and 2 dummy cells (a pencil-thick dowel wrapped in foil, or a wire joining the two springs). NEVER 8 real AA: 12 volts breaks the driver. Red wire from c7 (driver VCC) into the + rail. Holder: red lead into the + rail, black lead into the − rail. Leave its switch OFF.",
+    "check": "Red wires only in the red + rail, black only in the blue − rail. A meter across the holder reads about 9 V, not 12.",
+    "why": "Two batteries: a motor starting up gulps power. On its own battery it can't starve the ESP32 and make it restart.",
+    "fun": "Rule of electronics: never let the magic smoke out. It doesn't go back in.",
+    "optional": false,
+    "svg": "/media/steps/step-09.svg"
+  },
+  {
+    "n": 10,
+    "title": "First drive (props still OFF)",
+    "need": [],
+    "text": "Tablet connected, battery switch ON. Push forward: both motors spin. Steer right: the left motor spins faster.",
+    "check": "A motor spins the wrong way? Switch the battery OFF and swap that motor's two wires (for example j8 and j9).",
+    "why": "Write down what happened in the Build Log. Props go on only after this works.",
+    "fun": "Props off = fingers on. Let's keep it that way.",
+    "optional": false,
+    "svg": "/media/steps/step-10.svg"
+  },
+  {
+    "n": 11,
+    "title": "Navigation lights (optional)",
+    "need": [
+      "red, green, yellow LEDs",
+      "3 resistors, 220 Ω",
+      "6 jumper wires (male-female)"
+    ],
+    "text": "Twist a resistor onto each LED's LONG leg. Jumpers: a26 (D14) to the red LED's resistor, a27 (D12) to green, a28 (D13) to yellow. Each LED's SHORT leg goes to the − rail.",
+    "check": "Red and green glow. Yellow blinks until the tablet connects, then stays on.",
+    "why": "Real boats show red on the left (port) and green on the right (starboard). The resistor stops the LED burning out.",
+    "fun": "Port and left both have 4 letters. That's how sailors remember red goes on the left.",
+    "optional": true,
+    "svg": "/media/steps/step-11.svg"
+  },
+  {
+    "n": 12,
+    "title": "Two more fans (optional upgrade)",
+    "need": [
+      "2 more motors (props OFF)",
+      "4 WAGO lever clips",
+      "4 jumper wires (male-male)"
+    ],
+    "text": "Battery switch OFF. Wire each new motor like step 8, one row lower: left motor #2 to i8 and i9, right motor #2 to i6 and i7.",
+    "check": "Switch ON and push forward: all 4 fans blow backwards. One blows forward? Switch OFF and swap its two wires.",
+    "why": "Holes in the same column are joined, so i8 is the same wire as j8. Both fans on a side get the same signal from the driver, so the code stays the same.",
+    "fun": "Four fans: twice the push, twice the noise, same amount of code. Zero.",
+    "optional": true,
+    "svg": "/media/steps/step-12.svg"
+  }
+]

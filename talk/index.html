@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Build Anything: You + AI</title>
+<link rel="stylesheet" href="talk.css?v=1">
+<script type="importmap">{ "imports": { "three": "./vendor/three.module.js" } }</script>
+</head>
+<body>
+<!--
+  A 30-minute talk for 6th-8th graders: what AI is, and how to prompt it to build a
+  website, design a 3D-printed part, shop for parts, and flash code onto a chip.
+
+  Keys:  -> / space / click right edge = next,  <- / click left edge = back
+         P = presenter window (notes + timer, stays in sync),  F = full screen,
+         Home/End = first/last slide.   Print (Ctrl+P) = handout with the notes.
+
+  To change a slide, edit its <section> below. data-scene picks the 3D scene
+  (see scenes.js), data-min is how many minutes to spend on it.
+-->
+
+<canvas id="stage"></canvas>
+<div class="shade"></div>
+
+<div class="deck" id="deck">
+
+<!-- 1 -->
+<section class="slide" data-scene="brain" data-min="1">
+  <p class="kicker r" style="--i:0">github.com/joefaron/kai-code &middot; a talk for curious builders</p>
+  <h1 class="r" style="--i:1">Build <span class="grad">anything</span>.<br>You + AI.</h1>
+  <p class="lede r" style="--i:2">How a 6th grader and an AI helper built a Wi&#8209;Fi boat, a flying paper plane and a game console &mdash; and how you can too.</p>
+  <p class="dim r" style="--i:3">Everything here is free and open source. Take it.</p>
+  <aside class="notes">Welcome. Hold up the boat or the plane if you have them. "Everything you're about to see was built by a kid your age, working with an AI. By the end you'll know the exact sentences we typed."
+  Promise them: no math test, and they get all the code at the end.</aside>
+</section>
+
+<!-- 2 -->
+<section class="slide" data-scene="projects" data-min="1.5">
+  <p class="kicker r" style="--i:0">what we built</p>
+  <h2 class="r" style="--i:1">Four projects. One helper.</h2>
+  <ul class="list r" style="--i:2">
+    <li><b class="o">Airboat</b> &mdash; recycled bottles, two fans, steered from a tablet over its own Wi&#8209;Fi</li>
+    <li><b class="c">Paper plane</b> &mdash; about 21&nbsp;g, two tiny motors, steers with no rudder at all</li>
+    <li><b class="p">Game console</b> &mdash; a pocket computer that plays games <i>you</i> invent</li>
+    <li><b class="g">3D&#8209;printed parts</b> &mdash; a shaft coupler and motor holders, designed by typing</li>
+  </ul>
+  <p class="r" style="--i:3">The helper is an AI we call <b>Bugsy</b>. We talk to it in a chat app, like texting.</p>
+  <aside class="notes">Spin through fast - the 3D carousel shows all four. Ask: "Who here has a 3D printer at home? Who has played with an Arduino?" Hands up keeps them awake.</aside>
+</section>
+
+<!-- 3 -->
+<section class="slide" data-scene="ai" data-min="2.5">
+  <p class="kicker r" style="--i:0">so what IS AI?</p>
+  <h2 class="r" style="--i:1">A super-autocomplete<br>that read the internet.</h2>
+  <div class="guess r" style="--i:2">
+    <div class="q">"The boat goes really <i>&nbsp;?&nbsp;</i>"</div>
+    <div class="bar" style="--i:0"><span>fast</span><div class="fill" style="--w:62%"></div><em>62%</em></div>
+    <div class="bar" style="--i:1"><span>slow</span><div class="fill" style="--w:21%"></div><em>21%</em></div>
+    <div class="bar" style="--i:2"><span>sideways</span><div class="fill" style="--w:9%"></div><em>9%</em></div>
+    <div class="bar" style="--i:3"><span>banana</span><div class="fill" style="--w:.6%"></div><em>0.01%</em></div>
+  </div>
+  <p class="r" style="--i:3">It picks the next word again and again &mdash; fast enough to write code, plans and whole websites.</p>
+  <p class="lesson r" style="--i:4">It's a great guesser. Guesses can be wrong. So we <u>test</u>.</p>
+  <aside class="notes">This is the one big idea of the talk. A language model was trained on a huge pile of text and learned which word tends to come next. It doesn't "know" things like you do - it predicts. That makes it amazing at writing, and sometimes confidently wrong.
+  Ask the room to finish the sentence. They'll say "fast" - that's exactly what the model does. (The percentages are made up to show the idea.)</aside>
+</section>
+
+<!-- 4 -->
+<section class="slide" data-scene="recipe" data-min="2">
+  <p class="kicker r" style="--i:0">the one skill: prompting</p>
+  <h2 class="r" style="--i:1">A great prompt has 4 parts</h2>
+  <div class="recipe r" style="--i:2">
+    <div class="chip k1"><b>1. Goal</b><span>What do you want to exist when it's done?</span></div>
+    <div class="chip k2"><b>2. Context</b><span>Who it's for, what you already have</span></div>
+    <div class="chip k3"><b>3. Limits</b><span>Budget, size, "no soldering", your grade</span></div>
+    <div class="chip k4"><b>4. Check</b><span>How will we KNOW it worked?</span></div>
+  </div>
+  <div class="row r" style="--i:3">
+    <div class="prompt bad"><span class="who">weak</span>make me a boat</div>
+    <div class="prompt"><span class="who">strong</span>Plan a boat for a 6th-grade race <b class="c">(goal)</b>. We have bottles and an ESP32 <b class="p">(context)</b>. Under $50, nothing underwater <b class="o">(limits)</b>. Tell me how we'll test it floats before race day <b class="g">(check)</b>.</div>
+  </div>
+  <aside class="notes">Read the weak one, then the strong one. Point out each colour. The 4th part - CHECK - is the one adults forget. If you ask the AI how to check its own work, it catches its own mistakes. We'll see that on every slide.</aside>
+</section>
+
+<!-- 5 -->
+<section class="slide" data-scene="web" data-min="2">
+  <p class="kicker r" style="--i:0">prompt #1 &middot; build a website</p>
+  <h2 class="r" style="--i:1">The first message built the whole site</h2>
+  <div class="prompt r" style="--i:2"><span class="who">we typed</span>"Make a new website for my son's 6th grade project. Teach him about an Arduino microcontroller, set up so a tablet can control the motor and the direction. It needs to be waterproof. I'm not sure how much this costs."</div>
+  <div class="prompt ai r" style="--i:3"><span class="who">ai built</span>The mission, a design (an <b>airboat</b>, so nothing underwater can leak), a parts list with prices, a touch&#8209;screen helm with a boat simulator, and the chip's code.</div>
+  <div class="prompt r" style="--i:4"><span class="who">then we said</span>"You need to actually <b>test</b> how this steering works."</div>
+  <p class="r" style="--i:5">It measured instead of guessing &mdash; and found the bug: the simulator ran once per screen refresh, and Dad's screen refreshes 161 times a second.</p>
+  <aside class="notes">The site you're seeing in 3D is real: this project's own website. One message got a first version. The magic was the second message: "actually test it". The AI drove a real browser, measured, and found a bug that only happened on a fast monitor. Lesson: the first answer is a draft.</aside>
+</section>
+
+<!-- 6 -->
+<section class="slide" data-scene="coupler" data-min="2.5">
+  <p class="kicker r" style="--i:0">prompt #2 &middot; design a 3D-printed part</p>
+  <h2 class="r" style="--i:1">"Make me a coupler"</h2>
+  <div class="prompt r" style="--i:2"><span class="who">we typed</span>"Design a coupler that joins a <b>2&nbsp;mm</b> motor shaft to a 2&nbsp;mm steel prop rod. It should print standing up with no supports, and be a tight press fit &mdash; no glue. Give me the OpenSCAD file."</div>
+  <ol class="steps r" style="--i:3">
+    <li>AI wrote code that <i>describes</i> the shape: <code>bore_motor = 2.2;</code></li>
+    <li>Printed it. Both shafts <b class="red">slid straight through</b>.</li>
+    <li>Asked why. On this printer holes come out true size, so a tight fit needs a hole <i>smaller</i> than the shaft.</li>
+    <li>Changed one number to <code>1.9</code> &mdash; and printed a <b>test strip</b> with holes 1.7 &rarr; 2.1 first.</li>
+  </ol>
+  <p class="lesson r" style="--i:4">The real world beats the math. Print a small test first.</p>
+  <aside class="notes">The spinning part is the real coupler file, loaded from the STL we printed. OpenSCAD is "code that makes shapes" - so a one-number change gives a new part. Show 3d/shaft_coupler.scad on GitHub if there's time.
+  Good prompt words for 3D printing: the exact sizes in mm, how it prints (standing up, no supports), and how it attaches (press fit, screw, glue).</aside>
+</section>
+
+<!-- 7 -->
+<section class="slide" data-scene="shop" data-min="2.5">
+  <p class="kicker r" style="--i:0">prompt #3 &middot; shop smart</p>
+  <h2 class="r" style="--i:1">Have it research the parts &mdash; then check its homework</h2>
+  <div class="prompt r" style="--i:2"><span class="who">we typed</span>"Research what to buy on Amazon for a Wi&#8209;Fi paper plane. <b>Check what I already ordered first.</b> Bare minimum, no soldering. For every listing, read <b>what's in the box</b> and the <b>weight</b>."</div>
+  <ul class="list r" style="--i:3">
+    <li>A battery listing <b>showed 5 batteries</b> in the photo. The box had a charger and <b class="red">zero batteries</b>. The weight (22&nbsp;g) gave it away.</li>
+    <li>"Rechargeable AA" batteries are <b>1.2&nbsp;V</b>, not 1.5&nbsp;V &mdash; too weak for the boat's brain. A USB power bank we already owned fixed it for <b>$0</b>.</li>
+    <li>Then: <i>"adversary-review the shopping cart."</i> It found its own two mistakes.</li>
+  </ul>
+  <p class="lesson r" style="--i:4">Every gram counts: the plane can only lift ~25&nbsp;g.</p>
+  <aside class="notes">The tower on the right is the plane's weight budget - each block is a real part. "Adversary-review" means: pretend you're the person trying to prove this is wrong. It's the most useful phrase in this whole talk.
+  The AI never buys anything. It puts things in a cart; a grown-up checks out.</aside>
+</section>
+
+<!-- 8 -->
+<section class="slide" data-scene="wiring" data-min="2">
+  <p class="kicker r" style="--i:0">the schematic</p>
+  <h2 class="r" style="--i:1">Brain &rarr; muscle &rarr; motors</h2>
+  <ul class="list r" style="--i:2">
+    <li><b class="c">Brain</b>: XIAO ESP32&#8209;C3 &mdash; a computer smaller than a stamp, with Wi&#8209;Fi</li>
+    <li><b class="p">Muscle</b>: DRV8833 motor driver. The brain's pins are too weak to spin a motor; the driver does the heavy lifting.</li>
+    <li><b class="o">Motors</b>: spin the left one faster and the plane turns right. No rudder.</li>
+    <li><b class="red">Power</b>: one tiny battery, split two ways.</li>
+  </ul>
+  <p class="r" style="--i:3">Every wire here is drawn from <b>one file</b> of pin numbers. Change a pin there and the website, the booklet and the 3D all update.</p>
+  <aside class="notes">This 3D wiring is generated live from data/plane.json - the same file the printable booklet uses. Point at a glowing wire: those pulses are signals going from the brain to the driver.
+  Lesson from the real build: we trust the labels printed on the chip over ANY drawing, including the AI's.</aside>
+</section>
+
+<!-- 9 -->
+<section class="slide" data-scene="flash" data-min="2.5">
+  <p class="kicker r" style="--i:0">prompt #4 &middot; flash the code</p>
+  <h2 class="r" style="--i:1">Getting code onto the chip</h2>
+  <div class="prompt r" style="--i:2"><span class="who">we typed</span>"I just plugged it into my USB. Find the ESP32 and figure it out."</div>
+  <ol class="steps r" style="--i:3">
+    <li>Windows couldn't see it &mdash; a <b>driver</b> was missing for the board's USB chip. AI installed it.</li>
+    <li>It <b>compiled</b> the code (turned it into chip language) and <b>uploaded</b> it.</li>
+    <li>Upload failed? Try <b>another USB port</b>. Once it took 6 tries, then a port swap.</li>
+    <li>Now it updates <b class="g">over Wi&#8209;Fi</b>. No cable &mdash; and a password so nobody else can.</li>
+  </ol>
+  <p class="lesson r" style="--i:4">Short prompts work when the AI can see the problem itself.</p>
+  <aside class="notes">"Flashing" = copying a program into the chip's memory so it runs on its own. The cable-free version is called OTA (over the air). The chip only switches to the new code once the whole file arrives, so a dropped connection can't break it.</aside>
+</section>
+
+<!-- 10 -->
+<section class="slide" data-scene="game" data-min="2">
+  <p class="kicker r" style="--i:0">test before you flash</p>
+  <h2 class="r" style="--i:1">Your game gets tested on the computer first</h2>
+  <ul class="list r" style="--i:2">
+    <li>The game is one file, <code>game.c</code>. Same file runs on the PC and on the console.</li>
+    <li>A robot "player" presses buttons in a script and plays it 3 ways.</li>
+    <li>It checks the rules: <i>"a player who chases pumpkins scores"</i>, <i>"a player who does nothing loses 3 lives"</i>.</li>
+    <li>Only when every check passes do we put it on the device.</li>
+  </ul>
+  <p class="lesson r" style="--i:3">Invent the rules in words. The AI codes it. The test proves it.</p>
+  <aside class="notes">The screen on the console is a real screenshot from our test run of "Pumpkin Catch". Kai designs a game in plain words - "pumpkins fall, catch them, three lives" - and the AI writes the C code and a test that plays it.</aside>
+</section>
+
+<!-- 11 -->
+<section class="slide" data-scene="plane" data-min="2">
+  <p class="kicker r" style="--i:0">physics check</p>
+  <h2 class="r" style="--i:1">Will it actually fly?</h2>
+  <ul class="list r" style="--i:2">
+    <li>The <b class="o">balance point (CG)</b> has to sit <i>in front of</i> the wing's lift point <b class="c">(NP)</b>, or the plane flips.</li>
+    <li>Ours: CG at 100&nbsp;mm from the nose, NP at about 121&nbsp;mm. Good.</li>
+    <li>The AI's first wing shape had never flown. Dad asked <i>"where did this shape come from?"</i> It admitted it had guessed.</li>
+    <li>New rule: tape 5 nickels to a plain paper version and glide it <b>before</b> adding electronics.</li>
+  </ul>
+  <p class="lesson r" style="--i:3">Ask "how do you know?" &mdash; it's allowed to say "I don't."</p>
+  <aside class="notes">Watch the props: when the left motor speeds up, the plane yaws right. That's differential thrust - no servos, no rudder, which saves weight.
+  The nickel test costs 25 cents and answers "can this shape carry the weight?" before we risk any parts.</aside>
+</section>
+
+<!-- 12 -->
+<section class="slide" data-scene="wrong" data-min="1.5">
+  <p class="kicker r" style="--i:0">real mistakes the AI made</p>
+  <h2 class="r" style="--i:1">You are the critic.</h2>
+  <ul class="list r" style="--i:2">
+    <li>Drew a picture with <b>misspelled labels</b></li>
+    <li>Drew a board the <b>wrong size</b>, with the USB plug in the wrong place</li>
+    <li>Trusted a <b>listing photo</b> over the actual box</li>
+    <li>Made wiring diagrams that were <b>confusing</b> &mdash; so we asked for a pin&#8209;by&#8209;pin list instead</li>
+  </ul>
+  <p class="r" style="--i:3">Every one was caught by a human asking a question, or a test.</p>
+  <aside class="notes">This slide matters. AI is not magic and it is not always right. The fix for every mistake here was the same: look at the real thing (the chip, the box, the print) and tell the AI what you see.</aside>
+</section>
+
+<!-- 13 -->
+<section class="slide" data-scene="safe" data-min="1.5">
+  <p class="kicker r" style="--i:0">builder rules</p>
+  <h2 class="r" style="--i:1">Stay safe. Stay honest.</h2>
+  <ul class="list r" style="--i:2">
+    <li><b>Batteries</b>: an adult charges LiPos, on a hard surface. A puffy battery goes in the bin, never in a plane.</li>
+    <li><b>Soldering</b>: hot! Wash hands after, no snacks at the bench.</li>
+    <li><b>Privacy</b>: never type passwords, your address or your school into an AI.</li>
+    <li><b>Age rules</b>: many AI apps are 13+ or need a parent's account. Build with a grown-up.</li>
+    <li><b>Honesty</b>: if AI helped with schoolwork, say so. Follow your teacher's rules.</li>
+  </ul>
+  <aside class="notes">Keep this one serious but quick. The shield animation is the "safety" scene. If the school has an AI policy, mention it here.</aside>
+</section>
+
+<!-- 14 -->
+<section class="slide center" data-scene="open" data-min="1">
+  <p class="kicker r" style="--i:0">it's all yours</p>
+  <h2 class="r" style="--i:1">Free. Open source. <span class="grad">MIT license.</span></h2>
+  <p class="lede r" style="--i:2">The code, the 3D parts, the wiring, the booklets, this slideshow.<br>Copy it, change it, build your own.</p>
+  <p class="big-url r" style="--i:3">github.com/joefaron/kai-code</p>
+  <p class="tiny r" style="--i:4">MIT means: use it for anything, just keep the license note in it.</p>
+  <aside class="notes">Each branch growing is a "fork" - someone copying the project to make their own version. That's how open source works: nobody has to start from zero.</aside>
+</section>
+
+<!-- 15 -->
+<section class="slide wide" data-scene="you" data-min="3">
+  <p class="kicker r" style="--i:0">your turn &middot; 3 minutes with a partner</p>
+  <h2 class="r" style="--i:1">Write a 4-part prompt</h2>
+  <p class="r" style="--i:2">Pick one: <b class="c">a phone stand to 3D print</b> &middot; <b class="o">a $15 night-light kit</b> &middot; <b class="p">a website for your pet</b></p>
+  <div class="builder r" style="--i:3">
+    <div><label class="c">1. Goal</label><textarea id="b1" placeholder="Design a phone stand I can 3D print..."></textarea></div>
+    <div><label class="p">2. Context</label><textarea id="b2" placeholder="It's for my phone, which is 75 mm wide with a case..."></textarea></div>
+    <div><label class="o">3. Limits</label><textarea id="b3" placeholder="Fits on a 10 cm printer bed, no supports, under 2 hours..."></textarea></div>
+    <div><label class="g">4. Check</label><textarea id="b4" placeholder="Tell me how to test it holds the phone before I print the full one."></textarea></div>
+  </div>
+  <div class="prompt r" style="--i:4"><span class="who">your prompt</span><span id="built" class="dim">Start typing above...</span></div>
+  <p class="r" style="--i:5"><button class="btn" id="copy">Copy prompt</button></p>
+  <aside class="notes">Type a class example live into the boxes (the prompt assembles itself), then let pairs write their own on paper. Ask two pairs to read theirs out; the class spots which of the 4 parts is missing.</aside>
+</section>
+
+<!-- 16 -->
+<section class="slide" data-scene="end" data-min="2">
+  <p class="kicker r" style="--i:0">thanks</p>
+  <h1 class="r" style="--i:1">Go build<br><span class="grad">something weird.</span></h1>
+  <ul class="list r" style="--i:2">
+    <li>Goal &middot; Context &middot; Limits &middot; <b>Check</b></li>
+    <li>Ask it to <b>test</b>. Ask it to <b>review its own work</b>.</li>
+    <li>Look at the real thing. You're the engineer.</li>
+  </ul>
+  <p class="r" style="--i:3">Questions?</p>
+  <aside class="notes">Q&amp;A. Good fallback questions to ask THEM: "What would you build first?" "What's something AI would probably get wrong about your idea?"</aside>
+</section>
+
+</div>
+
+<div class="nav prev" id="prev"></div>
+<div class="nav next" id="next"></div>
+<div class="hud"><i id="bar"></i></div>
+<div class="meta" id="meta"></div>
+<div class="help">&larr; &rarr; move &middot; P presenter &middot; F full screen</div>
+
+<!-- presenter view: open with P, follows the main window -->
+<div class="pv">
+  <div class="clock" id="pclock">0:00</div>
+  <div class="dim" id="pplan"></div>
+  <h3>Now</h3><div class="now" id="pnow"></div>
+  <h3>Say</h3><div class="notes" id="pnotes"></div>
+  <h3>Next</h3><div class="next" id="pnext"></div>
+  <p class="dim">&larr; &rarr; here moves the main screen too.</p>
+</div>
+
+<script type="module" src="slides.js?v=1"></script>
+</body>
+</html>

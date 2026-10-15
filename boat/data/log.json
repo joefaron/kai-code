@@ -1,0 +1,32 @@
+[
+  {
+    "date": "Sept 16, 2026",
+    "title": "Project started",
+    "body": "The teacher announced the Halloween STEM Boat Challenge (a classmate's idea) at a calm beach this fall. Picked a direction: recycled catamaran hull, two air propellers for thrust, ESP32 running its own Wi-Fi so a tablet can steer it with no internet at the beach. Built this site as the workshop.",
+    "learned": "Decide the exact beach day with the teacher so the countdown is real, and find out whether groups are assigned or chosen."
+  },
+  {
+    "date": "Sept 16, 2026",
+    "title": "Helm rebuilt after the first test drive",
+    "body": "Drove version 1 and it was wrong in three separate ways. (1) One diagonal thumb pad changed throttle and steering together, so you could not hold speed and nudge the course - split into two sticks like a real RC transmitter. (2) The mixing normalised to the bigger motor, so full-forward-full-right became left 100 / right 0: one motor dead and the boat pivoted instead of turning. Steering now gets 60% authority and is clamped, so the same input is left 100 / right 40. (3) The real culprit: the simulator advanced by one fixed step per animation frame, so on a 165 Hz monitor everything ran 2.75x too fast - hence the rocket acceleration and the tight spin. Physics is now scaled by real elapsed time, so it drives the same on any screen.",
+    "learned": "Anything with a game loop has to be scaled by elapsed time, not frames. Also added trim (two cheap motors never match) and a hold-throttle toggle."
+  },
+  {
+    "date": "Sept 16, 2026",
+    "title": "Helm v3 - one pad, and the parts ordered",
+    "body": "Two sticks worked on a tablet but were awful with one mouse at a desk, so the helm is back to ONE pad - with the key change that the two axes behave differently. Up/down sets the throttle and it STAYS where you put it; left/right steers and springs back to straight when you let go. So: shove up, flick right, release, and the boat carries on at the same speed on its new heading. Up is forward, right is right. Keyboard driving added too (hold the arrows to ramp, space for all stop). Also settled the radio question: staying on Wi-Fi, not Bluetooth - Wi-Fi reaches 150-240 m line-of-sight against 10-30 m for plain BLE, and a tablet browser can't open a classic Bluetooth serial link anyway.",
+    "learned": "Mount the ESP32 a few inches up on a mast, not flat on the deck - 2.4 GHz is absorbed by water, and antenna height buys more range than changing the radio would."
+  },
+  {
+    "date": "Sept 16, 2026",
+    "title": "Adversarial review of the parts order - and we caught two real mistakes",
+    "body": "Before clicking buy, we re-read every listing looking for what was WRONG with our own plan instead of what was right. Two things fell out. (1) The battery pack: rechargeable NiMH cells are 1.2 V, not 1.5 V, so the 4xAA pack we had picked is 4.8 V, not 6 V - low enough that the ESP32's regulator browns out and reboots the instant the motors pull current. Swapped to a 6xAA pack (7.2 V) and added a 1000 uF capacitor across the battery to soak up the start-up current spike. (2) The motor kit's 'propellers' are wind-turbine demo blades meant to be spun BY air, not to push it - fine for the science-fair generator demo the kit was designed for, useless as thrust. Added real 80 mm 4-blade props with a matching 2 mm shaft. Also added an IP67 clear-lid box for the electronics, and put a soft-start ramp in the sketch so the motor driver never gets slammed from 0 to full and trips its overcurrent cutoff.",
+    "learned": "Read the listing for what the part was DESIGNED to do, not just its specs. A 'motor with propeller' sold as a wind-turbine kit is a generator, and its blades are shaped to catch air, not throw it. And always check whether a battery spec assumes alkaline or rechargeable - the same number of cells is two different voltages."
+  },
+  {
+    "date": "Sept 16, 2026",
+    "title": "Cut the budget in half by shopping the garage first",
+    "body": "Dad already had CrunchLabs Hack Pack boxes, and every Hack Pack build ships with a USB power bank. That one part deleted the most expensive AND most troublesome corner of the whole design: a power bank puts out a regulated 5 V no matter what the motors do, so the brownout problem we'd just spent a 6xAA pack and a capacitor solving simply stopped existing. Out went the battery holders, the rechargeable AAs, the charger and the capacitor kit - $43 of batteries plus $10 of caps. The waterproof box went too: nothing on an airboat is submerged, so a clamp-lid kitchen container beats splash and one capsize just as well as a $15 IP67 enclosure, and it's recycled, which is a judged category. Order went from $130.59 to $62.53. What we did NOT cut: the ESP32. The Hack Pack's Arduino Nano has no Wi-Fi radio at all, so there is no way to steer from a tablet without it.",
+    "learned": "Before buying anything, inventory what's already in the house - and look for the part that deletes a PROBLEM, not just a line item. The power bank wasn't only cheaper than the battery pack, it was better engineering, because a regulated supply can't sag."
+  }
+]

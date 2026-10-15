@@ -1,0 +1,326 @@
+{
+  "_note": "Build booklet for the Wi-Fi plane. pages/build.php lays it out (one step per printed page), template.php prints the true-size cut sheet, tools/build-pdf.mjs makes both PDFs. 'draw' entries call draw_<name>() in lib/<lib>.php with the options given. Rewritten 2026-10-14: keel dart, no soldering, boards drawn top-down + flipped.",
+  "title": "Build the Wi-Fi Paper Plane",
+  "emoji": "✈️",
+  "lib": "plane",
+  "page": "plane",
+  "template": {
+    "draw": "template",
+    "what": "Cut-and-fold sheet. Print it on card stock at 100%."
+  },
+  "intro": "A card-stock DART with a KEEL down the middle, like a normal paper plane, and a skewer spine inside the keel. Two tiny motors sit on a stick across the nose. NO soldering: everything plugs together. Step 5 is a test glide with coins taped on, before any electronics go near it. Each picture shows the plane so far. Old parts are grey and the NEW part glows orange. Do the ✅ check before you turn the page.",
+  "cover": [
+    [
+      "airframe",
+      {
+        "mode": "all"
+      }
+    ],
+    [
+      "front",
+      {
+        "mode": "all"
+      }
+    ]
+  ],
+  "need": [
+    "🖨️ the template, printed on 1 sheet of card stock",
+    "🍢 2 bamboo skewers: a 16 cm motor stick and a ~22 cm spine",
+    "🪙 5 nickels (for the test glide)",
+    "⚙️ 2 motors + 2 props (one A, one B)",
+    "🧠 XIAO ESP32C3 (code already flashed) + its stick-on antenna",
+    "🔌 the boat's motor driver (its pins are already on) + 9 female-to-female jumper wires",
+    "🔋 Tattu 220 mAh battery + 1 battery plug lead (Molex) + 1 two-pin splitter cable",
+    "✂️ scissors · 📏 ruler · clear tape · double-sided foam tape · hot glue (with a grown-up)"
+  ],
+  "safety": "🔥 A grown-up does the hot glue and charges the battery on the SummitLink charger, off the plane. Props spin fast: keep fingers and faces away whenever the battery is plugged in. ⚠️ NEVER plug the USB cable in while the battery is plugged in.",
+  "steps": [
+    {
+      "title": "Print the template and check its size",
+      "need": [
+        "🖨️ card stock",
+        "📏 ruler"
+      ],
+      "draw": [
+        [
+          "airframe",
+          {
+            "new": [
+              "sheet",
+              "outline"
+            ]
+          }
+        ]
+      ],
+      "do": "Print the template on CARD STOCK. In the print box choose 100% or \"Actual size\", never \"Fit to page\". The boxes on it are the real size of the boards, so a shrunk print puts everything in the wrong place.",
+      "check": "The black bar at the top right measures exactly 5 cm on your ruler.",
+      "why": "Card stock holds its shape with 25 g of parts on it. Printer paper sags."
+    },
+    {
+      "title": "Mark the skewer, then cut out the plane",
+      "need": [
+        "✂️ scissors",
+        "🍢 skewer",
+        "✏️ pen"
+      ],
+      "draw": [
+        [
+          "airframe",
+          {
+            "new": [
+              "outline",
+              "cuts"
+            ]
+          }
+        ]
+      ],
+      "do": "BEFORE you cut: lay a skewer on the MOTOR STICK strip. Mark the centre and both motor spots on it with a pen, then snap or cut it to 16 cm. Now cut along the SOLID outline. Last, cut the 4 short slits in the back edge.",
+      "check": "One clean dart shape, 4 slits at the back, and a 16 cm skewer with 3 pen marks.",
+      "why": "The motor marks sit on the part you cut away, so you mark the skewer first. The slits make 2 little flaps (elevators)."
+    },
+    {
+      "title": "Folds ① and ②: make the keel",
+      "draw": [
+        [
+          "airframe",
+          {
+            "new": [
+              "keel"
+            ]
+          }
+        ],
+        [
+          "front",
+          {
+            "new": [
+              "keel"
+            ]
+          }
+        ]
+      ],
+      "do": "① Fold the plane in half along the middle dashed line, printed side OUTSIDE, like the first fold of any paper plane. Press it hard. ② Fold each wing back out along its own dashed KEEL line, so the wings lie flat and the 1.5 cm strip between the two lines hangs down underneath.",
+      "check": "From the front it looks like a T with a short leg: flat wings on top, a 1.5 cm keel underneath, the same on both sides.",
+      "why": "The keel is the plane's backbone and keeps the nose pointing forward, just like on a normal paper dart."
+    },
+    {
+      "title": "The spine: a skewer inside the keel",
+      "need": [
+        "🍢 ~22 cm skewer",
+        "clear tape"
+      ],
+      "draw": [
+        [
+          "airframe",
+          {
+            "new": [
+              "spine"
+            ]
+          }
+        ],
+        [
+          "front",
+          {
+            "new": [
+              "spine"
+            ]
+          }
+        ]
+      ],
+      "do": "Open the keel a little. Lay the long skewer in the very bottom of the fold, from 2 cm behind the nose to near the tail (snap it to fit). Squeeze the keel shut and tape it closed in 4 places. Put a strip of tape along the top where the two wings meet. Tilt the wings up a little, so from the front it's a shallow Y.",
+      "check": "Hold the tail and wiggle it: the plane stays straight and stiff. Both wings tilt up the same amount.",
+      "why": "The skewer is the spine. It stops the plane bending under the motors and the battery."
+    },
+    {
+      "title": "Test glide with coins (before ANY electronics)",
+      "need": [
+        "🪙 5 nickels",
+        "tape"
+      ],
+      "draw": [
+        [
+          "airframe",
+          {
+            "new": [
+              "coins",
+              "cg"
+            ]
+          }
+        ]
+      ],
+      "do": "Bend the back flaps UP about 2 mm. Tape 5 nickels in a stack on top of the middle, on the BALANCE line. That's about 25 g, the same as all the parts. Throw it gently and level from shoulder height, onto a bed or carpet.",
+      "check": "It glides forward a few metres and lands flat. Dives? Bend the flaps up a bit more. Climbs, then drops? Bend them down a bit. Turns? Make both wings tilt the same. Then take the coins off.",
+      "why": "If it can't glide with 25 g of coins, it won't fly with 25 g of electronics. Better to find out now."
+    },
+    {
+      "title": "Motor stick across the nose",
+      "need": [
+        "🍢 marked skewer",
+        "clear tape"
+      ],
+      "draw": [
+        [
+          "airframe",
+          {
+            "new": [
+              "stick"
+            ]
+          }
+        ],
+        [
+          "front",
+          {
+            "new": [
+              "stick"
+            ]
+          }
+        ]
+      ],
+      "do": "Lay the 16 cm skewer on top across the MOTOR STICK line, with its centre mark on the middle seam. Tape it down with an X of tape on each side of the seam.",
+      "check": "Both ends stick out the same distance (use your pen marks), and it's square to the middle seam.",
+      "why": "If the stick is crooked, one motor pushes from further out and the plane always turns."
+    },
+    {
+      "title": "Glue on the motors and props",
+      "need": [
+        "⚙️ 2 motors",
+        "🌀 props A + B",
+        "🔥 hot glue + grown-up"
+      ],
+      "draw": [
+        [
+          "airframe",
+          {
+            "new": [
+              "motors"
+            ]
+          }
+        ],
+        [
+          "front",
+          {
+            "new": [
+              "motors"
+            ]
+          }
+        ]
+      ],
+      "do": "Hot-glue a motor on top of each end of the skewer, on your pen marks. The shaft points at the NOSE and the wires point back. Push prop A onto one motor and prop B onto the other.",
+      "check": "Spin each prop with a finger. It turns freely and doesn't touch the wing, the stick or the other prop.",
+      "why": "The props spin in front of the wing, so the paper never gets in their way. Motors at the front also keep the balance point in the right place."
+    },
+    {
+      "title": "Stick on the two boards, PINS UP",
+      "need": [
+        "🧠 XIAO (flashed!)",
+        "🔌 driver",
+        "double-sided foam tape"
+      ],
+      "stack": true,
+      "draw": [
+        [
+          "wiring",
+          {
+            "flip": true,
+            "style": "width:100%"
+          }
+        ],
+        [
+          "airframe",
+          {
+            "new": [
+              "boards"
+            ]
+          }
+        ]
+      ],
+      "do": "Turn each board over so its pins point UP and the printed pin names face you. Foam-tape the XIAO in its box on the LEFT, with the USB-C toward the nose. Foam-tape the driver in its box on the RIGHT. Nothing goes on the keel strip: it's folded underneath now. Now the XIAO's D pins and the driver's IN pins face each other across the middle, like the picture.",
+      "check": "Read the names printed on each board: D0 to D6 down the XIAO's RIGHT edge, and IN4 IN3 GND VCC IN2 IN1 down the driver's LEFT edge.",
+      "why": "Pins up means you can push the jumper wires on and pull them off again. No soldering anywhere."
+    },
+    {
+      "title": "Plug in the wires (no soldering)",
+      "need": [
+        "🔌 9 female-to-female jumpers",
+        "🔌 2-pin splitter",
+        "🔋 battery plug lead"
+      ],
+      "stack": true,
+      "draw": [
+        [
+          "wiring",
+          {
+            "flip": true,
+            "style": "width:100%"
+          }
+        ],
+        [
+          "airframe",
+          {
+            "new": [
+              "wires"
+            ]
+          }
+        ]
+      ],
+      "do": "1) Four signal wires straight across: D1→IN4, D2→IN3, D5→IN2, D6→IN1. 2) A white wire from D10 round the top to EEP. 3) Splitter: one 2-pin plug on the XIAO's 5V + GND with red on 5V, the other on the driver's GND + VCC with red on VCC. 4) Battery lead: push its red wire into the red side of the splitter's single plug and black into the other side, then tape it. 5) Motors: jumpers from OUT1 + OUT2 to the LEFT motor and from OUT3 + OUT4 to the RIGHT. Fold each thin motor wire in half, push it into the jumper's free end and tape it.",
+      "check": "Red goes to 5V on the XIAO and to VCC on the driver, NEVER to GND. Check it twice against the printed names. The LEFT motor is on OUT1/OUT2.",
+      "why": "Red on GND can kill a board. Swapped motors make the steering go backwards. The app can fix spin direction, but not a left/right swap."
+    },
+    {
+      "title": "Battery and antenna",
+      "need": [
+        "🔋 battery",
+        "📡 antenna",
+        "foam tape"
+      ],
+      "draw": [
+        [
+          "airframe",
+          {
+            "new": [
+              "battery",
+              "antenna"
+            ]
+          }
+        ]
+      ],
+      "do": "Put a strip of foam tape across the top seam, over the two half BAT boxes (the battery sits ACROSS the seam), but don't press the battery down hard yet. You'll slide it in the next step. Plug the antenna into the XIAO's little socket and stick it flat in the ANTENNA box on the left wing.",
+      "check": "Battery NOT plugged in yet, nothing dangling, and the antenna wire isn't near a prop.",
+      "why": "Without the antenna the Wi-Fi only reaches across a room."
+    },
+    {
+      "title": "Balance it (the most important step)",
+      "need": [
+        "🔋 battery in place"
+      ],
+      "draw": [
+        [
+          "airframe",
+          {
+            "new": [
+              "cg",
+              "elevons"
+            ]
+          }
+        ]
+      ],
+      "do": "Put a fingertip under each BALANCE dot (10 cm from the nose) and lift. Slide the battery forward or back until the plane sits level or dips its nose a tiny bit. Then press it down. Check that the back flaps are still bent UP about 2 mm.",
+      "check": "On your fingertips it hangs level or a little nose-down, never tail-down.",
+      "why": "A tail-heavy plane flips over. A slightly nose-heavy one flies. The bent-up flaps stop it from diving."
+    },
+    {
+      "title": "Test glide, then fly!",
+      "draw": [
+        [
+          "airframe",
+          {
+            "mode": "all"
+          }
+        ]
+      ],
+      "do": "Battery unplugged: throw it gently and level, like the coin test. Then plug the battery into its lead (unplugging it is the OFF switch). Join Wi-Fi KAI-PLANE (password change-me-2026), open 192.168.4.1, push the left stick to about 60% and throw it level.",
+      "check": "Cut the throttle just BEFORE it lands, so the props stop before they hit anything. Charge the battery on the SummitLink charger, never through the XIAO.",
+      "why": "Turns all on its own? Use Trim in the app (⚙️). Steering backwards? The motor wires are swapped (step 9)."
+    }
+  ]
+}

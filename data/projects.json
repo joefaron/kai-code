@@ -1,0 +1,34 @@
+[
+  {
+    "name": "Wi-Fi airboat",
+    "emoji": "🚤",
+    "status": "built + tested on water",
+    "note": "Recycled-bottle catamaran with two air propellers. The ESP32 makes its own Wi-Fi network and serves a tablet steering page; steer by spinning one fan faster than the other.",
+    "url": "https://github.com/joefaron/kai-code/tree/main/boat",
+    "code": "boat/"
+  },
+  {
+    "name": "Wi-Fi paper plane",
+    "emoji": "✈️",
+    "status": "parts in, airframe in testing",
+    "note": "A ~21 g card-stock dart with two tiny motors and a XIAO ESP32-C3. A two-stick controller page on the phone; no servos, it turns by differential thrust.",
+    "url": "/?p=plane",
+    "code": "plane/"
+  },
+  {
+    "name": "Pocket game console",
+    "emoji": "🎮",
+    "status": "game engine + PC tester working",
+    "note": "ESP32-S3 handheld that plays games Kai invents. Every game is tested on the PC with a robot player before it's flashed.",
+    "url": "/?p=game",
+    "code": "game/"
+  },
+  {
+    "name": "3D-printed parts",
+    "emoji": "🧩",
+    "status": "printed, coupler on version 2",
+    "note": "Shaft coupler and motor holders written in OpenSCAD (code that makes shapes). Change one number, print again.",
+    "url": "/?p=print",
+    "code": "3d/"
+  }
+]
