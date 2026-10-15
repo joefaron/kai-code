@@ -2,7 +2,7 @@
   <h2>&#127916; Build anything. You + AI.</h2>
   <p class="lede">A 30-minute talk for 6th&ndash;8th graders: what AI really is, the 4-part prompt, and the exact
   prompts we used to build a website, design a 3D-printed part, shop for parts and flash code onto a chip.
-  Sixteen slides, each with a live 3D scene.</p>
+  Fifteen slides, each with a live 3D scene.</p>
   <p class="btnrow"><a class="linkbtn" href="/talk/"><b>&#9654; Start the slideshow</b></a>
   <a class="linkbtn" href="/talk/?presenter">Presenter notes + timer</a></p>
 </section>
@@ -28,8 +28,8 @@
       <li>What AI is: a super-autocomplete (2&frac12;)</li>
       <li>The 4-part prompt: goal, context, limits, check (2)</li>
       <li>Prompts for a website, a 3D part, shopping, flashing (9&frac12;)</li>
-      <li>Schematic, testing, physics, AI mistakes (7&frac12;)</li>
-      <li>Safety, open source, write your own prompt (5&frac12;)</li>
+      <li>Schematic, testing, AI mistakes (5&frac12;)</li>
+      <li>Safety, open source, write your own prompt (6&frac12;)</li>
     </ol>
   </div>
 </div>

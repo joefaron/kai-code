@@ -1,6 +1,6 @@
 // Slide navigation, presenter window and the prompt builder.
 // The 3D lives in scenes.js; this file only says which scene each slide wants.
-import { createStage } from './scenes.js';
+import { createStage } from './scenes.js?v=2';
 
 const slides = [...document.querySelectorAll('.slide')];
 const presenter = new URLSearchParams(location.search).has('presenter');

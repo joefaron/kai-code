@@ -1,9 +1,9 @@
 <?php
 // Printable build booklets, one per project. EVERY project gets one:
-//   1. write data/builds/<name>.json   (title, parts, steps; copy plane.json to start)
+//   1. write data/builds/<name>.json   (title, parts, steps; title, emoji, lib, parts, steps)
 //   2. pictures come from draw_<thing>() functions in lib/<lib>.php (or an "img" path)
 //   3. node tools/build-pdf.mjs <name>  -> media/builds/<name>-steps.pdf (+ -template.pdf)
-// ?p=build lists them all; ?p=build&b=plane shows one. One step = one printed page.
+// ?p=build lists them all; ?p=build&b=<name> shows one. One step = one printed page.
 $B = isset($_GET['b']) ? preg_replace('/[^a-z0-9-]/', '', $_GET['b']) : '';
 $file = __DIR__ . "/../data/builds/$B.json";
 
@@ -30,6 +30,7 @@ if (!$B || !is_file($file)):
       <?php if ($u = build_pdf($n, 'steps')): ?> · <a href="<?= $u ?>">booklet PDF</a><?php endif; ?>
       <?php if ($u = build_pdf($n, 'template')): ?> · <a href="<?= $u ?>">template PDF</a><?php endif; ?></li>
 <?php endforeach; ?>
+<?php if (!$all): ?>    <li>None here yet. The airboat's step-by-step booklet lives on the boat's own site (Build Steps tab).</li><?php endif; ?>
   </ul>
   <p class="tradeoff">New project? Tell Bugsy in Slack: <i>"make build instructions for my ___"</i>. Bugsy writes
   <code>data/builds/&lt;name&gt;.json</code>, draws the pictures, and makes the PDF.</p>

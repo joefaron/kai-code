@@ -29,24 +29,23 @@
 <section class="slide" data-scene="brain" data-min="1">
   <p class="kicker r" style="--i:0">github.com/joefaron/kai-code &middot; a talk for curious builders</p>
   <h1 class="r" style="--i:1">Build <span class="grad">anything</span>.<br>You + AI.</h1>
-  <p class="lede r" style="--i:2">How a 6th grader and an AI helper built a Wi&#8209;Fi boat, a flying paper plane and a game console &mdash; and how you can too.</p>
+  <p class="lede r" style="--i:2">How a 6th grader and an AI helper built a Wi&#8209;Fi boat, a game console and 3D&#8209;printed parts &mdash; and how you can too.</p>
   <p class="dim r" style="--i:3">Everything here is free and open source. Take it.</p>
-  <aside class="notes">Welcome. Hold up the boat or the plane if you have them. "Everything you're about to see was built by a kid your age, working with an AI. By the end you'll know the exact sentences we typed."
+  <aside class="notes">Welcome. Hold up the boat if you have it. "Everything you're about to see was built by a kid your age, working with an AI. By the end you'll know the exact sentences we typed."
   Promise them: no math test, and they get all the code at the end.</aside>
 </section>
 
 <!-- 2 -->
 <section class="slide" data-scene="projects" data-min="1.5">
   <p class="kicker r" style="--i:0">what we built</p>
-  <h2 class="r" style="--i:1">Four projects. One helper.</h2>
+  <h2 class="r" style="--i:1">Three projects. One helper.</h2>
   <ul class="list r" style="--i:2">
     <li><b class="o">Airboat</b> &mdash; recycled bottles, two fans, steered from a tablet over its own Wi&#8209;Fi</li>
-    <li><b class="c">Paper plane</b> &mdash; about 21&nbsp;g, two tiny motors, steers with no rudder at all</li>
     <li><b class="p">Game console</b> &mdash; a pocket computer that plays games <i>you</i> invent</li>
     <li><b class="g">3D&#8209;printed parts</b> &mdash; a shaft coupler and motor holders, designed by typing</li>
   </ul>
   <p class="r" style="--i:3">The helper is an AI we call <b>Bugsy</b>. We talk to it in a chat app, like texting.</p>
-  <aside class="notes">Spin through fast - the 3D carousel shows all four. Ask: "Who here has a 3D printer at home? Who has played with an Arduino?" Hands up keeps them awake.</aside>
+  <aside class="notes">Spin through fast - the 3D carousel shows all three. Ask: "Who here has a 3D printer at home? Who has played with an Arduino?" Hands up keeps them awake.</aside>
 </section>
 
 <!-- 3 -->
@@ -114,14 +113,14 @@
 <section class="slide" data-scene="shop" data-min="2.5">
   <p class="kicker r" style="--i:0">prompt #3 &middot; shop smart</p>
   <h2 class="r" style="--i:1">Have it research the parts &mdash; then check its homework</h2>
-  <div class="prompt r" style="--i:2"><span class="who">we typed</span>"Research what to buy on Amazon for a Wi&#8209;Fi paper plane. <b>Check what I already ordered first.</b> Bare minimum, no soldering. For every listing, read <b>what's in the box</b> and the <b>weight</b>."</div>
+  <div class="prompt r" style="--i:2"><span class="who">we typed</span>"Research what to buy on Amazon for a Wi&#8209;Fi airboat. <b>Check what I already own first.</b> Bare minimum, no soldering. For every listing, read <b>what's actually in the box</b>."</div>
   <ul class="list r" style="--i:3">
-    <li>A battery listing <b>showed 5 batteries</b> in the photo. The box had a charger and <b class="red">zero batteries</b>. The weight (22&nbsp;g) gave it away.</li>
+    <li>Then we said: <i>"adversary-review the shopping cart."</i> It found <b>its own two mistakes</b>:</li>
+    <li>The motor kit's "propellers" were <b class="red">wind-turbine blades</b> &mdash; made to catch wind, not push air. Swapped for real props ($7.59).</li>
     <li>"Rechargeable AA" batteries are <b>1.2&nbsp;V</b>, not 1.5&nbsp;V &mdash; too weak for the boat's brain. A USB power bank we already owned fixed it for <b>$0</b>.</li>
-    <li>Then: <i>"adversary-review the shopping cart."</i> It found its own two mistakes.</li>
   </ul>
-  <p class="lesson r" style="--i:4">Every gram counts: the plane can only lift ~25&nbsp;g.</p>
-  <aside class="notes">The tower on the right is the plane's weight budget - each block is a real part. "Adversary-review" means: pretend you're the person trying to prove this is wrong. It's the most useful phrase in this whole talk.
+  <p class="lesson r" style="--i:4">Read the box, not the photo. Then ask it to check itself.</p>
+  <aside class="notes">The tower on the right is the real cart - each block is a part, sized by its price. "Adversary-review" means: pretend you're the person trying to prove this is wrong. It's the most useful phrase in this whole talk.
   The AI never buys anything. It puts things in a cart; a grown-up checks out.</aside>
 </section>
 
@@ -130,13 +129,13 @@
   <p class="kicker r" style="--i:0">the schematic</p>
   <h2 class="r" style="--i:1">Brain &rarr; muscle &rarr; motors</h2>
   <ul class="list r" style="--i:2">
-    <li><b class="c">Brain</b>: XIAO ESP32&#8209;C3 &mdash; a computer smaller than a stamp, with Wi&#8209;Fi</li>
+    <li><b class="c">Brain</b>: ESP32 &mdash; a computer the size of a stick of gum, with Wi&#8209;Fi</li>
     <li><b class="p">Muscle</b>: DRV8833 motor driver. The brain's pins are too weak to spin a motor; the driver does the heavy lifting.</li>
-    <li><b class="o">Motors</b>: spin the left one faster and the plane turns right. No rudder.</li>
-    <li><b class="red">Power</b>: one tiny battery, split two ways.</li>
+    <li><b class="o">Motors</b>: spin the left fan faster and the boat turns right. No rudder.</li>
+    <li><b class="red">Power</b>: a power bank for the brain, AA batteries for the motors.</li>
   </ul>
-  <p class="r" style="--i:3">Every wire here is drawn from <b>one file</b> of pin numbers. Change a pin there and the website, the booklet and the 3D all update.</p>
-  <aside class="notes">This 3D wiring is generated live from data/plane.json - the same file the printable booklet uses. Point at a glowing wire: those pulses are signals going from the brain to the driver.
+  <p class="r" style="--i:3">Every wire here is drawn from <b>one file</b> of pin numbers. Change a pin there and the drawing updates by itself.</p>
+  <aside class="notes">This 3D wiring is generated live from a file of pin numbers (talk/wiring.json). Point at a glowing wire: those pulses are signals going from the brain to the driver.
   Lesson from the real build: we trust the labels printed on the chip over ANY drawing, including the AI's.</aside>
 </section>
 
@@ -170,21 +169,6 @@
 </section>
 
 <!-- 11 -->
-<section class="slide" data-scene="plane" data-min="2">
-  <p class="kicker r" style="--i:0">physics check</p>
-  <h2 class="r" style="--i:1">Will it actually fly?</h2>
-  <ul class="list r" style="--i:2">
-    <li>The <b class="o">balance point (CG)</b> has to sit <i>in front of</i> the wing's lift point <b class="c">(NP)</b>, or the plane flips.</li>
-    <li>Ours: CG at 100&nbsp;mm from the nose, NP at about 121&nbsp;mm. Good.</li>
-    <li>The AI's first wing shape had never flown. Dad asked <i>"where did this shape come from?"</i> It admitted it had guessed.</li>
-    <li>New rule: tape 5 nickels to a plain paper version and glide it <b>before</b> adding electronics.</li>
-  </ul>
-  <p class="lesson r" style="--i:3">Ask "how do you know?" &mdash; it's allowed to say "I don't."</p>
-  <aside class="notes">Watch the props: when the left motor speeds up, the plane yaws right. That's differential thrust - no servos, no rudder, which saves weight.
-  The nickel test costs 25 cents and answers "can this shape carry the weight?" before we risk any parts.</aside>
-</section>
-
-<!-- 12 -->
 <section class="slide" data-scene="wrong" data-min="1.5">
   <p class="kicker r" style="--i:0">real mistakes the AI made</p>
   <h2 class="r" style="--i:1">You are the critic.</h2>
@@ -203,7 +187,7 @@
   <p class="kicker r" style="--i:0">builder rules</p>
   <h2 class="r" style="--i:1">Stay safe. Stay honest.</h2>
   <ul class="list r" style="--i:2">
-    <li><b>Batteries</b>: an adult charges LiPos, on a hard surface. A puffy battery goes in the bin, never in a plane.</li>
+    <li><b>Batteries</b>: an adult charges LiPos, on a hard surface. A puffy battery goes in the bin, never back in a project.</li>
     <li><b>Soldering</b>: hot! Wash hands after, no snacks at the bench.</li>
     <li><b>Privacy</b>: never type passwords, your address or your school into an AI.</li>
     <li><b>Age rules</b>: many AI apps are 13+ or need a parent's account. Build with a grown-up.</li>
@@ -223,7 +207,7 @@
 </section>
 
 <!-- 15 -->
-<section class="slide wide" data-scene="you" data-min="3">
+<section class="slide wide" data-scene="you" data-min="5">
   <p class="kicker r" style="--i:0">your turn &middot; 3 minutes with a partner</p>
   <h2 class="r" style="--i:1">Write a 4-part prompt</h2>
   <p class="r" style="--i:2">Pick one: <b class="c">a phone stand to 3D print</b> &middot; <b class="o">a $15 night-light kit</b> &middot; <b class="p">a website for your pet</b></p>
@@ -269,6 +253,6 @@
   <p class="dim">&larr; &rarr; here moves the main screen too.</p>
 </div>
 
-<script type="module" src="slides.js?v=1"></script>
+<script type="module" src="slides.js?v=2"></script>
 </body>
 </html>

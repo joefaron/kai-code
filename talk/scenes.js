@@ -168,31 +168,6 @@ function boatModel() {
   return g;
 }
 
-function planeModel(scale = .03) {
-  // shape from data/plane.json "airframe": root 255 mm, half span 105, tip leading edge at 190
-  const g = new THREE.Group(), s = scale;
-  const half = new THREE.Shape([new THREE.Vector2(0, 0), new THREE.Vector2(105, -190), new THREE.Vector2(105, -255), new THREE.Vector2(0, -255)]);
-  const wm = mat(0xf2f0ea, { side: THREE.DoubleSide, roughness: .8 });
-  for (const side of [-1, 1]) {
-    const wing = new THREE.Group(); wing.rotation.z = side * .1; g.add(wing); // a little dihedral
-    const w = new THREE.Mesh(new THREE.ShapeGeometry(half), wm);
-    w.scale.set(side * s, s, s); w.rotation.x = -Math.PI / 2; wing.add(w);
-    const el = box(63 * s, .02, 15 * s, mat(C.orange)); el.position.set(side * (25 + 31.5) * s, .01, 247 * s); wing.add(el);
-  }
-  const keel = new THREE.Mesh(new THREE.PlaneGeometry(233 * s, 15 * s), mat(0xe6e2d8, { side: THREE.DoubleSide }));
-  keel.rotation.y = Math.PI / 2; keel.position.set(0, -7.5 * s, 133 * s); g.add(keel);
-  const stick = box(160 * s, 3 * s, 3 * s, mat(0xc89b5a)); stick.position.set(0, 3 * s, 60 * s); g.add(stick);
-  const props = [];
-  for (const side of [-1, 1]) {
-    const m = motor(side < 0 ? C.cyan : C.purple); m.scale.setScalar(.38); m.rotation.y = Math.PI; m.position.set(side * 70 * s, 6 * s, 52 * s); g.add(m); props.push(m.userData.prop);
-  }
-  const pod = box(17.8 * s, 2 * s, 21 * s, mat(C.pcb)); pod.position.set(-27 * s, 3 * s, 78 * s); g.add(pod);
-  const drv = box(18.5 * s, 2 * s, 16.5 * s, mat(0x1d1840)); drv.position.set(8.5 * s, 3 * s, 80 * s); g.add(drv);
-  const bat = box(12 * s, 6 * s, 54 * s, mat(0x9aa6b4, { metalness: .6, roughness: .3 })); bat.position.set(0, 5 * s, 97 * s); g.add(bat);
-  g.userData.props = props;
-  return g;
-}
-
 function consoleModel(screenTex) {
   const g = new THREE.Group();
   const body = box(2.6, 4, .45, mat(0x5b2bd6, { roughness: .35 })); g.add(body);
@@ -209,18 +184,17 @@ function sceneProjects(ctx) {
   const g = new THREE.Group(), ring = new THREE.Group(); g.add(ring);
   const items = [
     [boatModel(), 'Airboat', '#ffb020'],
-    [planeModel(.013), 'Paper plane', '#3ad0ff'],
     [(m => (m.scale.setScalar(.55), m))(consoleModel(ctx.gameTex)), 'Game console', '#b07cff'],
     [ctx.couplerMesh(.09), '3D-printed coupler', '#7ce07c'],
   ];
   items.forEach(([m, name, col], i) => {
     const a = i / items.length * Math.PI * 2, holder = new THREE.Group();
-    holder.position.set(Math.cos(a) * 3.6, 0, Math.sin(a) * 3.6); holder.add(m);
+    holder.position.set(Math.cos(a) * 3.1, 0, Math.sin(a) * 3.1); holder.add(m);
     const l = label(name, { color: col, size: .45 }); l.position.y = -1.9; holder.add(l);
     ring.add(holder); items[i].push(holder);
   });
   return {
-    group: g, cam: [0, 3, 13], look: [-4.6, -.2, 0],
+    group: g, cam: [0, 3, 13], look: [-4.1, -.2, 0],
     update(t) {
       ring.rotation.y = t * .25;
       items.forEach(([m, , , h], i) => { m.rotation.y = -ring.rotation.y + t * .6 + i; h.position.y = Math.sin(t * 1.3 + i) * .2; m.userData.spin?.(t); m.userData.props?.forEach(p => (p.rotation.z = t * 30)); });
@@ -318,21 +292,21 @@ function sceneCoupler(ctx) {
 
 function sceneShop() {
   const g = new THREE.Group(), parts = [
-    ['XIAO ESP32-C3', 2.4, C.cyan], ['motor driver', 1.5, C.purple], ['2 motors + props', 5, C.orange],
-    ['battery 220 mAh', 5.5, 0x9aa6b4], ['wires + tape', 2, C.green], ['card wing + spine', 7.3, 0xf2f0ea],
+    ['ESP32 brains (3)', 15.99, C.cyan], ['motor drivers', 7.99, C.purple], ['motors + brackets', 13.99, C.orange],
+    ['real props', 7.59, C.red], ['jumper wires', 6.98, C.green], ['USB cables', 7, 0x9aa6b4], ['power bank (had one)', 0, 0xf2f0ea],
   ], blocks = [];
   let y = 0;
   parts.forEach(([name, gr, c], i) => {
-    const h = gr * .24, b = new THREE.Group();
+    const h = Math.max(.12, gr * .1), b = new THREE.Group();
     b.add(box(2.4, h, 2.4, mat(c, { roughness: .35 })));
-    const l = label(`${name}  ${gr} g`, { size: .34 }); l.position.set(2.9, 0, 0); l.center.set(0, .5); b.add(l);
+    const l = label(`${name}  $${gr.toFixed(2).replace('.00', '')}`, { size: .34 }); l.position.set(2.9, 0, 0); l.center.set(0, .5); b.add(l);
     b.userData.y = y + h / 2; y += h + .06;
     g.add(b); blocks.push(b);
   });
-  // the thrust limit: a glowing ring at ~25 g
+  // the cart total: a glowing ring on top
   const lim = new THREE.Mesh(new THREE.TorusGeometry(2.3, .04, 8, 64), glow(C.red, { opacity: .9 }));
-  lim.rotation.x = Math.PI / 2; lim.position.y = 25 * .24 + .36; g.add(lim);
-  const ll = label('motors can lift ~25 g', { color: '#ff5a5a', size: .36 }); ll.position.set(2.9, lim.position.y + .45, 0); ll.center.set(0, .5); g.add(ll);
+  lim.rotation.x = Math.PI / 2; lim.position.y = y + .2; g.add(lim);
+  const ll = label('cart total $59.54', { color: '#ff5a5a', size: .36 }); ll.position.set(2.9, lim.position.y + .45, 0); ll.center.set(0, .5); g.add(ll);
   g.position.y = -3.4;
   let t0 = 0;
   return {
@@ -350,7 +324,7 @@ function sceneShop() {
 }
 
 function sceneWiring(ctx) {
-  const g = new THREE.Group(), P = ctx.plane, s = .1;
+  const g = new THREE.Group(), P = ctx.wiring, s = .1;
   const at = (x, y, z = 0) => new THREE.Vector3(x * s, z * s, y * s); // mm, drawn top-down: y runs toward the camera
   const pins = {};
   const board = (b, name, color, label3) => {
@@ -366,7 +340,7 @@ function sceneWiring(ctx) {
     const l = label(label3, { size: .34, color: name === 'XIAO' ? '#7ce07c' : '#b07cff' });
     l.position.copy(at(b.x + b.w / 2, b.y - 3, 4)); g.add(l);
   };
-  board(P.xiao, 'XIAO', C.pcb, 'brain: XIAO ESP32-C3');
+  board(P.xiao, 'XIAO', C.pcb, 'brain: ESP32');
   board(P.drv, 'DRV', 0x1d1840, 'muscle: DRV8833');
   const [bx, by, bw, bh] = P.battery;
   const bat = box(bw * s, 3 * s, bh * s, mat(0x9aa6b4, { metalness: .6, roughness: .3 })); bat.position.copy(at(bx + bw / 2, by + bh / 2, 0)); g.add(bat);
@@ -394,7 +368,7 @@ function sceneWiring(ctx) {
   g.position.set(-2.2, -1, -1.6);
   const pivot = new THREE.Group(); pivot.add(g);
   return {
-    group: pivot, cam: [0, 8.6, 9.4], look: [-3.4, -.8, 0],
+    group: pivot, cam: [0, 8.6, 9.4], look: [-4.2, -.8, 0],
     update(t) { pivot.rotation.y = Math.sin(t * .25) * .35; pulses.forEach(p => p.userData.tick(t)); props.forEach(p => (p.rotation.z = t * 20)); }
   };
 }
@@ -455,30 +429,6 @@ function sceneGame(ctx) {
     update(t) {
       con.position.y = Math.sin(t * 1.1) * .15; con.rotation.y = -.35 + Math.sin(t * .5) * .3;
       pumpkins.forEach(p => { const u = p.userData; p.position.set(u.x, 5 - ((t * u.v + u.o) % 10), u.z); p.rotation.y = t * u.v; });
-    }
-  };
-}
-
-function scenePlane() {
-  const s = .024, g = new THREE.Group(), fly = new THREE.Group(), pl = planeModel(s);
-  pl.position.z = -100 * s; fly.add(pl); g.add(fly);
-  const cg = new THREE.Mesh(new THREE.SphereGeometry(.13, 16, 16), glow(C.orange)); cg.position.set(0, .3, (100 - 100) * s); fly.add(cg);
-  const np = new THREE.Mesh(new THREE.SphereGeometry(.13, 16, 16), glow(C.cyan)); np.position.set(0, .3, (121 - 100) * s); fly.add(np);
-  const lc = label('CG 100 mm', { color: '#ffb020', size: .3 }); lc.position.set(-1.3, .75, 0); fly.add(lc);
-  const ln = label('NP ~121 mm', { color: '#3ad0ff', size: .3 }); ln.position.set(1.3, .75, 21 * s); fly.add(ln);
-  const thrust = [C.cyan, C.purple].map((c, i) => {
-    const a = new THREE.Mesh(new THREE.ConeGeometry(.12, .9, 12), glow(c, { opacity: .8 }));
-    a.rotation.x = -Math.PI / 2; a.position.set((i ? 1 : -1) * 70 * s, .2, (52 - 100) * s - .75); fly.add(a); return a;
-  });
-  return {
-    group: g, cam: [4, 4.2, 8.5], look: [-3.4, -.3, 0],
-    update(t) {
-      const d = Math.sin(t * .7); // >0: left motor faster -> yaw right
-      const [L, R] = [.6 + .4 * Math.max(0, d), .6 + .4 * Math.max(0, -d)];
-      pl.userData.props[0].rotation.z += L * .9; pl.userData.props[1].rotation.z -= R * .9;
-      thrust[0].scale.set(1, L * 1.6, 1); thrust[1].scale.set(1, R * 1.6, 1);
-      fly.rotation.set(Math.sin(t * .9) * .05, -t * .25 - d * .35, -d * .35);
-      fly.position.y = Math.sin(t * 1.2) * .2;
     }
   };
 }
@@ -600,10 +550,10 @@ export function createStage(canvas) {
     gameTex,
     // the STL is a Z-up column in mm; stand it up in Y and scale it
     couplerMesh(scale) { const m = new THREE.Mesh(couplerGeo, couplerMat); m.frustumCulled = false; m.rotation.x = -Math.PI / 2; m.scale.setScalar(scale); const h = new THREE.Group(); h.add(m); return h; },
-    plane: null,
+    wiring: null,
   };
 
-  const BUILDERS = { brain: sceneBrain, ai: sceneAI, projects: sceneProjects, recipe: sceneRecipe, web: sceneWeb, coupler: sceneCoupler, shop: sceneShop, wiring: sceneWiring, flash: sceneFlash, game: sceneGame, plane: scenePlane, wrong: sceneWrong, safe: sceneSafe, open: sceneOpen, you: sceneYou, end: sceneBrain };
+  const BUILDERS = { brain: sceneBrain, ai: sceneAI, projects: sceneProjects, recipe: sceneRecipe, web: sceneWeb, coupler: sceneCoupler, shop: sceneShop, wiring: sceneWiring, flash: sceneFlash, game: sceneGame, wrong: sceneWrong, safe: sceneSafe, open: sceneOpen, you: sceneYou, end: sceneBrain };
   const scenes = {};
   let i = 0;
   const build = (name) => {
@@ -614,7 +564,7 @@ export function createStage(canvas) {
     scene.add(sc.group);
     return (scenes[name] = sc);
   };
-  const ready = fetch('../data/plane.json').then(r => r.json()).then(p => { ctx.plane = p; }).catch(() => {});
+  const ready = fetch('./wiring.json').then(r => r.json()).then(p => { ctx.wiring = p; }).catch(() => {});
 
   let active = null, last = null, flight = null;
   const timer = new THREE.Timer();

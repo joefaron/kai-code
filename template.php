@@ -1,6 +1,6 @@
 <?php
 // A project's cut/fold template, alone on a Letter page with NO margins, so it prints at
-// TRUE SIZE. Which drawing: "template" in data/builds/<b>.json.  /template.php?b=plane
+// TRUE SIZE. Which drawing: "template" in data/builds/<b>.json.  /template.php?b=<name>
 $B = isset($_GET['b']) ? preg_replace('/[^a-z0-9-]/', '', $_GET['b']) : '';
 $file = __DIR__ . "/data/builds/$B.json";
 if (!$B || !is_file($file)) { http_response_code(404); exit('no such build'); }

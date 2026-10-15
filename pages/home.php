@@ -1,6 +1,6 @@
 <section class="hero">
   <h2>Kai builds things with an AI helper.</h2>
-  <p class="lede">A Wi&#8209;Fi boat, a flying paper plane, a pocket game console and 3D&#8209;printed parts &mdash;
+  <p class="lede">A Wi&#8209;Fi boat, a pocket game console and 3D&#8209;printed parts &mdash;
   each one designed, coded, shopped for and tested by talking to an AI called <b>Bugsy</b>.
   Everything here is free and open source (MIT): copy it and build your own.</p>
   <p class="btnrow">

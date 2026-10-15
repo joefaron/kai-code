@@ -8,14 +8,6 @@
     "code": "boat/"
   },
   {
-    "name": "Wi-Fi paper plane",
-    "emoji": "✈️",
-    "status": "parts in, airframe in testing",
-    "note": "A ~21 g card-stock dart with two tiny motors and a XIAO ESP32-C3. A two-stick controller page on the phone; no servos, it turns by differential thrust.",
-    "url": "/?p=plane",
-    "code": "plane/"
-  },
-  {
     "name": "Pocket game console",
     "emoji": "🎮",
     "status": "game engine + PC tester working",

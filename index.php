@@ -9,7 +9,6 @@ $PAGE  = isset($_GET['p']) ? preg_replace('/[^a-z]/', '', $_GET['p']) : 'home';
 $PAGES = [
   'home'     => 'Home',
   'game'     => 'Game',
-  'plane'    => 'Plane',
   'build'    => 'Build',
   'print'    => '3D Print',
   'talk'     => 'Talk',
