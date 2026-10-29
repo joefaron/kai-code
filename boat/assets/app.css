@@ -188,6 +188,12 @@ footer{border-top:1px solid var(--edge);padding:18px 22px;color:var(--dim);font-
 .linkloss span{display:block;font-size:13px;line-height:1.45}
 .linkloss code{color:#fff}
 @keyframes lossPulse{50%{border-color:#ff8c9a;background:#4d1119}}
+/* ---- updating banner: same loudness, amber not red - nothing is wrong, just wait ---- */
+.linkloss.otabanner,.gamehud .linkloss.otabanner{background:#3a2a06;border-color:#ffb02e;color:#ffe9c2;animation:otaPulse 1.2s ease-in-out infinite}
+.linkloss.otabanner b{color:#ffb02e}
+.linkloss.otabanner em{display:block;font-style:normal;color:#fff;margin-top:4px}
+@keyframes otaPulse{50%{border-color:#ffe08a;background:#4a370a}}
 /* while the link is down the telemetry is stale - grey it out so nobody reads it as live */
 body.lost .fans,body.lost .gauge,body.lost .throttlebadge{filter:grayscale(1);opacity:.45}
 body.lost .pad{border-color:var(--bad)}
+.battlow{color:var(--bad);font-weight:800}

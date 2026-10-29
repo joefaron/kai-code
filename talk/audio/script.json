@@ -1,0 +1,39 @@
+{
+  "_note": "Voice lines for talk/kids.html, one list per slide (slide 1 = index 0). Edit the text, then: node tools/voices.mjs  (only missing/changed lines are re-made). Cast = FW3D's Polaroid narrators.",
+  "cast": {
+    "diego": { "voice_name": "Charon", "accent": "American (South)", "style": "Promo/Hype", "pace": "Natural",
+      "audio_profile": "A keen young backwoods deckhand with a thick Southern hillbilly drawl, leaning over your shoulder on a fishing boat, excited and a little loud, coaching you like it is the biggest moment of his life. Friendly to kids." },
+    "earl": { "voice_name": "Fenrir", "accent": "American (South)", "style": "Deadpan", "pace": "The Drift",
+      "audio_profile": "A gravel-throated mountain man who runs a boat-repair shed, heavy Appalachian drawl, dropped g's, leaning back in his chair close to the mic, grinning, never raising his voice. Dry and funny, never mean." },
+    "rusty": { "voice_name": "Puck", "accent": "American (South)", "style": "Vocal Smile", "pace": "Staccato",
+      "audio_profile": "Earl's homemade robot nephew who lives in the shed with the servers. Cheerful, quick and precise with a country twang, a tiny bit robotic, proud of knowing things, always kind.",
+      "robot": true }
+  },
+  "slides": [
+    [["diego", "Well howdy, class! Deckhand Diego here. Today you're gonna learn you can build anything. I'm sure of it. Mostly sure."],
+     ["earl", "He ain't been sure of nothin' since the day he was born."]],
+    [["diego", "Engineers break stuff... on purpose! Now that is my kinda job!"],
+     ["earl", "Rockets blow up so the next one don't. Same thing happens to my boats."]],
+    [["diego", "Three tries! The first one sank. The second one sank. The third one... she floats!"],
+     ["rusty", "Beep. Two outta three sinkin' ain't bad for a Tuesday."]],
+    [["rusty", "A.I. is a lot like me, cousin. It read the whole internet, and now it guesses the next word. Like guessin' where the catfish are."],
+     ["earl", "And it's wrong about as often as Diego."]],
+    [["diego", "Talkin' to A.I. is like tellin' your fishin' buddy what you want. What, details, rules... then check his work!"],
+     ["earl", "Always check his work. Trust me."]],
+    [["rusty", "Type it. Print it. Hold it! Kai made this motor holder outta nothin' but words."]],
+    [["diego", "The A.I. finds the parts and drops 'em right in the shoppin' cart!"],
+     ["earl", "And a grown-up still pushes the buy button. That's the important part."]],
+    [["earl", "Back in my day, instructions came in a language nobody spoke. Now the robot draws 'em, LEGO style, one step at a time."]],
+    [["rusty", "Nine volts would fry the little brain like a hush puppy. Two resistors shrink it down to a tiny sip it can read."]],
+    [["diego", "Drivin' the boat is a video game now! Fire the lasers!"],
+     ["rusty", "Them's just blinky lights, Diego."],
+     ["diego", "...Fire the blinky lights!"]],
+    [["earl", "Rocket builders, game makers, doctors, architects. Every kind of engineer has got a robot buddy now."]],
+    [["diego", "Safety first! Never tell an A.I. your full name, your school, or where you live."],
+     ["earl", "And ask a grown-up before you plug anything in. Ask me how I know."]],
+    [["rusty", "Your turn, cousins! Write your own A.I. message. What, details, rules, and check!"]],
+    [["diego", "Now go build somethin' weird!"],
+     ["earl", "Weirder than Diego, if you can manage it."],
+     ["rusty", "Beep boop. Y'all come back now."]]
+  ]
+}

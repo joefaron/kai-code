@@ -1,0 +1,210 @@
+/* ===========================================================================
+   GAME HUD helm (v2.3, Kai + Joe 2026-10-28: "make it look like a video game").
+   Everything here is scoped under .gamehud so the rest of the boat site is untouched.
+   tools/build-helm.mjs inlines this file (and the font, as base64) into the boat's
+   own page, because there is no internet at the beach.
+   Font: "Bangers" by Vernon Adams, SIL Open Font License 1.1 (fonts/Bangers-OFL.txt),
+   from github.com/google/fonts, subset to A-Z 0-9 + punctuation (so HudFont text is UPPERCASE).
+   =========================================================================== */
+@font-face{font-family:"HudFont";src:url(/assets/fonts/bangers-hud.woff2) format("woff2");font-display:swap}
+
+.gamehud{
+  --ghost:#3ef0ff; --pumpkin:#ffb020; --bad:#ff3b4f;
+  --g-cyan:#3ef0ff; --g-yel:#ffe14d; --g-org:#ff9a1f; --g-pur:#7a2bff; --g-mag:#ff3df2;
+  --g-deep:#0d0730; --g-line:rgba(62,240,255,.28);
+  position:relative;color:#fff;border-radius:22px;padding:16px 16px 20px;margin:0 0 10px;overflow:hidden;
+  background:
+    radial-gradient(120% 60% at 50% 0%,rgba(122,43,255,.55),transparent 60%),
+    radial-gradient(80% 50% at 100% 100%,rgba(0,140,255,.35),transparent 70%),
+    repeating-linear-gradient(115deg,rgba(255,255,255,.025) 0 14px,transparent 14px 28px),
+    linear-gradient(180deg,#1a0b4a,#0b0630 70%);
+  border:2px solid rgba(122,43,255,.7);box-shadow:0 0 40px rgba(122,43,255,.35);
+  -webkit-tap-highlight-color:transparent;
+}
+.gamehud .hf,.gamehud .gbtn,.gamehud .chip em,.gamehud .gfan b,.gamehud .knobs summary,.gamehud .linkloss b,.lasermsg b{text-transform:uppercase}
+.gamehud .hf{font-family:"HudFont",Impact,"Arial Black",sans-serif;font-weight:400;letter-spacing:.04em}
+.gamehud svg.i{width:1.25em;height:1.25em;flex:none;fill:currentColor}
+
+/* ---- logo lockup ---- */
+.hudlogo{display:flex;align-items:center;gap:12px;margin:0 0 12px}
+.hudlogo .emblem{width:68px;height:74px;flex:none;filter:drop-shadow(0 4px 0 #12043a) drop-shadow(0 0 14px rgba(255,176,32,.55))}
+.hudlogo .wm{min-width:0;line-height:.9}
+.hudlogo .ss{display:inline-block;font-size:20px;color:#12043a;background:var(--g-yel);padding:3px 9px 1px;
+  transform:skewX(-12deg);box-shadow:3px 3px 0 #12043a;margin-bottom:5px}
+.hudlogo .name{display:block;font-size:clamp(30px,10vw,62px);line-height:.95;white-space:nowrap;letter-spacing:.02em;
+  background:linear-gradient(180deg,#fff7b0 0%,var(--g-yel) 35%,var(--g-org) 75%,#ff6a00 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-stroke:1.6px #12043a;
+  filter:drop-shadow(0 3px 0 #12043a) drop-shadow(0 0 10px rgba(255,200,40,.45))}
+.hudlogo .tagline{display:flex;align-items:center;gap:8px;margin-top:5px;font-size:16px;color:var(--g-cyan);letter-spacing:.16em}
+.hudlogo .tagline i{font-style:normal;font-size:14px;color:#12043a;background:var(--g-cyan);padding:2px 7px 0;border-radius:3px;letter-spacing:.05em}
+.hudlinks{font:12px/1.4 -apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:#b7a9ff;margin:-4px 0 12px}
+.hudlinks a{color:#d8ceff}
+
+/* ---- top status strip ---- */
+.gamehud .hudbar{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}
+.gamehud .status{flex:1 1 100%;margin:0;padding:8px 12px;border-radius:10px;font-size:13px;font-weight:700;
+  background:rgba(4,2,24,.7);border:2px solid var(--g-line);display:flex;align-items:center;gap:8px}
+.gamehud .status:before{content:"";width:10px;height:10px;border-radius:50%;flex:none;background:currentColor;box-shadow:0 0 10px currentColor}
+.gamehud .status.ok{color:#5dffb0;border-color:rgba(93,255,176,.45)}
+.gamehud .status.err{color:#ff6b7c;border-color:rgba(255,59,79,.7)}
+.gamehud .status em{color:#fff}
+.gamehud .chip{flex:1 1 0;min-width:0;display:flex;align-items:center;gap:8px;padding:7px 12px;border-radius:10px;
+  background:linear-gradient(90deg,rgba(122,43,255,.45),rgba(122,43,255,.12));border:2px solid rgba(160,110,255,.55);
+  font-size:11px;letter-spacing:.1em;color:#cfc2ff;text-transform:uppercase;white-space:nowrap}
+.gamehud .chip svg{width:24px;height:24px;fill:var(--g-yel);flex:none}
+.gamehud .chip span{display:flex;flex-direction:column;min-width:0;line-height:1.05}
+.gamehud .chip small{font-size:10px}
+.gamehud .chip em{font-style:normal;font-family:"HudFont",Impact,sans-serif;font-size:21px;color:#fff;letter-spacing:.05em;white-space:nowrap;
+  overflow:hidden;text-overflow:ellipsis}
+.gamehud .chip em.battlow{color:#ff6b7c}
+
+/* ---- layout: pad column + telemetry ---- */
+.gamehud .hudgrid{display:flex;flex-wrap:wrap;gap:18px;align-items:flex-start}
+.gamehud .hudcol{width:min(100%,380px);display:flex;flex-direction:column;gap:12px;margin:0 auto}
+.gamehud .hudtelem{flex:1 1 300px;min-width:0}
+
+/* ---- the pad ---- */
+.gamehud .gpad{position:relative;width:100%;aspect-ratio:1/1;border-radius:26px;touch-action:none;cursor:grab;overflow:hidden;
+  background:
+    radial-gradient(circle at 50% 50%,rgba(62,240,255,.22),transparent 55%),
+    linear-gradient(rgba(62,240,255,.10) 1px,transparent 1px) 0 0/10% 10%,
+    linear-gradient(90deg,rgba(62,240,255,.10) 1px,transparent 1px) 0 0/10% 10%,
+    linear-gradient(160deg,#16106a,#090526 70%);
+  border:2px solid var(--g-cyan);
+  box-shadow:0 0 0 4px rgba(62,240,255,.15),0 0 28px rgba(62,240,255,.55),inset 0 0 50px rgba(62,240,255,.25);
+  animation:padGlow 2.4s ease-in-out infinite}
+@keyframes padGlow{50%{box-shadow:0 0 0 4px rgba(62,240,255,.25),0 0 40px rgba(62,240,255,.8),inset 0 0 60px rgba(62,240,255,.35)}}
+.gamehud .gpad .padart{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.gamehud .gknob{position:absolute;width:88px;height:88px;border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle at 36% 30%,#fffbd0 0,var(--g-yel) 28%,var(--g-org) 62%,#d14b00 100%);
+  border:4px solid #12043a;box-shadow:0 0 0 3px var(--g-yel),0 0 26px 6px rgba(255,190,40,.75),inset 0 -8px 14px rgba(160,40,0,.55)}
+.gamehud .gknob svg{position:absolute;inset:14px;width:52px;height:52px;fill:#12043a;opacity:.85}
+.gamehud .ghint{position:absolute;display:flex;align-items:center;gap:4px;font-size:19px;color:var(--g-cyan);
+  opacity:.75;pointer-events:none;text-shadow:0 0 8px rgba(62,240,255,.8)}
+.gamehud .ghint svg{width:18px;height:18px;fill:currentColor}
+.gamehud .ghint.n{top:10px;left:50%;transform:translateX(-50%)}
+.gamehud .ghint.s{bottom:8px;left:50%;transform:translateX(-50%);color:#ffb3d9;text-shadow:0 0 8px rgba(255,61,242,.8)}
+.gamehud .ghint.w{left:8px;top:50%;transform:translateY(-50%)}
+.gamehud .ghint.e{right:8px;top:50%;transform:translateY(-50%)}
+
+/* ---- big angled game buttons ---- */
+.gamehud .gbtns{display:grid;grid-template-columns:1fr auto;gap:10px 12px;padding:0 6px}
+.gamehud .gbtn{position:relative;display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;
+  font-family:"HudFont",Impact,"Arial Black",sans-serif;color:#fff;letter-spacing:.05em;line-height:1;
+  border:3px solid #12043a;border-radius:10px;transform:skewX(-10deg);
+  text-shadow:0 2px 0 rgba(18,4,58,.85);transition:transform .06s,box-shadow .06s,filter .1s}
+.gamehud .gbtn>*{transform:skewX(10deg)}
+.gamehud .gbtn:active{transform:skewX(-10deg) translateY(4px)}
+.gamehud .gbtn:focus-visible{outline:3px solid #fff;outline-offset:2px}
+.gamehud .gbtn svg{width:30px;height:30px;fill:#fff;filter:drop-shadow(0 2px 0 rgba(18,4,58,.85))}
+.gamehud .g-stop{grid-column:1/-1;min-height:72px;font-size:40px;
+  background:linear-gradient(180deg,#ff7584 0%,#ff2d47 45%,#c2001f 100%);box-shadow:0 7px 0 #5e0012,0 0 24px rgba(255,45,71,.55)}
+.gamehud .g-stop:active{box-shadow:0 3px 0 #5e0012,0 0 30px rgba(255,45,71,.8)}
+.gamehud .g-stop svg{width:38px;height:38px}
+.gamehud .g-laser{min-height:62px;font-size:34px;overflow:hidden;
+  background:linear-gradient(180deg,#ff8af7 0%,var(--g-mag) 40%,var(--g-pur) 100%);box-shadow:0 6px 0 #3a0b7a,0 0 22px rgba(255,61,242,.55)}
+.gamehud .g-laser:active{box-shadow:0 2px 0 #3a0b7a,0 0 30px rgba(255,61,242,.9)}
+.gamehud .g-laser:before{content:"";position:absolute;inset:0;transform:none;
+  background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.55) 50%,transparent 70%) -200% 0/200% 100% no-repeat;
+  animation:shine 3s ease-in-out infinite}
+@keyframes shine{60%,100%{background-position:200% 0}}
+.gamehud .g-laser.firing{filter:brightness(1.35) saturate(1.2);animation:laserShake .09s linear infinite}
+@keyframes laserShake{50%{transform:skewX(-10deg) translate(1px,-1px)}}
+.gamehud .g-laser .charge{position:absolute;left:0;bottom:0;height:5px;width:0;background:var(--g-yel);transform:none}
+.gamehud .g-laser.firing .charge{animation:charge 2s linear forwards}
+@keyframes charge{to{width:100%}}
+.gamehud .g-sound{min-height:62px;min-width:96px;padding:0 12px;font-size:19px;flex-direction:column;gap:2px;
+  background:linear-gradient(180deg,#6fb6ff 0%,#2f6bff 50%,#1b2fb8 100%);box-shadow:0 6px 0 #0b145e}
+.gamehud .g-sound:active{box-shadow:0 2px 0 #0b145e}
+.gamehud .g-sound svg{width:26px;height:26px}
+.gamehud .g-sound .on-i{display:none}
+.gamehud .g-sound.on .on-i{display:block}
+.gamehud .g-sound.on .off-i{display:none}
+.gamehud .g-sound b{font-weight:400}
+.gamehud .g-sound b:after{content:" OFF";color:#c3d4ff}
+.gamehud .g-sound.on b:after{content:" ON";color:var(--g-yel)}
+.gamehud .g-sound.on{background:linear-gradient(180deg,#8affd7 0%,#13c98d 50%,#057a5a 100%);box-shadow:0 6px 0 #03402f}
+
+/* ---- telemetry ---- */
+.gamehud .gtelem{background:rgba(4,2,24,.6);border:2px solid rgba(160,110,255,.45);border-radius:16px;padding:14px}
+.gamehud .gfans{display:flex;gap:10px;margin-bottom:12px}
+.gamehud .gfan{flex:1;min-width:0;display:flex;align-items:center;gap:10px;padding:10px;border-radius:12px;
+  background:linear-gradient(135deg,rgba(62,240,255,.18),rgba(62,240,255,.03));border:2px solid var(--g-line)}
+.gamehud .gfan .prop{width:46px;height:46px;flex:none;fill:var(--g-cyan);filter:drop-shadow(0 0 6px rgba(62,240,255,.7))}
+.gamehud .gfan span{display:block;white-space:nowrap;font-size:11px;letter-spacing:.12em;color:#b7a9ff}
+.gamehud .gfan b{display:block;font-family:"HudFont",Impact,sans-serif;font-weight:400;font-size:38px;line-height:1;color:#fff;letter-spacing:.03em;
+  font-variant-numeric:tabular-nums}
+.gamehud .gfan small{display:block;font-size:11px;color:var(--g-cyan);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gamehud .gfan small.rev{color:var(--pumpkin)}
+.gamehud .ggauge{display:flex;align-items:center;gap:10px;margin-bottom:9px}
+.gamehud .ggauge span{width:16px;font-size:15px;color:#cfc2ff}
+.gamehud .ggauge .bar{flex:1;height:16px;border-radius:4px;background:#05031a;border:2px solid rgba(160,110,255,.45);position:relative;overflow:hidden;transform:skewX(-14deg)}
+.gamehud .ggauge .bar:after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 9px,rgba(5,3,26,.85) 9px 11px)}
+.gamehud .ggauge .bar i{position:absolute;top:0;bottom:0;left:50%;width:0;box-shadow:0 0 10px currentColor}
+.gamehud .ggauge .bar:before{content:"";position:absolute;left:50%;top:-2px;bottom:-2px;width:2px;background:#fff;opacity:.6;z-index:1}
+
+.gamehud .field{color:#cfc2ff}
+.gamehud .field em{color:var(--g-yel)}
+.gamehud .field input[type=range],.gamehud .checks input{accent-color:var(--g-yel)}
+.gamehud code{background:#05031a;border-color:rgba(160,110,255,.45);color:#fff}
+.gamehud a{color:var(--g-yel)}
+.gamehud p.field{font-size:13px;line-height:1.5;margin:12px 0 0;padding:10px 12px;border-radius:10px;background:rgba(122,43,255,.18);border:1px dashed rgba(160,110,255,.6)}
+
+.gamehud .knobs{margin-top:12px;border:2px solid rgba(160,110,255,.45);border-radius:12px;padding:0 12px;background:rgba(4,2,24,.5)}
+.gamehud .knobs summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:8px;padding:10px 0;
+  font-family:"HudFont",Impact,sans-serif;font-weight:400;font-size:22px;letter-spacing:.05em;color:var(--g-yel)}
+.gamehud .knobs summary::-webkit-details-marker{display:none}
+.gamehud .knobs summary{white-space:nowrap}
+.gamehud .knobs summary small{white-space:normal;flex:1;min-width:0}
+.gamehud .knobs summary:after{content:"+";margin-left:auto;font:900 24px/1 Arial,sans-serif;color:var(--g-cyan)}
+.gamehud .knobs[open] summary:after{content:"\2212"}
+.gamehud .knobs[open]{padding-bottom:12px}
+.gamehud .knobs summary small{text-transform:none;font:400 11px/1.3 -apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:#b7a9ff;letter-spacing:0}
+.gamehud .knobs summary svg{width:22px;height:22px;fill:var(--g-cyan)}
+.gamehud .knobs pre{background:#05031a;border-radius:8px;padding:8px;color:#d8ceff}
+.gamehud .linkbtn{color:#b7a9ff;margin-right:12px}
+.gamehud .kbd{color:#b7a9ff}
+.gamehud kbd{background:#05031a;border-color:rgba(160,110,255,.6)}
+
+/* ---- link lost: still the loudest thing on the screen ---- */
+.gamehud .linkloss{border-width:3px;background:#3a0d14}
+.gamehud .linkloss b{font-family:"HudFont",Impact,sans-serif;font-weight:400;font-size:30px;letter-spacing:.05em}
+body.lost .gamehud .gfans,body.lost .gamehud .ggauge,body.lost .gamehud .chip{filter:grayscale(1);opacity:.45}
+body.lost .gamehud .gpad{border-color:var(--bad);animation:none;box-shadow:0 0 30px rgba(255,59,79,.7)}
+
+/* ---- LASERS ---- */
+.laserfx{position:fixed;inset:0;pointer-events:none;z-index:50;overflow:hidden}
+.laserfx .beam{position:absolute;height:7px;border-radius:7px;transform-origin:0 50%;
+  animation:beam .42s cubic-bezier(.2,.8,.3,1) forwards}
+.laserfx .beam.r{background:linear-gradient(90deg,rgba(255,40,60,0),#ff2840 25%,#fff 60%,#ff2840);box-shadow:0 0 12px 3px #ff2840}
+.laserfx .beam.g{background:linear-gradient(90deg,rgba(40,255,110,0),#28ff6e 25%,#fff 60%,#28ff6e);box-shadow:0 0 12px 3px #28ff6e}
+@keyframes beam{0%{opacity:1;clip-path:inset(0 100% 0 0)}35%{opacity:1;clip-path:inset(0 0 0 0)}100%{opacity:0;clip-path:inset(0 0 0 70%)}}
+.laserfx .boom{position:absolute;width:70px;height:70px;margin:-35px 0 0 -35px;border-radius:50%;
+  animation:boom .45s ease-out forwards}
+.laserfx .boom.r{background:radial-gradient(circle,#fff 0,#ff2840 35%,transparent 70%)}
+.laserfx .boom.g{background:radial-gradient(circle,#fff 0,#28ff6e 35%,transparent 70%)}
+@keyframes boom{0%{transform:scale(.2);opacity:1}100%{transform:scale(1.6);opacity:0}}
+.laserfx .flash{position:absolute;inset:0;animation:flash .2s ease-out forwards}
+.laserfx .flash.r{background:rgba(255,40,60,.16)}
+.laserfx .flash.g{background:rgba(40,255,110,.14)}
+@keyframes flash{to{opacity:0}}
+.lasermsg{position:fixed;left:50%;top:14px;z-index:51;width:min(92vw,420px);transform:translateX(-50%) skewX(-6deg);
+  padding:12px 16px;border-radius:12px;background:linear-gradient(90deg,#2a0a6e,#5a12a8);border:3px solid var(--g-yel,#ffe14d);
+  box-shadow:0 6px 0 #12043a,0 0 30px rgba(255,61,242,.6);color:#fff;font:700 15px/1.35 -apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  text-align:center;animation:toastIn .25s ease-out}
+.lasermsg[hidden]{display:none}
+.lasermsg b{display:block;font-family:"HudFont",Impact,sans-serif;font-weight:400;font-size:28px;color:#ffe14d;letter-spacing:.06em}
+@keyframes toastIn{from{transform:translateX(-50%) skewX(-6deg) translateY(-30px);opacity:0}}
+
+@media(min-width:760px){
+  .gamehud{padding:22px 24px 26px}
+  .gamehud .hudcol{margin:0}
+  .gamehud .hudbar .status{flex:2 1 0}
+}
+@media(max-width:400px){
+  .gamehud{padding:12px 10px 16px;border-radius:16px}
+  .hudlogo .emblem{width:56px;height:62px}
+  .gamehud .g-stop{font-size:36px}
+  .gamehud .g-laser{font-size:30px}
+}
+@media(prefers-reduced-motion:reduce){.gamehud .gpad,.gamehud .g-laser:before{animation:none}}

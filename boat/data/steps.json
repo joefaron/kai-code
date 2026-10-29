@@ -86,7 +86,7 @@
       "USB-C to micro-USB cable",
       "tablet or phone"
     ],
-    "text": "Plug the power bank into the ESP32. On the tablet, join the Wi-Fi SS-JACKOLANTERN (password change-me-2026), tap \"stay connected\", and open 192.168.4.1.",
+    "text": "Plug the power bank into the ESP32. On the tablet, join the Wi-Fi SS-JACKOLANTERN-v2.2 (password change-me-2026), tap \"stay connected\", and open 192.168.4.1.",
     "check": "Push the stick: the blue light on the ESP32 comes on. Let go: it goes off within 1 second.",
     "why": "That 1-second switch-off is the fail-safe: if the tablet loses the boat, the motors stop by themselves.",
     "fun": "Blue light on? IT'S ALIVE! (Mad scientist laugh optional.)",
@@ -138,11 +138,11 @@
     "title": "Navigation lights (optional)",
     "need": [
       "red, green, yellow LEDs",
-      "3 resistors, 220 Ω",
+      "3 resistors, 220 Ω (stripes red-red-black-black-brown)",
       "6 jumper wires (male-female)"
     ],
-    "text": "Twist a resistor onto each LED's LONG leg. Jumpers: a26 (D14) to the red LED's resistor, a27 (D12) to green, a28 (D13) to yellow. Each LED's SHORT leg goes to the − rail.",
-    "check": "Red and green glow. Yellow blinks until the tablet connects, then stays on.",
+    "text": "Twist a 220 Ω resistor onto each LED's LONG leg (either end of the resistor, it has no direction). Jumpers: a26 (D14) to the red LED's resistor, a27 (D12) to green, a28 (D13) to yellow. Each LED's SHORT leg (flat side of the rim) goes to the − rail.",
+    "check": "Pick the bag that says 220Ω, NOT 220KΩ: the 4th stripe is black (220k has orange). Red and green glow. Yellow blinks until the tablet connects, then stays on. An LED stays dark? It is in backwards: flip it.",
     "why": "Real boats show red on the left (port) and green on the right (starboard). The resistor stops the LED burning out.",
     "fun": "Port and left both have 4 letters. That's how sailors remember red goes on the left.",
     "optional": true,
@@ -162,5 +162,19 @@
     "fun": "Four fans: twice the push, twice the noise, same amount of code. Zero.",
     "optional": true,
     "svg": "/media/steps/step-12.svg"
+  },
+  {
+    "n": 13,
+    "title": "Motor battery gauge (optional)",
+    "need": [
+      "47k + 10k resistors (ELEGOO kit)",
+      "1 jumper wire"
+    ],
+    "text": "Battery switch OFF. 47k: one leg in the + rail at column 9, the other in e13. 10k: one leg in d13, the other in the − rail at column 16. Teal jumper: b13 to a19 (D34). All three meet in column 13: that is the whole trick.",
+    "check": "Pick them by the paper strips marked 47K and 10K. Switch ON: the helm shows Motor battery with a % and volts.",
+    "why": "The ESP32 can only measure about 3 V, the pack is 9 V. The resistors hand it a small slice; the code multiplies it back up.",
+    "fun": "The boat can't see the battery, so we give it a tiny ruler made of two resistors.",
+    "optional": true,
+    "svg": "/media/steps/step-13.svg"
   }
 ]

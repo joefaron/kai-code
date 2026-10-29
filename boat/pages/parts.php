@@ -57,7 +57,7 @@
   <h2>What to do the day it all arrives</h2>
   <ol class="steps">
     <li>Plug the ESP32 into USB. Flash the blink example. <em>Prove the toolchain works before anything is glued.</em></li>
-    <li>Flash the boat sketch. Join the <code>SS-JACKOLANTERN</code> Wi-Fi from a phone, open <code>192.168.4.1</code>, see the controls.</li>
+    <li>Flash the boat sketch. Join the <code>SS-JACKOLANTERN-v2.2</code> Wi-Fi from a phone, open <code>192.168.4.1</code>, see the controls.</li>
     <li>Wire one motor. Make it spin both directions from the tablet. Then the second.</li>
     <li>Tape everything to a piece of cardboard and drive it across the kitchen floor.</li>
     <li>Only now start building the actual hull.</li>

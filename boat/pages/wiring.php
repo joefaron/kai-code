@@ -272,7 +272,7 @@ $leds = [[293,'D21','#ef4444','RED = PORT (left side)'],[320,'D19','#22c55e','GR
       in row <strong>b</strong> (columns 1-15) so row a stays free.
       <em>Check:</em> plug in the USB cable and the ESP32&rsquo;s red power light comes on.</li>
     <li><strong>Upload the code</strong> (<code>arduino/boat.ino</code>).
-      <em>Check:</em> a Wi-Fi network called <strong>SS-JACKOLANTERN</strong> shows up on the
+      <em>Check:</em> a Wi-Fi network called <strong>SS-JACKOLANTERN-v2.2</strong> (the number is the code version) shows up on the
       tablet.</li>
     <li><strong>The 3 LEDs + resistors.</strong>
       <em>Check:</em> red and green glow, yellow blinks. Open

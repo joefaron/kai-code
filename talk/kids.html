@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>You Can Build Anything: You + AI</title>
+<link rel="stylesheet" href="talk.css?v=7">
+<script type="importmap">{ "imports": { "three": "./vendor/three.module.js" } }</script>
+</head>
+<body data-recipe="WHAT,DETAILS,RULES,CHECK" data-audio>
+<!--
+  The SIMPLE version: ~25 minutes for a 5th-grade class that has never had robotics.
+  One idea per slide, short words, and every slide ends in a real engineering job.
+  The detailed grade 6-8 version is index.html. Both share slides.js, scenes.js, talk.css.
+
+  Keys:  -> / space / click right edge = next,  <- / click left edge = back
+         P = presenter window (notes + timer, stays in sync),  F = full screen,
+         Home/End = first/last slide.   Print (Ctrl+P) = handout with the notes.
+-->
+
+<canvas id="stage"></canvas>
+<div class="shade"></div>
+
+<div class="deck" id="deck">
+
+<!-- 1 -->
+<section class="slide" data-scene="brain" data-min="1">
+  <p class="kicker r" style="--i:0">the kai site &middot; for future engineers</p>
+  <h1 class="r" style="--i:1">You can build <span class="grad">anything</span>.</h1>
+  <p class="lede r" style="--i:2">Two kids built a robot boat by <b>talking to a computer</b>. Today you'll see how &mdash; and how it could be <i>your</i> job one day.</p>
+  <aside class="notes">Hold up the boat. "Kai and a friend built this with help from an AI. By the end you'll know exactly what they typed." Ask: "Who wants to be an engineer?" Count the hands - you'll ask again at the end.</aside>
+</section>
+
+<!-- 2 -->
+<section class="slide wide" data-scene="calm" data-min="2">
+  <div class="split">
+    <div>
+      <p class="kicker r" style="--i:0">rule #1 of engineering</p>
+      <h2 class="r" style="--i:1">Engineers break things.<br><span class="grad">On purpose.</span></h2>
+      <p class="r" style="--i:2">SpaceX crashed rocket after rocket trying to land one on a boat. Every crash taught them one more thing to fix.</p>
+      <p class="lesson r" style="--i:3">Try it. Test it. Fix it. Try again.</p>
+    </div>
+    <div class="r" style="--i:2">
+      <a class="yt" data-yt="bvim4rsNHkQ" href="https://www.youtube.com/watch?v=bvim4rsNHkQ" target="_blank" rel="noopener" style="background-image:url(../media/proto/spacex.jpg)"></a>
+      <p class="dim" style="margin-top:.5em">SpaceX: <i>How Not to Land a Rocket</i> (2 min)</p>
+    </div>
+  </div>
+  <aside class="notes">Click the video; it plays in the slide. Let the explosions land - they'll laugh. "Those are some of the best engineers in the world, and they failed a LOT. Now they land rockets like it's nothing. Our boat failed too. Twice."</aside>
+</section>
+
+<!-- 3 -->
+<section class="slide wide" data-scene="calm" data-min="2">
+  <p class="kicker r" style="--i:0">our boat failed too</p>
+  <h2 class="r" style="--i:1">Three tries</h2>
+  <div class="pics r" style="--i:2;--n:3;--h:40vh">
+    <figure><img src="../media/proto/v1-airboat.jpg" alt="try 1, the airboat"><figcaption>&#10060; try 1: fans in the air. Too slow!</figcaption></figure>
+    <figure><img src="../media/proto/v2-sent-to-ai.jpg" alt="try 2, the photo we sent the AI"><figcaption>&#10060; try 2: props didn't reach the water</figcaption></figure>
+    <figure><img src="../media/proto/v3-final-close.jpg" alt="try 3, props tilted into the water"><figcaption>&#9989; try 3: tilted props. It works!</figcaption></figure>
+  </div>
+  <p class="r" style="--i:3;margin-top:.8em">For try 2, we <b>took a photo</b>, drew on it, and told the AI <i>"this is what's wrong."</i> It designed the fix.</p>
+  <aside class="notes">Try 1: fans pushing air, like a swamp boat. Air is super light, so it barely moved. Try 2: props in the water push way harder, but the motors sat flat so the props just splashed at the top. Kai jammed foam under them. Try 3: a 3D-printed holder tilts each motor 45 degrees so the prop dips into the water. Next slides show how we got each piece.</aside>
+</section>
+
+<!-- 4 -->
+<section class="slide" data-scene="ai" data-min="2">
+  <p class="kicker r" style="--i:0">so what is AI?</p>
+  <h2 class="r" style="--i:1">A super-guesser<br>that read the whole internet.</h2>
+  <div class="guess r" style="--i:2">
+    <div class="q">"The boat goes really <i>&nbsp;?&nbsp;</i>"</div>
+    <div class="bar" style="--i:0"><span>fast</span><div class="fill" style="--w:62%"></div><em>most likely</em></div>
+    <div class="bar" style="--i:1"><span>slow</span><div class="fill" style="--w:21%"></div><em>maybe</em></div>
+    <div class="bar" style="--i:2"><span>banana</span><div class="fill" style="--w:1%"></div><em>nope</em></div>
+  </div>
+  <p class="lesson r" style="--i:3">It's a great guesser. Guesses can be wrong. So we always <u>test</u>.</p>
+  <aside class="notes">Ask the class to finish the sentence. They'll shout "fast". "That's exactly what AI does - it guesses the next word, over and over, super fast. Fast enough to write code, draw pictures and design parts. But a guess can be wrong, so engineers check."</aside>
+</section>
+
+<!-- 5 -->
+<section class="slide" data-scene="recipe" data-min="2.5">
+  <p class="kicker r" style="--i:0">the one skill you need</p>
+  <h2 class="r" style="--i:1">How to talk to AI</h2>
+  <div class="recipe r" style="--i:2">
+    <div class="chip k1"><b>1. What</b><span>What do you want?</span></div>
+    <div class="chip k2"><b>2. Details</b><span>Who's it for? What do you have?</span></div>
+    <div class="chip k3"><b>3. Rules</b><span>How big? How much money?</span></div>
+    <div class="chip k4"><b>4. Check</b><span>How will we know it works?</span></div>
+  </div>
+  <div class="row r" style="--i:3">
+    <div class="prompt bad"><span class="who">weak</span>make me a boat</div>
+    <div class="prompt"><span class="who">strong</span>Help me build a toy boat <b class="c">(what)</b> from soda bottles for my class <b class="p">(details)</b>. Under $50, no soldering <b class="o">(rules)</b>. How do we test it floats? <b class="g">(check)</b></div>
+  </div>
+  <aside class="notes">Read the weak one, then the strong one, pointing at each colour. "Number 4 is the secret. Ask the AI how to check its work, and it catches its own mistakes." Every job on the next slides uses these same 4 parts.</aside>
+</section>
+
+<!-- 6 -->
+<section class="slide wide" data-scene="dunk" data-min="2.5">
+  <div class="split">
+    <div>
+      <p class="kicker r" style="--i:0">job #1 &middot; 3D designer</p>
+      <h2 class="r" style="--i:1">Type it. Print it. Hold it.</h2>
+      <div class="prompt r" style="--i:2"><span class="who">we typed (+ the photo)</span>"Make two motor holders, tilted 45 degrees so the props go in the water. Put Kai on one and a teammate on the other."</div>
+      <ul class="list r" style="--i:3">
+        <li>AI made the <b class="c">picture</b> and the <b class="p">3D model</b></li>
+        <li>It saved an <b class="o">STL file</b>: the file a 3D printer reads</li>
+        <li>The printer made the real part</li>
+      </ul>
+    </div>
+    <div class="pics r" style="--i:3;--n:1;--h:28vh">
+      <figure><img class="fit" src="../media/proto/holder-render.png" alt="the AI's 3D design"><figcaption>AI's 3D design</figcaption></figure>
+      <figure><img class="fit" src="../media/proto/holder-side.png" alt="motor, rod and prop at 45 degrees"><figcaption>tilted 45&deg; into the water</figcaption></figure>
+    </div>
+  </div>
+  <aside class="notes">An STL file is a shape made of thousands of tiny triangles; the printer slices it into thin layers and builds it up. Making 3D models used to take years of practice - now you can describe it. It's still a great skill: it's how video game worlds and movie monsters get made.
+  Careers: product designer, toy designer, 3D artist for games and movies.</aside>
+</section>
+
+<!-- 7 -->
+<section class="slide" data-scene="shop" data-min="2">
+  <p class="kicker r" style="--i:0">job #2 &middot; the parts expert</p>
+  <h2 class="r" style="--i:1">From idea to your front door</h2>
+  <ol class="steps r" style="--i:2">
+    <li>AI <b class="c">researched the parts</b> &mdash; and checked what we already had</li>
+    <li>It put them in the <b class="o">Amazon cart</b></li>
+    <li>A grown-up <b class="p">looked it over</b> and clicked buy</li>
+    <li>Two days later: <b class="g">box at the door</b></li>
+  </ol>
+  <p class="r" style="--i:3">Then we said <i>"check your own work"</i> &mdash; and it caught its own mistake: the "propellers" were really <b class="red">windmill blades</b>!</p>
+  <aside class="notes">The AI never buys anything itself - it only fills the cart, and a grown-up decides. "Check your own work" is the most useful sentence in this whole talk. Windmill blades are made to catch wind, not push it.
+  Careers: engineers at SpaceX and car companies do exactly this - pick the right part at the right price, then double-check it.</aside>
+</section>
+
+<!-- 8 -->
+<section class="slide" data-scene="build" data-min="2">
+  <p class="kicker r" style="--i:0">job #3 &middot; architect + builder</p>
+  <h2 class="r" style="--i:1">LEGO-style instructions, made by AI</h2>
+  <ul class="list r" style="--i:2">
+    <li>We described the boat's wires <b>once</b></li>
+    <li>AI drew a <b class="c">step-by-step booklet</b>, one step per page &mdash; like LEGO</li>
+    <li>Change one wire and <b class="o">every page redraws itself</b></li>
+  </ul>
+  <p class="r" style="--i:3">Architects draw how to build a whole <b class="p">house</b> the same way. That job is changing fast.</p>
+  <p class="lesson r" style="--i:4">If you can explain it clearly, AI can draw it.</p>
+  <aside class="notes">Kai and a friend printed the booklet and built at the kitchen table, one step at a time. The 3D wiring on screen is drawn from one small file of pin numbers.
+  Careers: architects, construction, factory engineers - anyone who tells other people how to put something together.</aside>
+</section>
+
+<!-- 9 -->
+<section class="slide" data-scene="build" data-min="2">
+  <p class="kicker r" style="--i:0">job #4 &middot; electrical engineer</p>
+  <h2 class="r" style="--i:1">How the brain checks the battery</h2>
+  <ul class="list r" style="--i:2">
+    <li>The motor battery is <b class="red">9 volts</b>. The brain can only take about <b class="c">3</b>. More than that and it's fried.</li>
+    <li>Two tiny <b class="o">resistors</b> cut the voltage into slices, like a pizza</li>
+    <li>The brain only tastes <b class="g">one small slice</b> (about 1.5 volts). Safe!</li>
+    <li>Then it does the math: slice &times; 5.7 = the whole battery</li>
+  </ul>
+  <p class="lesson r" style="--i:3">Now the driving app shows how full the battery is.</p>
+  <aside class="notes">This is called a voltage divider: a 47k resistor and a 10k resistor in a row, with the brain's pin in between, so it sees 10 out of 57 parts. (Resistors, not transistors: a transistor is a switch, a resistor just slows electricity down.)
+  Careers: electrical engineers do this in every phone, electric car and rocket - the brain always needs to know how much battery is left.</aside>
+</section>
+
+<!-- 10 -->
+<section class="slide wide" data-scene="game" data-min="2.5">
+  <div class="split">
+    <div>
+      <p class="kicker r" style="--i:0">job #5 &middot; game developer</p>
+      <h2 class="r" style="--i:1">Driving it is a video game</h2>
+      <ul class="list r" style="--i:2">
+        <li>The boat makes its <b class="c">own Wi&#8209;Fi</b>. Your phone joins it.</li>
+        <li>The <b class="p">big pad</b> steers. <b class="red">ALL STOP</b> is the brake.</li>
+        <li>We told the AI: <i>"make it look like Fortnite"</i></li>
+        <li>And we added <b class="o">LASERS</b>!</li>
+      </ul>
+      <p class="r" style="--i:3">Real lasers aren't wired in yet&hellip; so the button flashes the boat's <b class="red">red</b> and <b class="g">green</b> lights. Pew pew!</p>
+    </div>
+    <div class="pics r" style="--i:3;--n:1;--h:66vh"><figure><video class="fit" style="background:#1a0b3a" src="../media/video/helm-demo.mp4" poster="../media/helm-laser.png" autoplay muted loop playsinline aria-label="the boat driving app: steering, lasers, all stop"></video><figcaption>the real app</figcaption></figure></div>
+  </div>
+  <aside class="notes">If the boat is in the room: join its Wi-Fi on a phone, open the app, press LASERS - the red and green lights flicker. Every game you play has people who design the buttons, icons, fonts and sounds. We described what we wanted, the AI built it, and we tested it on a phone.
+  Careers: game developer, app designer, the people who build the controls for drones and Mars rovers.</aside>
+</section>
+
+<!-- 11 -->
+<section class="slide" data-scene="calm" data-min="2">
+  <p class="kicker r" style="--i:0">what will you build?</p>
+  <h2 class="r" style="--i:1">Every kind of engineer uses this</h2>
+  <div class="recipe r" style="--i:2">
+    <div class="chip k1"><b>&#128640; Rockets</b><span>SpaceX, NASA</span></div>
+    <div class="chip k2"><b>&#127918; Games</b><span>apps, worlds, characters</span></div>
+    <div class="chip k3"><b>&#127959; Buildings</b><span>houses, bridges, stadiums</span></div>
+    <div class="chip k4"><b>&#128663; Cars</b><span>electric cars, batteries</span></div>
+    <div class="chip k1"><b>&#129302; Robots</b><span>factories, Mars rovers</span></div>
+    <div class="chip k2"><b>&#129657; Medicine</b><span>robot arms, new body parts</span></div>
+  </div>
+  <p class="lesson r" style="--i:3">AI does the busy work. <u>You</u> decide what's worth building.</p>
+  <aside class="notes">Go around the room: "Which one would you pick?" Every one of these jobs does what we did today - design parts, pick parts, write instructions, measure batteries, build controls. AI makes all of it faster. What it can't do is decide WHAT to build or notice when something is wrong. That's you.</aside>
+</section>
+
+<!-- 12 -->
+<section class="slide" data-scene="safe" data-min="1">
+  <p class="kicker r" style="--i:0">builder rules</p>
+  <h2 class="r" style="--i:1">Stay safe</h2>
+  <ul class="list r" style="--i:2">
+    <li>Build with a <b>grown-up</b>. Lots of AI apps are for 13+.</li>
+    <li>Never type your <b>password, address or school</b> into AI.</li>
+    <li><b>Batteries</b> can get hot. A puffy battery goes in the bin.</li>
+    <li>If AI helped with schoolwork, <b>say so</b>.</li>
+  </ul>
+  <aside class="notes">Quick and serious. If the school has an AI policy, mention it here.</aside>
+</section>
+
+<!-- 13 -->
+<section class="slide wide" data-scene="you" data-min="3.5">
+  <p class="kicker r" style="--i:0">your turn &middot; with a partner</p>
+  <h2 class="r" style="--i:1">Write your own AI message</h2>
+  <p class="r" style="--i:2">Pick one: <b class="c">a phone stand to 3D print</b> &middot; <b class="o">a robot pet</b> &middot; <b class="p">a video game about your school</b></p>
+  <div class="builder r" style="--i:3">
+    <div><label class="c">1. What</label><textarea id="b1" placeholder="Design a phone stand I can 3D print..."></textarea></div>
+    <div><label class="p">2. Details</label><textarea id="b2" placeholder="It's for my mom's phone, which has a big case..."></textarea></div>
+    <div><label class="o">3. Rules</label><textarea id="b3" placeholder="Small enough to print in 1 hour, no glue..."></textarea></div>
+    <div><label class="g">4. Check</label><textarea id="b4" placeholder="How do I test it holds the phone before I print the big one?"></textarea></div>
+  </div>
+  <div class="prompt r" style="--i:4"><span class="who">your message</span><span id="built" class="dim">Start typing above...</span></div>
+  <p class="r" style="--i:5"><button class="btn" id="copy">Copy it</button></p>
+  <aside class="notes">Do one together first: type the class's ideas into the boxes and watch the message build itself. Then pairs write theirs on paper. Two pairs read theirs out, and the class spots which of the 4 parts is missing.</aside>
+</section>
+
+<!-- 14 -->
+<section class="slide" data-scene="end" data-min="1.5">
+  <p class="kicker r" style="--i:0">thanks!</p>
+  <h1 class="r" style="--i:1">Go build<br><span class="grad">something weird.</span></h1>
+  <ul class="list r" style="--i:2">
+    <li>What &middot; Details &middot; Rules &middot; <b>Check</b></li>
+    <li>Mistakes are how engineers learn</li>
+    <li>You're the boss. AI is the helper.</li>
+  </ul>
+  <p class="dim r" style="--i:3">Everything here is free to copy: github.com/joefaron/kai-code</p>
+  <aside class="notes">Questions. Then the hands again: "Who wants to be an engineer now?" Fallback questions to ask THEM: "What would you build first?" "What might AI get wrong about your idea?"</aside>
+</section>
+
+</div>
+
+<div class="zoom" id="zoom"><img alt=""></div>
+<div class="nav prev" id="prev"></div>
+<div class="nav next" id="next"></div>
+<div class="hud"><i id="bar"></i></div>
+<div class="meta" id="meta"></div>
+<div class="help">&larr; &rarr; move &middot; P presenter &middot; F full screen</div>
+
+<!-- presenter view: open with P, follows the main window -->
+<div class="pv">
+  <div class="clock" id="pclock">0:00</div>
+  <div class="dim" id="pplan"></div>
+  <h3>Now</h3><div class="now" id="pnow"></div>
+  <h3>Say</h3><div class="notes" id="pnotes"></div>
+  <h3>Next</h3><div class="next" id="pnext"></div>
+  <p class="dim">&larr; &rarr; here moves the main screen too.</p>
+</div>
+
+<script src="vendor/howler.core.min.js"></script>
+<script type="module" src="slides.js?v=9"></script>
+</body>
+</html>

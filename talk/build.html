@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Wiring the boat, step by step</title>
+<style>html,body{margin:0;height:100%;background:#060914;overflow:hidden}canvas{display:block;width:100vw;height:100vh}
+#title{position:fixed;left:4vw;top:5vh;font:700 3.2vh Segoe UI,system-ui,sans-serif;color:#eef3ff;letter-spacing:.02em}
+#title small{display:block;font-weight:400;font-size:2vh;color:#9aa6c4;margin-top:.6vh}
+#cap{position:fixed;left:4vw;bottom:8vh;font:800 5.2vh Segoe UI,system-ui,sans-serif;color:#eef3ff;padding:1.4vh 2.4vw 1.6vh;background:rgba(6,9,20,.94);border-left:1vh solid #3ad0ff;border-radius:1vh;white-space:nowrap}
+</style>
+<script type="importmap">{ "imports": { "three": "./vendor/three.module.js" } }</script>
+</head>
+<body>
+<!--
+  The boat assembling itself, full screen, on a loop. It is the same model as the
+  "build" slide in the talk (wiring3d.js). ?manual = frame-by-frame mode used by
+  tools/boat-video.mjs to render the MP4: it calls window.frameAt(seconds).
+-->
+<canvas id="stage"></canvas>
+<div id="title">Wiring Kai's boat, step by step<small>the same 13 steps as the printed booklet &middot; no soldering</small></div>
+<div id="cap"></div>
+<script type="module">
+import { createStage } from './scenes.js?v=10';
+import { sceneBuild, BUILD_LOOP } from './wiring3d.js?v=6';
+const manual = new URLSearchParams(location.search).has('manual');
+let T = 0;
+const start = performance.now();
+// the caption slides in each time it changes; timed off the scene clock so video frames are exact
+const cap = document.getElementById('cap');
+let shown = null, since = 0;
+const onCaption = (text, color) => {
+  if (text !== shown) { shown = text; since = now(); cap.textContent = text; cap.style.borderLeftColor = color; cap.style.color = color; }
+  const k = Math.min(1, (now() - since) / .45), e = 1 - Math.pow(1 - k, 3);
+  cap.style.opacity = text ? e : 0; cap.style.transform = `translateX(${(1 - e) * -6}vw)`;
+};
+const now = () => manual ? T : (performance.now() - start) / 1000;
+const stage = createStage(document.getElementById('stage'), { solo: true, manual, onCaption, scenes: { build: sceneBuild }, time: () => manual ? T : (performance.now() - start) / 1000 });
+stage.show('build');
+window.frameAt = s => { T = s; stage.tick(); };
+window.loopSeconds = BUILD_LOOP;
+window.ready = true;
+</script>
+</body>
+</html>

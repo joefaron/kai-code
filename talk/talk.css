@@ -107,6 +107,32 @@ ul.list li::before { content: ""; position: absolute; left: .2em; top: .82em; wi
 .btn { pointer-events: auto; cursor: pointer; font: inherit; font-size: .8em; font-weight: 700; color: #04121a;
   background: var(--cyan); border: 0; border-radius: 99px; padding: .5em 1.1em; }
 
+/* prototype slides: words on the left, real photos on the right */
+.split { display: grid; grid-template-columns: minmax(0, 44vw) minmax(0, 1fr); gap: 3vw; align-items: center; }
+.pics { pointer-events: auto; display: grid; grid-template-columns: repeat(var(--n, 2), minmax(0, 1fr)); gap: .6em; }
+.pics figure { margin: 0; position: relative; }
+.pics img, .pics video { display: block; width: 100%; height: calc(var(--h, 34vh) * var(--fit, 1)); object-fit: cover; border-radius: .6em; cursor: zoom-in;
+  border: 1px solid var(--line); box-shadow: 0 10px 30px rgba(0,0,0,.45); background: #0d1430; }
+.pics img.fit, .pics video.fit { object-fit: contain; background: #f7f7f7; }
+.pics video { cursor: default; }
+.pics figcaption { position: absolute; left: .5em; bottom: .5em; font: 700 .62em/1.2 ui-monospace, Consolas, monospace; letter-spacing: .06em;
+  background: rgba(6,9,20,.8); padding: .35em .6em; border-radius: .4em; }
+.pics .wide { grid-column: 1 / -1; }
+.tag { display: inline-block; font: 800 .7em/1 ui-monospace, Consolas, monospace; letter-spacing: .14em; padding: .45em .7em;
+  border-radius: .4em; margin-right: .5em; vertical-align: middle; }
+.tag.fail { background: rgba(255,90,90,.18); color: var(--red); border: 1px solid rgba(255,90,90,.5); }
+.tag.win { background: rgba(124,224,124,.18); color: var(--green); border: 1px solid rgba(124,224,124,.5); }
+.prompt.bad.problem { border-left-color: var(--red); }
+.yt { pointer-events: auto; position: relative; display: block; aspect-ratio: 16 / 9; width: 100%; border-radius: .7em; overflow: hidden;
+  background: #000 center / cover no-repeat; cursor: pointer; box-shadow: 0 10px 40px rgba(0,0,0,.5); border: 1px solid var(--line); }
+.yt::after { content: ""; position: absolute; inset: 0; margin: auto; width: 4.2em; height: 2.9em; border-radius: .7em; background: #ff0033
+  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M3 2l5 3-5 3z' fill='white'/%3E%3C/svg%3E") center / 50% no-repeat; }
+.yt.playing::after { display: none; }
+.yt iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.zoom { position: fixed; inset: 0; z-index: 50; background: rgba(3,5,12,.92); display: none; place-items: center; cursor: zoom-out; }
+.zoom.on { display: grid; }
+.zoom img { max-width: 94vw; max-height: 92vh; border-radius: .6em; }
+
 .big-url { font: 800 1.6em/1.1 ui-monospace, Consolas, monospace; color: var(--green); word-break: break-all; }
 .tiny { font-size: .72em; color: var(--dim); }
 
@@ -117,6 +143,20 @@ ul.list li::before { content: ""; position: absolute; left: .2em; top: .82em; wi
 .help { position: fixed; left: 1.2vw; bottom: 1.4vh; font: .58em/1 ui-monospace, Consolas, monospace; color: rgba(154,166,196,.6); }
 .nav { position: fixed; top: 0; bottom: 0; width: 12vw; pointer-events: auto; cursor: pointer; }
 .nav.prev { left: 0; } .nav.next { right: 0; }
+
+/* sound (audio.js): MUSIC / SFX buttons + the talking Polaroid of whoever is speaking */
+@font-face { font-family: Bangers; src: url(vendor/bangers-hud.woff2) format('woff2'); font-display: swap; }
+.snd { position: fixed; top: 1.4vh; right: 1.2vw; z-index: 40; display: flex; gap: .5em; }
+.snd button { font: 1.05rem/1 Bangers, Impact, sans-serif; letter-spacing: .08em; color: #1b1030; cursor: pointer;
+  padding: .45em .8em .35em; border: 3px solid #1b1030; border-radius: .5em; transform: skew(-8deg);
+  background: linear-gradient(180deg, #ffe45c, #ffb21e); box-shadow: 0 4px 0 #1b1030, 0 0 18px rgba(255,190,40,.35); }
+.snd button:active { transform: skew(-8deg) translateY(3px); box-shadow: 0 1px 0 #1b1030; }
+.snd button.off { background: linear-gradient(180deg, #4a5270, #2c324a); color: #9aa6c4; box-shadow: 0 4px 0 #11152a; text-decoration: line-through 2px; }
+.talker { position: fixed; right: 1.4vw; bottom: 4.5vh; z-index: 30; width: clamp(96px, 12vw, 190px); pointer-events: none;
+  --lv: 0; opacity: 0; transform: translateY(120%) rotate(8deg); transition: opacity .25s, transform .45s cubic-bezier(.3, 1.6, .5, 1); }
+.talker.on { opacity: 1; transform: translateY(calc(var(--lv) * -10px)) rotate(calc(-4deg + var(--lv) * 7deg)) scale(calc(1 + var(--lv) * .06)); transition: opacity .25s, transform .06s linear; }
+.talker img { width: 100%; display: block; filter: drop-shadow(0 8px 18px rgba(0,0,0,.6)); }
+body.presenter .snd, body.presenter .talker { display: none; }
 
 /* presenter window (?presenter) */
 body.presenter { overflow: auto; background: #0b0f1e; padding: 2em; font-size: 18px; }
@@ -132,13 +172,21 @@ body.presenter .pv { display: block; }
 
 @media (max-aspect-ratio: 1/1) {
   .slide { max-width: 100vw; justify-content: flex-end; }
-  .shade { background: linear-gradient(0deg, rgba(6,9,20,.95) 0%, rgba(6,9,20,.6) 55%, rgba(6,9,20,0) 80%); }
-  .recipe, .builder { grid-template-columns: 1fr; }
+  .shade { background: linear-gradient(0deg, rgba(6,9,20,.95) 0%, rgba(6,9,20,.9) var(--cover, 55%), rgba(6,9,20,0) calc(var(--cover, 55%) + 12%)); }
+  .recipe, .builder, .split { grid-template-columns: 1fr; }
+  .pics img, .pics video { height: calc(var(--h, 22vh) * var(--fit, 1)); }
+  .talker { bottom: 4vh; width: 24vw; }
+  .snd button { font-size: .9rem; }
+}
+/* phone held sideways / short window: less padding, a little more width for the words */
+@media (max-height: 560px) and (min-aspect-ratio: 1/1) {
+  .slide { padding: 3vh 4vw 7vh; max-width: 62vw; }
+  .slide.wide, .slide.center { max-width: 100vw; }
 }
 
 @media print {
   html, body { overflow: visible; height: auto; background: #fff; color: #111; }
-  #stage, .shade, .hud, .meta, .help, .nav { display: none; }
+  #stage, .shade, .hud, .meta, .help, .nav, .snd, .talker { display: none; }
   .deck { position: static; }
   .slide { position: relative; visibility: visible; max-width: none; height: auto; page-break-after: always; padding: 1.5em; }
   .slide .r { opacity: 1; transform: none; filter: none; }

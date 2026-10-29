@@ -1,14 +1,15 @@
 <section class="hero">
-  <h2>&#127916; Build anything. You + AI.</h2>
-  <p class="lede">A 30-minute talk for 6th&ndash;8th graders: what AI really is, the 4-part prompt, and the exact
-  prompts we used to build a website, design a 3D-printed part, shop for parts and flash code onto a chip.
-  Fifteen slides, each with a live 3D scene.</p>
-  <p class="btnrow"><a class="linkbtn" href="/talk/"><b>&#9654; Start the slideshow</b></a>
-  <a class="linkbtn" href="/talk/?presenter">Presenter notes + timer</a></p>
+  <h2>&#127916; You can build anything. You + AI.</h2>
+  <p class="lede">A 25-minute talk for a 5th-grade class that has never had robotics. One idea per slide:
+  engineers fail on purpose, how to talk to AI, and five real jobs it did on Kai's boat &mdash;
+  3D designer, parts expert, architect, electrical engineer, game developer.</p>
+  <p class="btnrow"><a class="linkbtn" href="/talk/kids.html"><b>&#9654; Start the slideshow</b></a>
+  <a class="linkbtn" href="/talk/kids.html?presenter">Presenter notes + timer</a>
+  <a class="linkbtn" href="/talk/">Detailed version (grades 6&ndash;8)</a></p>
 </section>
 
 <section class="card">
-  <iframe src="/talk/#1" title="slideshow preview" style="width:100%;aspect-ratio:16/9;border:0;border-radius:8px;background:#060914"></iframe>
+  <iframe src="/talk/kids.html#1" title="slideshow preview" style="width:100%;aspect-ratio:16/9;border:0;border-radius:8px;background:#060914"></iframe>
 </section>
 
 <div class="cards">
@@ -19,17 +20,16 @@
       <li><kbd>F</kbd> full screen</li>
       <li><kbd>P</kbd> opens the presenter window: what to say, what's next, and a timer that turns orange when you're behind. It moves the main screen too.</li>
       <li><kbd>Ctrl</kbd>+<kbd>P</kbd> prints a handout with the speaker notes</li>
+      <li>Bring the boat: slide 10 has the class press LASERS on the real driving app.</li>
     </ul>
   </div>
   <div class="card">
-    <h3>The 30 minutes</h3>
+    <h3>The 25 minutes</h3>
     <ol>
-      <li>What we built (2 min)</li>
-      <li>What AI is: a super-autocomplete (2&frac12;)</li>
-      <li>The 4-part prompt: goal, context, limits, check (2)</li>
-      <li>Prompts for a website, a 3D part, shopping, flashing (9&frac12;)</li>
-      <li>Schematic, testing, AI mistakes (5&frac12;)</li>
-      <li>Safety, open source, write your own prompt (6&frac12;)</li>
+      <li>Engineers break things on purpose: SpaceX + our 3 boats (5 min)</li>
+      <li>What AI is, and how to talk to it: what, details, rules, check (4&frac12;)</li>
+      <li>5 jobs: 3D designer, parts expert, architect, electrical engineer, game developer (11)</li>
+      <li>Every kind of engineer, safety, write your own message (8)</li>
     </ol>
   </div>
 </div>

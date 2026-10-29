@@ -1,6 +1,7 @@
 // Slide navigation, presenter window and the prompt builder.
 // The 3D lives in scenes.js; this file only says which scene each slide wants.
-import { createStage } from './scenes.js?v=2';
+import { createStage } from './scenes.js?v=11';
+import { sceneBuild } from './wiring3d.js?v=6';
 
 const slides = [...document.querySelectorAll('.slide')];
 const presenter = new URLSearchParams(location.search).has('presenter');
@@ -10,11 +11,16 @@ let started = Date.now();
 
 let stage = null;
 if (!presenter) {
-  try { stage = createStage(document.getElementById('stage')); }
+  try { stage = createStage(document.getElementById('stage'), { scenes: { build: sceneBuild } }); }
   catch (e) { console.warn('no WebGL, slides only', e); }
 } else {
   document.body.classList.add('presenter');
 }
+
+// music, sound effects and the talking narrators: only decks that ask for it (<body data-audio>)
+let audio = null;
+if (!presenter && 'audio' in document.body.dataset)
+  import('./audio.js?v=1').then(m => { audio = m; audio.slide(cur); }).catch(e => console.warn('no audio', e));
 
 const title = s => (s.querySelector('h1,h2')?.textContent || '').replace(/\s+/g, ' ').trim();
 const plan = slides.map(s => parseFloat(s.dataset.min || 1));
@@ -24,18 +30,43 @@ function go(n, fromChannel) {
   n = Math.max(0, Math.min(slides.length - 1, n));
   if (n === cur) return;
   slides[cur]?.classList.remove('on');
+  slides[cur]?.querySelectorAll('.yt.playing').forEach(stopVideo);
   cur = n;
   const s = slides[cur];
   // restart the CSS animations every time a slide opens
   s.classList.remove('on'); void s.offsetWidth; s.classList.add('on');
   document.body.classList.toggle('full', s.classList.contains('center'));
+  fit(s);
   stage?.show(s.dataset.scene || 'brain');
+  audio?.slide(cur);
   document.getElementById('bar').style.width = ((cur + 1) / slides.length * 100) + '%';
   document.getElementById('meta').textContent = `${cur + 1} / ${slides.length}`;
   if (location.hash !== '#' + (cur + 1)) history.replaceState(null, '', '#' + (cur + 1));
   if (!fromChannel) chan?.postMessage({ go: cur });
   renderPresenter();
 }
+
+// Shrink a slide's text (and photos, via --fit) until it fits the screen, so a phone held
+// sideways or a short laptop never cuts the bottom off. Big screens stay at full size.
+function fit(s) {
+  if (presenter) return;
+  s.style.fontSize = ''; s.style.removeProperty('--fit');
+  const cs = getComputedStyle(s);
+  const room = s.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
+  const used = () => {
+    const kids = [...s.children].filter(c => !c.matches('.notes'));
+    const last = kids[kids.length - 1];
+    return last.offsetTop + last.offsetHeight + parseFloat(getComputedStyle(last).marginBottom) - kids[0].offsetTop;
+  };
+  for (let f = 1; used() > room && f > 0.5; ) {
+    f = Math.round((f - 0.04) * 100) / 100;
+    s.style.fontSize = f + 'em'; s.style.setProperty('--fit', f);
+  }
+  // portrait phone: the words sit over the 3D, so the dark shade grows to cover them
+  const top = [...s.children].find(c => !c.matches('.notes')).offsetTop;
+  document.body.style.setProperty('--cover', Math.min(100, (s.clientHeight - top + 24) / s.clientHeight * 100) + '%');
+}
+addEventListener('resize', () => slides[cur] && fit(slides[cur]));
 
 function renderPresenter() {
   if (!presenter) return;
@@ -99,6 +130,25 @@ document.getElementById('copy').onclick = async e => {
   catch { e.target.textContent = 'Select the text to copy'; }
   setTimeout(() => (e.target.textContent = 'Copy prompt'), 1600);
 };
+
+// a YouTube video plays inside the slide (click the thumbnail); leaving the slide stops it
+function stopVideo(a) { a.classList.remove('playing'); a.replaceChildren(); }
+document.querySelectorAll('.yt').forEach(a => a.addEventListener('click', e => {
+  e.preventDefault(); e.stopPropagation();
+  if (a.classList.contains('playing')) return;
+  const f = document.createElement('iframe');
+  f.src = `https://www.youtube-nocookie.com/embed/${a.dataset.yt}?autoplay=1&rel=0`;
+  f.allow = 'autoplay; fullscreen; encrypted-media'; f.allowFullscreen = true;
+  a.append(f); a.classList.add('playing');
+}));
+
+// click a photo to see it full screen; click or any key to close
+const zoom = document.getElementById('zoom');
+document.querySelectorAll('.pics img').forEach(img => img.addEventListener('click', e => {
+  e.stopPropagation(); zoom.querySelector('img').src = img.src; zoom.classList.add('on');
+}));
+zoom.onclick = () => zoom.classList.remove('on');
+addEventListener('keydown', e => { if (zoom.classList.contains('on')) { zoom.classList.remove('on'); e.stopImmediatePropagation(); e.preventDefault(); } }, true);
 
 const fromHash = () => go(Math.max(0, (parseInt(location.hash.slice(1), 10) || 1) - 1));
 addEventListener('hashchange', fromHash);

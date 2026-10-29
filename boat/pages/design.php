@@ -34,7 +34,7 @@ right = throttle - steering
   <h2>How the tablet talks to the boat</h2>
   <p><strong>There is no Wi-Fi at the beach, and there doesn't need to be.</strong> The
   ESP32 runs in <em>Access Point</em> mode: the boat <em>is</em> the Wi-Fi network. The
-  tablet joins <code>SS-JACKOLANTERN</code>, opens <code>http://192.168.4.1</code>, and the
+  tablet joins <code>SS-JACKOLANTERN-v2.2</code>, opens <code>http://192.168.4.1</code>, and the
   control page is served by the boat itself. No internet, no router, no phone hotspot.</p>
   <p>This site (the boat site) is the workshop: design it here, test the interface here with
   the simulator, then flash the same HTML onto the ESP32 so the beach version is offline.</p>

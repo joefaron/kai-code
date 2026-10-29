@@ -1,0 +1,15 @@
+{
+  "note": "Narration for media/video/boat-wiring-60s.mp4 (tools/boat-mix.mjs). at/end = seconds in the 58 s cut; each line is sped up (max 1.25x) to fit its window. Edit a line and re-run boat-mix: only changed lines are re-voiced.",
+  "voice": "Puck",
+  "music": "media/audio/boat-bed-a.mp3",
+  "lines": [
+    { "at": 0.3, "end": 5.0, "text": "Here's how Kai wired his boat. First the muscle, then the brain." },
+    { "at": 5.4, "end": 15.4, "text": "Colored jumper wires carry signals from the brain to the muscle. Every wire goes in its own numbered hole." },
+    { "at": 15.8, "end": 19.3, "text": "Power on! The brain wakes up and makes its own Wi-Fi." },
+    { "at": 19.7, "end": 29.4, "text": "The motors clip in, six double-A batteries plug in... and on the first test, they spin!" },
+    { "at": 29.8, "end": 39.6, "text": "Then the upgrades: red, green and yellow lights, two more motors, and a battery gauge." },
+    { "at": 40.0, "end": 46.6, "text": "Into the boat: a yard sign, two bottles zip-tied under it, and the brain in a to-go box." },
+    { "at": 46.8, "end": 52.0, "text": "Four motors tilt forty-five degrees, spinning steel rods down to the propellers." },
+    { "at": 52.4, "end": 57.6, "text": "Flip the switch... and go! Built by Kai." }
+  ]
+}

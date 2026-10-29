@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Build Anything: You + AI</title>
-<link rel="stylesheet" href="talk.css?v=1">
+<link rel="stylesheet" href="talk.css?v=4">
 <script type="importmap">{ "imports": { "three": "./vendor/three.module.js" } }</script>
 </head>
 <body>
@@ -40,12 +40,133 @@
   <p class="kicker r" style="--i:0">what we built</p>
   <h2 class="r" style="--i:1">Three projects. One helper.</h2>
   <ul class="list r" style="--i:2">
-    <li><b class="o">Airboat</b> &mdash; recycled bottles, two fans, steered from a tablet over its own Wi&#8209;Fi</li>
+    <li><b class="o">Bottle boat</b> &mdash; two soda bottles, a yard sign and four motors, steered from a tablet over its own Wi&#8209;Fi</li>
     <li><b class="p">Game console</b> &mdash; a pocket computer that plays games <i>you</i> invent</li>
     <li><b class="g">3D&#8209;printed parts</b> &mdash; a shaft coupler and motor holders, designed by typing</li>
   </ul>
   <p class="r" style="--i:3">The helper is an AI we call <b>Bugsy</b>. We talk to it in a chat app, like texting.</p>
   <aside class="notes">Spin through fast - the 3D carousel shows all three. Ask: "Who here has a 3D printer at home? Who has played with an Arduino?" Hands up keeps them awake.</aside>
+</section>
+
+<!-- P0: fail on purpose -->
+<section class="slide wide" data-scene="calm" data-min="1.5">
+  <div class="split">
+    <div>
+      <p class="kicker r" style="--i:0">before anything worked</p>
+      <h2 class="r" style="--i:1">Fail fast.<br>Fail <span class="grad">on purpose</span>.</h2>
+      <p class="r" style="--i:2">SpaceX blew up rocket after rocket trying to land one on a boat in the ocean. Every explosion showed them one more thing to fix.</p>
+      <p class="r" style="--i:3">Now they land them like it's nothing.</p>
+      <p class="lesson r" style="--i:4">A prototype that fails isn't a failure. It's information.</p>
+    </div>
+    <div class="r" style="--i:2">
+      <a class="yt" data-yt="bvim4rsNHkQ" href="https://www.youtube.com/watch?v=bvim4rsNHkQ" target="_blank" rel="noopener" style="background-image:url(../media/proto/spacex.jpg)"></a>
+      <p class="dim" style="margin-top:.5em">SpaceX: <i>How Not to Land an Orbital Rocket Booster</i> (2 min)</p>
+    </div>
+  </div>
+  <aside class="notes">Click the video, it plays right in the slide. Let the explosions land, then: "Our boat failed too. Twice. Here's how." Every prototype has three parts on these slides: what we asked the AI, what we got, and what went wrong.</aside>
+</section>
+
+<!-- P1: prototype 1, the airboat -->
+<section class="slide wide" data-scene="calm" data-min="1.5">
+  <div class="split">
+    <div>
+      <p class="kicker r" style="--i:0">prototype 1 &middot; the airboat</p>
+      <h2 class="r" style="--i:1"><span class="tag fail">FAIL</span>Fans in the air</h2>
+      <div class="prompt r" style="--i:2"><span class="who">we asked</span>"Make a boat for a 6th grade project. A tablet controls the motors and the steering. It needs to be waterproof."</div>
+      <div class="prompt ai r" style="--i:3"><span class="who">ai said</span>An <b>airboat</b>: fans on top, so nothing underwater can leak.</div>
+      <div class="prompt bad r" style="--i:4"><span class="who">the problem</span><b>Really slow.</b> 16 little bottles and lots of duct tape made it heavy, and it floated way up high. The fans were just pushing air.</div>
+    </div>
+    <div class="pics r" style="--i:3;--n:2;--h:56vh">
+      <figure><img src="../media/proto/v1-airboat.jpg" alt="Prototype 1 floating in the hot tub"><figcaption>prototype 1: hot tub test</figcaption></figure>
+      <figure><img src="../media/proto/parts.jpg" alt="All the parts on the table"><figcaption>day 1: the parts</figcaption></figure>
+    </div>
+  </div>
+  <aside class="notes">Air is about 800 times lighter than water, so a little fan barely pushes the boat. The AI even predicted it: about 0.6 to 1 mph. We built it anyway, because you learn more from a real test than from guessing.</aside>
+</section>
+
+<!-- P2: prototype 2, props in the water -->
+<section class="slide wide" data-scene="calm" data-min="1.5">
+  <div class="split">
+    <div>
+      <p class="kicker r" style="--i:0">prototype 2 &middot; props in the water</p>
+      <h2 class="r" style="--i:1"><span class="tag fail">FAIL</span>Better, but wobbly</h2>
+      <div class="prompt r" style="--i:2"><span class="who">we asked</span>"It's just really slow. You get so much more power and speed when you stick a propeller in the water, right?"</div>
+      <div class="prompt ai r" style="--i:3"><span class="who">ai said</span>Yes: a prop in the water gets <b>way more push</b> from the same little motor.</div>
+      <div class="prompt bad r" style="--i:4"><span class="who">the problem</span>Still too many bottles. And the motors sat <b>flat</b>, so the props didn't reach down into the water. We jammed foam under them to tilt them. Not good.</div>
+    </div>
+    <div class="pics r" style="--i:3;--n:2;--h:56vh">
+      <figure><img src="../media/proto/v2-props-in-water.jpg" alt="Prototype 2 with props at the edge"><figcaption>prototype 2</figcaption></figure>
+      <figure><img src="../media/proto/v2-sent-to-ai.jpg" alt="The photo we sent to the AI: foam wedged under the motor"><figcaption>the photo we sent the AI</figcaption></figure>
+    </div>
+  </div>
+  <aside class="notes">Point at the photo on the right: we drew on it and sent it to the AI. Red box = the motor holder, green = the foam we jammed under it. A picture plus "this is what's wrong" is one of the best prompts there is.</aside>
+</section>
+
+<!-- P3: the fix, a 3D-printed 45-degree holder -->
+<section class="slide" data-scene="dunk" data-min="2">
+  <p class="kicker r" style="--i:0">the fix &middot; design a part by typing</p>
+  <h2 class="r" style="--i:1">Tilt it 45&deg;. Print it.</h2>
+  <div class="prompt r" style="--i:2"><span class="who">we asked (+ the photo)</span>"I need two motor holders. Engrave Kai on one and a teammate on the other. Two screw holes. The bottom needs to be on a <b>45 degree angle</b> so the propellers go into the water. I tried sticking foam underneath and it's just not perfect."</div>
+  <div class="pics r" style="--i:3;--n:2;--h:22vh">
+    <figure><img class="fit" src="../media/proto/holder-render.png" alt="The AI's 3D design of the motor holder"><figcaption>AI's design (pumpkin on the side)</figcaption></figure>
+    <figure><img class="fit" src="../media/proto/holder-side.png" alt="Side view: motor, coupler and rod at 45 degrees"><figcaption>motor &rarr; rod &rarr; prop, at 45&deg;</figcaption></figure>
+  </div>
+  <p class="lesson r" style="--i:4">Show it a photo. Say what's wrong. It designs the part.</p>
+  <aside class="notes">The 3D on the right is the whole idea: flat, the prop just spins in the air. Tilt it 45 degrees and the steel rod reaches down, the prop goes in with a splash and actually pushes water. The AI wrote the 3D file (OpenSCAD), we printed it, and the blue holders are on the real boat now.</aside>
+</section>
+
+<!-- P4: prototype 3, the one that works -->
+<section class="slide wide" data-scene="calm" data-min="2">
+  <div class="split">
+    <div>
+      <p class="kicker r" style="--i:0">prototype 3 &middot; the one that works</p>
+      <h2 class="r" style="--i:1"><span class="tag win">WORKS</span>Two big bottles. Props at 45&deg;.</h2>
+      <ul class="list r" style="--i:2">
+        <li><b class="c">Two 1&#8209;liter bottles</b> instead of 16 little ones: lighter, and it sits lower.</li>
+        <li>The printed <b class="o">45&deg; holders</b> aim the steel rods down, so the props bite the water.</li>
+        <li><b class="red">The pencil battery.</b> The battery box holds 8 AAs = 12&nbsp;V, too much for the motor driver. So 2 slots got a <b>pencil, cut with a hacksaw and wrapped in foil</b>: it passes the power through without adding any. 6 real batteries = <b>9&nbsp;V</b>.</li>
+      </ul>
+      <p class="lesson r" style="--i:3">Fewer batteries in a row = lower voltage.</p>
+    </div>
+    <div class="pics r" style="--i:3;--n:2;--h:52vh">
+      <figure><img src="../media/proto/v3-final.jpg" alt="Prototype 3 in the water"><figcaption>prototype 3</figcaption></figure>
+      <figure><img src="../media/proto/v3-final-close.jpg" alt="Close-up: blue 45 degree holders and rods splashing"><figcaption>45&deg; holders, props splashing</figcaption></figure>
+    </div>
+  </div>
+  <aside class="notes">Batteries in a row add up: each AA is 1.5 V, so 8 is 12 V. The motor driver tops out around 10.8 V, so we needed fewer. The foil pencil is a "dummy cell": just a wire shaped like a battery.
+  Safety: foil can short a battery if it touches the wrong spot, so a grown-up does this. Low-voltage AA stuff is pretty safe, and real electronics have fuses, which melt on purpose before anything catches fire. Never bypass a fuse: a coin stuck where a fuse goes can (and did, in our family) set a TV on fire.</aside>
+</section>
+
+<!-- P5: the team -->
+<section class="slide wide" data-scene="calm" data-min="0.5">
+  <div class="split">
+    <div>
+      <p class="kicker r" style="--i:0">the builders</p>
+      <h2 class="r" style="--i:1">Kai <span class="grad">+</span> a teammate</h2>
+      <p class="r" style="--i:2">Two 6th graders, one AI helper, three boats. Built it, tested it in the hot tub, fixed it, did it again.</p>
+      <p class="dim r" style="--i:3">Next time: even more of the questions come from the builders, not Dad.</p>
+      <p class="lesson r" style="--i:4">Every version taught us what the next one needed.</p>
+    </div>
+    <div class="pics r" style="--i:3;--n:1;--h:62vh">
+      <figure><img src="../media/proto/kai-friend.jpg" alt="Kai and a friend at the build table"></figure>
+    </div>
+  </div>
+  <aside class="notes">Quick one. Let Kai and a friend take a bow. Then: "Here's how the final boat goes together" (next slide builds it in 3D).</aside>
+</section>
+
+<!-- 2b -->
+<section class="slide" data-scene="boat" data-min="1.5">
+  <p class="kicker r" style="--i:0">the boat, piece by piece</p>
+  <h2 class="r" style="--i:1">Built from the recycling bin</h2>
+  <ol class="steps r" style="--i:2">
+    <li><b class="c">Two 1&#8209;liter bottles</b> are the floats. Caps on tight.</li>
+    <li>An old <b class="red">yard sign</b> is the deck: light, stiff, waterproof.</li>
+    <li>A clear <b class="p">to&#8209;go box</b> with a snap lid keeps the brain and battery dry.</li>
+    <li><b class="o">Four motors</b>, two per side, sit in 3D&#8209;printed holders tilted 45&deg;.</li>
+    <li>Each motor turns a <b class="g">steel rod</b> that reaches down to a little prop in the water.</li>
+  </ol>
+  <p class="lesson r" style="--i:3">No rudder: spin one side faster and it turns.</p>
+  <aside class="notes">Let the 3D build itself: bottles, deck, box, motors, rods, then it drops in the water and drives. Ask: "What could you use instead of a yard sign?" (foam board, a plastic lid). The full-screen version is the kai sitetalk/boat.html, and there is an MP4 of it.</aside>
 </section>
 
 <!-- 3 -->
@@ -125,13 +246,13 @@
 </section>
 
 <!-- 8 -->
-<section class="slide" data-scene="wiring" data-min="2">
+<section class="slide" data-scene="build" data-min="2">
   <p class="kicker r" style="--i:0">the schematic</p>
   <h2 class="r" style="--i:1">Brain &rarr; muscle &rarr; motors</h2>
   <ul class="list r" style="--i:2">
     <li><b class="c">Brain</b>: ESP32 &mdash; a computer the size of a stick of gum, with Wi&#8209;Fi</li>
     <li><b class="p">Muscle</b>: DRV8833 motor driver. The brain's pins are too weak to spin a motor; the driver does the heavy lifting.</li>
-    <li><b class="o">Motors</b>: spin the left fan faster and the boat turns right. No rudder.</li>
+    <li><b class="o">Motors</b>: spin the left motors faster and the boat turns right. No rudder.</li>
     <li><b class="red">Power</b>: a power bank for the brain, AA batteries for the motors.</li>
   </ul>
   <p class="r" style="--i:3">Every wire here is drawn from <b>one file</b> of pin numbers. Change a pin there and the drawing updates by itself.</p>
@@ -207,7 +328,7 @@
 </section>
 
 <!-- 15 -->
-<section class="slide wide" data-scene="you" data-min="5">
+<section class="slide wide" data-scene="you" data-min="3.5">
   <p class="kicker r" style="--i:0">your turn &middot; 3 minutes with a partner</p>
   <h2 class="r" style="--i:1">Write a 4-part prompt</h2>
   <p class="r" style="--i:2">Pick one: <b class="c">a phone stand to 3D print</b> &middot; <b class="o">a $15 night-light kit</b> &middot; <b class="p">a website for your pet</b></p>
@@ -253,6 +374,8 @@
   <p class="dim">&larr; &rarr; here moves the main screen too.</p>
 </div>
 
-<script type="module" src="slides.js?v=2"></script>
+<div class="zoom" id="zoom"><img alt=""></div>
+
+<script type="module" src="slides.js?v=8"></script>
 </body>
 </html>
