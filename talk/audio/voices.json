@@ -1,109 +1,109 @@
 {
- "made": "2026-10-29T05:32:37.136Z",
+ "made": "2026-10-29T07:56:01.917Z",
  "slides": [
   [
    {
     "who": "diego",
-    "text": "Well howdy, class! Deckhand Diego here. Today you're gonna learn you can build anything. I'm sure of it. Mostly sure.",
+    "text": "Well howdy, y'all! Deckhand Diego here. Today yer gonna learn ya can build anything. I'm sure of it. Mostly sure.",
     "file": "v/1-1.mp3",
-    "hash": "de7bfb4f24",
-    "dur": 8.44
+    "hash": "cb9e62cb08",
+    "dur": 8.33
    },
    {
     "who": "earl",
-    "text": "He ain't been sure of nothin' since the day he was born.",
+    "text": "He ain't been sure o' nothin' since the day he was born.",
     "file": "v/1-2.mp3",
-    "hash": "8f30136ca4",
-    "dur": 2.61
+    "hash": "174e4c3dba",
+    "dur": 3.74
    }
   ],
   [
    {
     "who": "diego",
-    "text": "Engineers break stuff... on purpose! Now that is my kinda job!",
+    "text": "Engineers break stuff... on purpose! Now that's my kinda job!",
     "file": "v/2-1.mp3",
-    "hash": "a3ad8f9fa0",
-    "dur": 5.28
+    "hash": "a00841d8bf",
+    "dur": 4.18
    },
    {
     "who": "earl",
     "text": "Rockets blow up so the next one don't. Same thing happens to my boats.",
     "file": "v/2-2.mp3",
-    "hash": "1b02de8f25",
-    "dur": 5.02
+    "hash": "e77bd78624",
+    "dur": 4.36
    }
   ],
   [
    {
     "who": "diego",
-    "text": "Three tries! The first one sank. The second one sank. The third one... she floats!",
+    "text": "Three tries! The first one crawled like a turtle. The second one wobbled. The third one... she flies!",
     "file": "v/3-1.mp3",
-    "hash": "8412c3e872",
-    "dur": 5.88
-   },
-   {
-    "who": "rusty",
-    "text": "Beep. Two outta three sinkin' ain't bad for a Tuesday.",
-    "file": "v/3-2.mp3",
-    "hash": "0291418c7a",
-    "dur": 3.68
-   }
-  ],
-  [
-   {
-    "who": "rusty",
-    "text": "A.I. is a lot like me, cousin. It read the whole internet, and now it guesses the next word. Like guessin' where the catfish are.",
-    "file": "v/4-1.mp3",
-    "hash": "732be5eb61",
-    "dur": 7.39
+    "hash": "cc29cf7bc6",
+    "dur": 5.75
    },
    {
     "who": "earl",
-    "text": "And it's wrong about as often as Diego.",
-    "file": "v/4-2.mp3",
-    "hash": "c28351e858",
-    "dur": 2.59
+    "text": "Two outta three bein' bad. That's a good Tuesday 'round here.",
+    "file": "v/3-2.mp3",
+    "hash": "5fe64ccf34",
+    "dur": 4.31
    }
   ],
   [
    {
     "who": "diego",
-    "text": "Talkin' to A.I. is like tellin' your fishin' buddy what you want. What, details, rules... then check his work!",
+    "text": "A.I. read the whole internet, an' now it just guesses the next word. Like guessin' where the catfish are!",
+    "file": "v/4-1.mp3",
+    "hash": "ab9abd437f",
+    "dur": 5.36
+   },
+   {
+    "who": "earl",
+    "text": "An' it's wrong 'bout as often as Dee-AY-go.",
+    "file": "v/4-2.mp3",
+    "hash": "1294ba6648",
+    "dur": 2.69
+   }
+  ],
+  [
+   {
+    "who": "diego",
+    "text": "Talkin' to A.I. is like tellin' yer fishin' buddy what ya want. What, details, rules... then check his work!",
     "file": "v/5-1.mp3",
-    "hash": "7457ec462d",
-    "dur": 6.74
+    "hash": "4465684ee1",
+    "dur": 6.56
    },
    {
     "who": "earl",
     "text": "Always check his work. Trust me.",
     "file": "v/5-2.mp3",
-    "hash": "2be7f1e078",
-    "dur": 1.99
+    "hash": "27478cf71c",
+    "dur": 3.13
    }
   ],
   [
    {
-    "who": "rusty",
-    "text": "Type it. Print it. Hold it! Kai made this motor holder outta nothin' but words.",
+    "who": "earl",
+    "text": "Type it. Print it. Hold it. Kai made this motor holder outta nothin' but words. I use a welder.",
     "file": "v/6-1.mp3",
-    "hash": "fa544fe9b6",
-    "dur": 5.93
+    "hash": "33aaf80d07",
+    "dur": 6.97
    }
   ],
   [
    {
     "who": "diego",
-    "text": "The A.I. finds the parts and drops 'em right in the shoppin' cart!",
+    "text": "The A.I. finds the parts an' drops 'em right in the shoppin' cart!",
     "file": "v/7-1.mp3",
-    "hash": "0d1b41970a",
-    "dur": 4.23
+    "hash": "b0388cfc13",
+    "dur": 3.08
    },
    {
     "who": "earl",
-    "text": "And a grown-up still pushes the buy button. That's the important part.",
+    "text": "An' a grown-up still pushes the buy button. That's the important part.",
     "file": "v/7-2.mp3",
-    "hash": "b12499b4b6",
-    "dur": 2.98
+    "hash": "8e770c15d7",
+    "dur": 4.49
    }
   ],
   [
@@ -111,17 +111,17 @@
     "who": "earl",
     "text": "Back in my day, instructions came in a language nobody spoke. Now the robot draws 'em, LEGO style, one step at a time.",
     "file": "v/8-1.mp3",
-    "hash": "58da7c9803",
-    "dur": 7.65
+    "hash": "af498354d3",
+    "dur": 10.27
    }
   ],
   [
    {
-    "who": "rusty",
-    "text": "Nine volts would fry the little brain like a hush puppy. Two resistors shrink it down to a tiny sip it can read.",
+    "who": "earl",
+    "text": "Nine volts'd fry that little brain like a hush puppy. Two resistors shrink it down to a tiny sip it can read.",
     "file": "v/9-1.mp3",
-    "hash": "089f8c84b0",
-    "dur": 6.61
+    "hash": "3450c349c8",
+    "dur": 7
    }
   ],
   [
@@ -129,56 +129,56 @@
     "who": "diego",
     "text": "Drivin' the boat is a video game now! Fire the lasers!",
     "file": "v/10-1.mp3",
-    "hash": "bf4208c167",
-    "dur": 3.13
+    "hash": "59d61a1951",
+    "dur": 3.27
    },
    {
-    "who": "rusty",
-    "text": "Them's just blinky lights, Diego.",
+    "who": "earl",
+    "text": "Them ain't lasers, Dee-AY-go. Them's blinkin' lights.",
     "file": "v/10-2.mp3",
-    "hash": "29a823031e",
-    "dur": 2.06
+    "hash": "f74fbea43b",
+    "dur": 4.05
    },
    {
     "who": "diego",
     "text": "...Fire the blinky lights!",
     "file": "v/10-3.mp3",
-    "hash": "9746ce2263",
-    "dur": 1.65
+    "hash": "ee6b6f4e97",
+    "dur": 1.49
    }
   ],
   [
    {
     "who": "earl",
-    "text": "Rocket builders, game makers, doctors, architects. Every kind of engineer has got a robot buddy now.",
+    "text": "Rocket builders, game makers, doctors, architects. Ever' kind of engineer's got a robot buddy now.",
     "file": "v/11-1.mp3",
-    "hash": "ed69d9a75d",
-    "dur": 6.06
+    "hash": "86e8340329",
+    "dur": 8.31
    }
   ],
   [
    {
     "who": "diego",
-    "text": "Safety first! Never tell an A.I. your full name, your school, or where you live.",
+    "text": "Safety first! Never tell an A.I. yer full name, yer school, or where ya live.",
     "file": "v/12-1.mp3",
-    "hash": "237d083886",
-    "dur": 5.67
+    "hash": "9d5aa1ff92",
+    "dur": 4.94
    },
    {
     "who": "earl",
-    "text": "And ask a grown-up before you plug anything in. Ask me how I know.",
+    "text": "An' ask a grown-up 'fore ya plug anything in. Ask me how I know.",
     "file": "v/12-2.mp3",
-    "hash": "60821d73f5",
-    "dur": 4.1
+    "hash": "9cff2ac823",
+    "dur": 5.22
    }
   ],
   [
    {
-    "who": "rusty",
-    "text": "Your turn, cousins! Write your own A.I. message. What, details, rules, and check!",
+    "who": "diego",
+    "text": "Yer turn, y'all! Write yer own A.I. message. What, details, rules... an' check it!",
     "file": "v/13-1.mp3",
-    "hash": "80653f474f",
-    "dur": 4.83
+    "hash": "f73a0148dd",
+    "dur": 5.75
    }
   ],
   [
@@ -186,22 +186,22 @@
     "who": "diego",
     "text": "Now go build somethin' weird!",
     "file": "v/14-1.mp3",
-    "hash": "26a8f677e9",
-    "dur": 1.54
+    "hash": "d87d0571a1",
+    "dur": 1.7
    },
    {
     "who": "earl",
-    "text": "Weirder than Diego, if you can manage it.",
+    "text": "Weirder'n Dee-AY-go, if ya can manage it.",
     "file": "v/14-2.mp3",
-    "hash": "c8b9c5f967",
-    "dur": 2.35
+    "hash": "b22a59e556",
+    "dur": 2.82
    },
    {
-    "who": "rusty",
-    "text": "Beep boop. Y'all come back now.",
+    "who": "diego",
+    "text": "Hey!",
     "file": "v/14-3.mp3",
-    "hash": "177697e870",
-    "dur": 2.38
+    "hash": "e6b11f045c",
+    "dur": 0.84
    }
   ]
  ]

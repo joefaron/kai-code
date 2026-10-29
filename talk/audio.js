@@ -1,5 +1,5 @@
 // Game-style sound for the talk: a music bed, sound effects timed to the slides, and the
-// talking-Polaroid narrators (Deckhand Diego, Cousin Earl, Cousin Rusty from Fish Wrangler 3D).
+// talking-Polaroid narrators (Deckhand Diego and Cousin Earl, Fish Wrangler 3D's own coach voices).
 //   MUSIC button = the music bed.   SFX button = sound effects AND the voices.
 // Both remember their setting. Browsers only allow sound after the first click or key press,
 // so the first arrow press starts everything. Free libraries: Howler.js (music) + ZzFX (effects).
