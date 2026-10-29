@@ -38,7 +38,7 @@ foreach ($PARTS as $p) { if (empty($p['optional'])) { $total += $p['price'] * $p
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>S.S. Jack-o'-Lantern &middot; STEM Boat Challenge</title>
-<link rel="stylesheet" href="/assets/app.css?v=12">
+<link rel="stylesheet" href="/assets/app.css?v=13">
 </head>
 <body>
 

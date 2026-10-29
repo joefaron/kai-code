@@ -82,7 +82,7 @@ td small{color:var(--dim)}
 
 .helm3{display:flex;gap:22px;flex-wrap:wrap;align-items:flex-start}
 .padcol{display:flex;flex-direction:column;gap:10px}
-.pad{width:300px;height:300px;border-radius:20px;position:relative;touch-action:none;cursor:grab;
+.pad{width:300px;height:300px;border-radius:20px;position:relative;touch-action:none;cursor:grab;-webkit-user-select:none;user-select:none;
   background:radial-gradient(circle at 50% 50%,#1c2432,#11151d);border:1px solid var(--edge)}
 .crosshair{position:absolute;inset:0;
   background:linear-gradient(to right,transparent 49.7%,#2b3444 49.7%,#2b3444 50.3%,transparent 50.3%),
@@ -655,8 +655,9 @@ body{padding:8px 8px 30px;background:#0b0630;-webkit-user-select:none;user-selec
   }
   function release() { dragging = false; steer = 0; render(); }
 
-  pad.addEventListener('mousedown', function (e) { dragging = true; at(e); });
-  window.addEventListener('mousemove', function (e) { if (dragging) at(e); });
+  pad.addEventListener('mousedown', function (e) { dragging = true; at(e); e.preventDefault(); getSelection().removeAllRanges(); });
+  pad.addEventListener('dragstart', function (e) { e.preventDefault(); });
+  window.addEventListener('mousemove', function (e) { if (dragging) { at(e); e.preventDefault(); } });
   window.addEventListener('mouseup', function () { if (dragging) release(); });
   pad.addEventListener('touchstart', function (e) { dragging = true; at(e); e.preventDefault(); }, { passive: false });
   pad.addEventListener('touchmove', function (e) { if (dragging) { at(e); e.preventDefault(); } }, { passive: false });

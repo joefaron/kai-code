@@ -76,7 +76,7 @@ td small{color:var(--dim)}
 /* ---- helm v3: one pad, sticky throttle ---- */
 .helm3{display:flex;gap:22px;flex-wrap:wrap;align-items:flex-start}
 .padcol{display:flex;flex-direction:column;gap:10px}
-.pad{width:300px;height:300px;border-radius:20px;position:relative;touch-action:none;cursor:grab;
+.pad{width:300px;height:300px;border-radius:20px;position:relative;touch-action:none;cursor:grab;-webkit-user-select:none;user-select:none;
   background:radial-gradient(circle at 50% 50%,#1c2432,#11151d);border:1px solid var(--edge)}
 .crosshair{position:absolute;inset:0;
   background:linear-gradient(to right,transparent 49.7%,#2b3444 49.7%,#2b3444 50.3%,transparent 50.3%),

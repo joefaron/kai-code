@@ -143,8 +143,10 @@
   // Letting go re-centres ONLY the steering. The throttle stays put.
   function release() { dragging = false; steer = 0; render(); }
 
-  pad.addEventListener('mousedown', function (e) { dragging = true; at(e); });
-  window.addEventListener('mousemove', function (e) { if (dragging) at(e); });
+  // preventDefault: without it a mouse drag starts selecting/dragging the page text instead of the knob
+  pad.addEventListener('mousedown', function (e) { dragging = true; at(e); e.preventDefault(); getSelection().removeAllRanges(); });
+  pad.addEventListener('dragstart', function (e) { e.preventDefault(); });
+  window.addEventListener('mousemove', function (e) { if (dragging) { at(e); e.preventDefault(); } });
   window.addEventListener('mouseup', function () { if (dragging) release(); });
   pad.addEventListener('touchstart', function (e) { dragging = true; at(e); e.preventDefault(); }, { passive: false });
   pad.addEventListener('touchmove', function (e) { if (dragging) { at(e); e.preventDefault(); } }, { passive: false });

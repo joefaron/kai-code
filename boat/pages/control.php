@@ -218,4 +218,4 @@ them here first.</p>
   drives it gets the same trim. The knobs here only change the simulator.</p>
 </section>
 
-<script src="/assets/control.js?v=23"></script>
+<script src="/assets/control.js?v=24"></script>
