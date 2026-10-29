@@ -1,5 +1,5 @@
 {
- "made": "2026-10-29T07:56:01.917Z",
+ "made": "2026-10-29T14:25:06.327Z",
  "slides": [
   [
    {
@@ -20,17 +20,17 @@
   [
    {
     "who": "diego",
-    "text": "Engineers break stuff... on purpose! Now that's my kinda job!",
+    "text": "Engineers try stuff, an' sometimes it goes KABOOM! Then they figure out why.",
     "file": "v/2-1.mp3",
-    "hash": "a00841d8bf",
-    "dur": 4.18
+    "hash": "0d95985d67",
+    "dur": 5.2
    },
    {
     "who": "earl",
-    "text": "Rockets blow up so the next one don't. Same thing happens to my boats.",
+    "text": "Ever' crash teaches ya somethin' ya didn't know ya didn't know. I've learned a LOT.",
     "file": "v/2-2.mp3",
-    "hash": "e77bd78624",
-    "dur": 4.36
+    "hash": "f116e31487",
+    "dur": 4.88
    }
   ],
   [
@@ -52,10 +52,10 @@
   [
    {
     "who": "diego",
-    "text": "A.I. read the whole internet, an' now it just guesses the next word. Like guessin' where the catfish are!",
+    "text": "A.I. read a giant pile o' the internet, an' now it just guesses the next word. Like guessin' where the catfish are!",
     "file": "v/4-1.mp3",
-    "hash": "ab9abd437f",
-    "dur": 5.36
+    "hash": "89557536e7",
+    "dur": 6.77
    },
    {
     "who": "earl",

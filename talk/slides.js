@@ -20,7 +20,7 @@ if (!presenter) {
 // music, sound effects and the talking narrators: only decks that ask for it (<body data-audio>)
 let audio = null;
 if (!presenter && 'audio' in document.body.dataset)
-  import('./audio.js?v=1').then(m => { audio = m; audio.slide(cur); }).catch(e => console.warn('no audio', e));
+  import('./audio.js?v=2').then(m => { audio = m; audio.slide(cur); }).catch(e => console.warn('no audio', e));
 
 const title = s => (s.querySelector('h1,h2')?.textContent || '').replace(/\s+/g, ' ').trim();
 const plan = slides.map(s => parseFloat(s.dataset.min || 1));

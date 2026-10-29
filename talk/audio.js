@@ -5,6 +5,7 @@
 // so the first arrow press starts everything. Free libraries: Howler.js (music) + ZzFX (effects).
 // Voice lines: talk/audio/script.json -> node tools/voices.mjs -> talk/audio/voices.json.
 import { ZZFX } from './vendor/zzfx.js';
+import { coach } from './coach.js?v=1';
 const { Howl, Howler } = window;
 
 const A = 'audio/';
@@ -28,7 +29,7 @@ const fx = name => { if (sfxOn && ZZFX.x.state === 'running') ZZFX.play(...FX[na
 // extra effects per slide, [ms after the slide opens, effect]. Slide 1 = index 0.
 const CUES = {
   0: [[300, 'power']],
-  1: [[650, 'boom']],                                   // rockets blow up on purpose
+  1: [[650, 'boom']],                                   // rocket crash video: try, fail, learn
   2: [[700, 'pop'], [900, 'pop'], [1100, 'ding']],      // three tries -> it floats
   6: [[700, 'coin']],                                   // into the cart
   9: [[500, 'laser'], [700, 'laser'], [900, 'laser']],  // lasers!
@@ -45,14 +46,18 @@ function startMusic() {
 const BED = .32, DUCK = .1;
 const duck = down => music?.playing() && music.fade(music.volume(), down ? DUCK : BED, 350);
 
-// ---- voices + the talking Polaroid ----
+// ---- voices + the talking Polaroid (coach.js = FW3D's rig: mouth shapes, eyes, blinks, time of day) ----
 const card = document.createElement('div');
 card.className = 'talker';
-card.innerHTML = '<img alt="">';
-const cardImg = card.querySelector('img');
+card.innerHTML = '<canvas></canvas>';
+const face = coach(card.querySelector('canvas'));
+// the hour behind the Polaroid, per slide: the talk runs morning to night, and it rains on the crashes
+const SCENES = ['morning', 'rain', 'rain', 'day', 'day', 'day', 'day', 'day', 'sunset', 'sunset', 'sunset', 'night', 'night', 'night'];
+const sceneFor = n => SCENES[n] || 'day';
 let lines = [], ctx = null, analyser = null, voiceGain = null, buffers = {}, playing = null, plan = [], level = new Uint8Array(256);
 
 fetch(A + 'voices.json').then(r => r.json()).then(j => { lines = j.slides; }).catch(() => {});
+['diego', 'earl'].forEach(w => face.preload(w, 'morning'));
 const load = async f => buffers[f] ??= fetch(A + f).then(r => r.arrayBuffer()).then(b => ctx.decodeAudioData(b));
 
 function setupCtx() {
@@ -67,7 +72,7 @@ function stopVoices() {
   plan.forEach(clearTimeout); plan = [];
   try { playing?.stop(); } catch {}
   playing = null;
-  card.classList.remove('on'); duck(false);
+  card.classList.remove('on'); face.quiet(); duck(false);
 }
 
 async function sayAll(n, token) {
@@ -77,26 +82,30 @@ async function sayAll(n, token) {
     if (token !== slideToken || !sfxOn) return;
     const buf = await load(l.file).catch(() => null);
     if (!buf || token !== slideToken || !sfxOn) return;
-    cardImg.src = `${A}cast/${l.who}.png`;
+    await face.say(l.who, l.text, sceneFor(n), buf.duration);
+    if (token !== slideToken || !sfxOn) return;
     card.dataset.who = l.who;
     card.classList.add('on'); duck(true);
     const src = ctx.createBufferSource();
     src.buffer = buf; src.connect(analyser); src.start();
     playing = src;
     await new Promise(r => { src.onended = r; });
+    face.quiet();
     if (token !== slideToken) return;
     await new Promise(r => plan.push(setTimeout(r, 280)));
   }
-  if (token === slideToken) { card.classList.remove('on'); duck(false); }
+  if (token === slideToken) { card.classList.remove('on'); face.quiet(); duck(false); }
 }
 
-// the card bobs and tilts with how loud the voice is, like the mouth flap in the game
-(function bob() {
-  requestAnimationFrame(bob);
-  if (!analyser || !playing) { card.style.setProperty('--lv', 0); return; }
+// how loud the voice is right now drives the mouth (and a small hop of the card)
+(function listen() {
+  requestAnimationFrame(listen);
+  if (!analyser || !playing) { face.level(0); card.style.setProperty('--lv', 0); return; }
   analyser.getByteTimeDomainData(level);
   let sum = 0; for (const v of level) sum += (v - 128) ** 2;
-  card.style.setProperty('--lv', Math.min(1, Math.sqrt(sum / level.length) / 26).toFixed(3));
+  const lv = Math.min(1, Math.sqrt(sum / level.length) / 22);
+  face.level(lv);
+  card.style.setProperty('--lv', lv.toFixed(3));
 })();
 
 // ---- buttons ----

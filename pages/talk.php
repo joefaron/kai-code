@@ -1,7 +1,7 @@
 <section class="hero">
   <h2>&#127916; You can build anything. You + AI.</h2>
   <p class="lede">A 25-minute talk for a 5th-grade class that has never had robotics. One idea per slide:
-  engineers fail on purpose, how to talk to AI, and five real jobs it did on Kai's boat &mdash;
+  engineers learn by testing (and failing), how to talk to AI, and five real jobs it did on Kai's boat &mdash;
   3D designer, parts expert, architect, electrical engineer, game developer.</p>
   <p class="btnrow"><a class="linkbtn" href="/talk/kids.html"><b>&#9654; Start the slideshow</b></a>
   <a class="linkbtn" href="/talk/kids.html?presenter">Presenter notes + timer</a>
@@ -26,7 +26,7 @@
   <div class="card">
     <h3>The 25 minutes</h3>
     <ol>
-      <li>Engineers break things on purpose: SpaceX + our 3 boats (5 min)</li>
+      <li>Try, fail, learn: SpaceX + our 3 boats (5 min)</li>
       <li>What AI is, and how to talk to it: what, details, rules, check (4&frac12;)</li>
       <li>5 jobs: 3D designer, parts expert, architect, electrical engineer, game developer (11)</li>
       <li>Every kind of engineer, safety, write your own message (8)</li>

@@ -69,28 +69,28 @@
       <li>
       <div class="pmeta"><strong>#1 &middot; Dad</strong>
         &middot; Sep 16, 6:33am</div>
-      <blockquote class="ptext">need to create new project, php7.4 or whatever is fine for now... so i can go to the boat site but its for my sons 6th grade little fun project. I ultimately think it&#039;d be really fun to teach him about an Arduino microcontroller have it set up on a tablet so they can control the motor and direction it&#039;s moving it needs to be waterproof which is problematic i&#039;m not sure how much this costs. [Described the beach: calm and sheltered, almost no waves.] It would be fun to teach him about you know coding this interface and giving him access here in Slack so he can even modify and code this all with AI.. via slack via here.. i&#039;ll buy the components and he&#039;ll put it together,..<br />
+      <blockquote class="ptext">need to create new project, php7.4 or whatever is fine for now... so i can go to the boat site but its for my sons 6th grade little fun project. I ultimately think it'd be really fun to teach him about an Arduino microcontroller have it set up on a tablet so they can control the motor and direction it's moving it needs to be waterproof which is problematic i'm not sure how much this costs. [Described the beach: calm and sheltered, almost no waves.] It would be fun to teach him about you know coding this interface and giving him access here in Slack so he can even modify and code this all with AI.. via slack via here.. i'll buy the components and he'll put it together,..<br />
 <br />
-[Forwarded the teacher&#039;s challenge description - left out of the public copy.]</blockquote>
+[Forwarded the teacher's challenge description - left out of the public copy.]</blockquote>
                     <p class="pout"><strong>What happened:</strong> Built this website from nothing in one go: the mission, the design (airboat, so nothing leaks), a parts list with prices, a touch-screen helm with a boat simulator, a build log, and the ESP32 code that makes the boat its own Wi-Fi network.</p>
           </li>
       <li>
       <div class="pmeta"><strong>#2 &middot; Dad</strong>
         &middot; Sep 16, 6:52am</div>
-      <blockquote class="ptext">You need to actually test how this steering mechanism works with the boat and the shape of it it&#039;s improperly set up pressing to the top right like at least for the orange little circle is is just unclear I would imagine like pressing up would mean up and then we press to the right it starts spinning in circles to the right in a very tight circle Bottom right does like a bigger circle and it&#039;s just like a lot of acceleration It&#039;s not very intuitive with driving I don&#039;t know if it should have two toggle joysticks but it&#039;s not intuitive you need to re review that. I will work on purchasing all the needed parts right now</blockquote>
-                    <p class="pout"><strong>What happened:</strong> Dad test-drove the simulator and it was bad. The AI measured it instead of guessing and found the real bug: the simulation ran one step per screen refresh, and Dad&#039;s monitor refreshes 161 times a second instead of 60 - so the boat ran 2.75x too fast. Fixed that, plus the steering math that made full-right a spin instead of a turn.</p>
+      <blockquote class="ptext">You need to actually test how this steering mechanism works with the boat and the shape of it it's improperly set up pressing to the top right like at least for the orange little circle is is just unclear I would imagine like pressing up would mean up and then we press to the right it starts spinning in circles to the right in a very tight circle Bottom right does like a bigger circle and it's just like a lot of acceleration It's not very intuitive with driving I don't know if it should have two toggle joysticks but it's not intuitive you need to re review that. I will work on purchasing all the needed parts right now</blockquote>
+                    <p class="pout"><strong>What happened:</strong> Dad test-drove the simulator and it was bad. The AI measured it instead of guessing and found the real bug: the simulation ran one step per screen refresh, and Dad's monitor refreshes 161 times a second instead of 60 - so the boat ran 2.75x too fast. Fixed that, plus the steering math that made full-right a spin instead of a turn.</p>
           </li>
       <li>
       <div class="pmeta"><strong>#3 &middot; Dad</strong>
         &middot; Sep 16, 7:05am</div>
-      <blockquote class="ptext">i feel like it needs to use bluetooth or something that can at least handle this controlling from good distance.. his tablet is samsung galaxy tab s7+.. or is wifi connection to it cheaper better? curious what you&#039;d recommend.. and a classmate had the idea, and Kai has a teammate.. the 2 joysticks are harder to control with testing on pc... i feel like 1 might be better.. but the controls need to be figured out better.. as it was really hard to drive it when i was testing.. up should be forward.. right is right... idk i need you to specifically find wherever is best to buy all of these parts, add them to my cart in playwright headed, so i can buy it all asap.</blockquote>
+      <blockquote class="ptext">i feel like it needs to use bluetooth or something that can at least handle this controlling from good distance.. his tablet is samsung galaxy tab s7+.. or is wifi connection to it cheaper better? curious what you'd recommend.. and a classmate had the idea, and Kai has a teammate.. the 2 joysticks are harder to control with testing on pc... i feel like 1 might be better.. but the controls need to be figured out better.. as it was really hard to drive it when i was testing.. up should be forward.. right is right... idk i need you to specifically find wherever is best to buy all of these parts, add them to my cart in playwright headed, so i can buy it all asap.</blockquote>
                     <p class="pout"><strong>What happened:</strong> Compared Bluetooth and Wi-Fi with real numbers (Wi-Fi about 150-240 m, Bluetooth LE about 10-30 m) and stayed on Wi-Fi. Rebuilt the helm as ONE pad where the throttle stays put and steering springs back. Then it searched Amazon and put every part in the shopping cart in a real browser window.</p>
           </li>
       <li>
       <div class="pmeta"><strong>#4 &middot; Dad</strong>
         &middot; Sep 16, 8:58am</div>
       <blockquote class="ptext">adversary/re-review the shopping cart.. verify its all good.. do i need a waterproof box or anything for all of this?</blockquote>
-                    <p class="pout"><strong>What happened:</strong> Checked its own shopping list for mistakes and found two: rechargeable AA cells are 1.2 V not 1.5 V (so the battery pack was too weak and would reboot the brain), and the motor kit&#039;s &#039;propellers&#039; were wind-turbine blades that catch air instead of pushing it. Added real props and a waterproof box.</p>
+                    <p class="pout"><strong>What happened:</strong> Checked its own shopping list for mistakes and found two: rechargeable AA cells are 1.2 V not 1.5 V (so the battery pack was too weak and would reboot the brain), and the motor kit's 'propellers' were wind-turbine blades that catch air instead of pushing it. Added real props and a waterproof box.</p>
           </li>
       <li>
       <div class="pmeta"><strong>#5 &middot; Dad</strong>
@@ -107,37 +107,37 @@
       <li>
       <div class="pmeta"><strong>#7 &middot; Dad</strong>
         &middot; Sep 16, 10:10am</div>
-      <blockquote class="ptext">k bought it all.. its coming tomorrow.. And then I think now the last thing is just really is like how to design this so you think it&#039;s the most optimal design. Like do you actually add a sale how do you how do you verify this things not going to tip over if there&#039;s a swift wind. You know how much is this fan realistically going to be able to push this I don&#039;t know if we need to do web search and see what other people have done with similar things. Obviously we are confined and the more we stick to the plan the better and also I feel like my son and his friend should be the ones really chatting with you later you can just kind of have an original idea. And I really like to even just you know potentially have him present to the class or to print out really all of the prompts I&#039;ve ever sent you so that this is really easily reproducible for others to see and know how to do. The one advantage I have is the instant you know directory on a local computer with cloud code that instantly is live on the web.. but there are other ways to do that as well</blockquote>
+      <blockquote class="ptext">k bought it all.. its coming tomorrow.. And then I think now the last thing is just really is like how to design this so you think it's the most optimal design. Like do you actually add a sale how do you how do you verify this things not going to tip over if there's a swift wind. You know how much is this fan realistically going to be able to push this I don't know if we need to do web search and see what other people have done with similar things. Obviously we are confined and the more we stick to the plan the better and also I feel like my son and his friend should be the ones really chatting with you later you can just kind of have an original idea. And I really like to even just you know potentially have him present to the class or to print out really all of the prompts I've ever sent you so that this is really easily reproducible for others to see and know how to do. The one advantage I have is the instant you know directory on a local computer with cloud code that instantly is live on the web.. but there are other ways to do that as well</blockquote>
                     <p class="pout"><strong>What happened:</strong> Did the physics on thrust, speed, wind and tipping (see the Design page), decided against a sail, planned the tests to run when the parts arrive, and built this page.</p>
           </li>
       <li>
       <div class="pmeta"><strong>#8 &middot; Dad</strong>
         &middot; Sep 17, 3:38pm</div>
       <blockquote class="ptext">So another thing you need to add to the history of prompting and I think something we could probably build out even further like step-by-step build instructions based on all the parts that we got was I sent this prompt into Gemini which is notoriously really good at making blueprint type images: &quot;now design the blueprint image of this exploded out and how to build it&quot;. (Save this image and display it on the web page for future reference and use for when they eventually build this all on their own)</blockquote>
-                    <p class="pout"><strong>What happened:</strong> Saved Gemini&#039;s exploded-view drawing to the site and built a new Blueprint page around it: the picture, a note on which labels the AI got wrong, and an 11-step build order where every step ends in a check you have to pass before the next one.</p>
+                    <p class="pout"><strong>What happened:</strong> Saved Gemini's exploded-view drawing to the site and built a new Blueprint page around it: the picture, a note on which labels the AI got wrong, and an 11-step build order where every step ends in a check you have to pass before the next one.</p>
           </li>
       <li>
       <div class="pmeta"><strong>#9 &middot; Dad</strong>
         &middot; Sep 17, 9:46pm</div>
-      <blockquote class="ptext">Get me the link or maybe you can even just do the electrical diagram that&#039;s needed for all the parts that I just purchased. I have to put it onto the solder list motherboard I just need like a really simple. I don&#039;t know what the best format is for electrical diagrams, but you just make that and then maybe you can just do it and draw i o XML to visualize it better for me or you even just you know, take that format. Use the JavaScript library with HTML and then take a screenshot of that page with playwright. That&#039;s probably the easiest but just trust me bro do it</blockquote>
+      <blockquote class="ptext">Get me the link or maybe you can even just do the electrical diagram that's needed for all the parts that I just purchased. I have to put it onto the solder list motherboard I just need like a really simple. I don't know what the best format is for electrical diagrams, but you just make that and then maybe you can just do it and draw i o XML to visualize it better for me or you even just you know, take that format. Use the JavaScript library with HTML and then take a screenshot of that page with playwright. That's probably the easiest but just trust me bro do it</blockquote>
                     <p class="pout"><strong>What happened:</strong> Bugsy drew a colour-coded wiring diagram of every part (power bank, ESP32, motor driver, two motors) with the ESP32 pins in their real order, and added it to the site as the new Wiring page.</p>
           </li>
       <li>
       <div class="pmeta"><strong>#10 &middot; Dad</strong>
         &middot; Sep 17, 10:03pm</div>
-      <blockquote class="ptext">Review all of the electronics that I purchased. Looks like four motors, two wind propellers and then one boat. Kind of fan propeller. Three little diode lights. It&#039;s like a yellow, red and green. It would be cool to incorporate that on the boat starboard and Port and then about six different metal dowel rods that are really quite small. I&#039;m assuming connecting from the motor to the propellers however, I don&#039;t see a clear way to splice the motor cables plugging those in. That&#039;s interesting. I don&#039;t know how do you do that? It&#039;s the best way solderless you know with these thin wires you want it to be secure. I&#039;m assuming I have some pins to press it and hold it. You want something mechanical to hold it in and then I have clips for wire clips for splicing. I have three of those and then I have female to female jumpers and then male to male jumpers and I have four mounting brackets. Oh and then what I really don&#039;t understand is the Arduino controller. It looks like it takes USB B port not c. I don&#039;t know. My battery right now is to USBC so I think I might need a different battery pack. I&#039;m assuming that&#039;s the battery port and then I have two little small chips. I have no idea what these little guys do. It says out one out two out three out four UL and then on the top left it says in4n3 ground VCC and then in2 and then these came with the little string of you know little metal wires that are on the plastic clip, so I&#039;m assuming I just like nail that thing in to a specific spot on my solderless board. Let&#039;s update the plan accordingly so really easy for my kids to put together</blockquote>
-                    <p class="pout"><strong>What happened:</strong> The AI looked at a photo of the real parts and caught 3 surprises: the ESP32&#039;s plug is micro-USB, not USB-C (a $7 cable fixes it, not a new battery); the motor driver&#039;s pins come loose and have to be soldered on; and the pins are in a different order than it had drawn. It redrew the wiring to match, added red/green/yellow navigation lights to the code, and wrote a no-solder way to join the motor wires.</p>
+      <blockquote class="ptext">Review all of the electronics that I purchased. Looks like four motors, two wind propellers and then one boat. Kind of fan propeller. Three little diode lights. It's like a yellow, red and green. It would be cool to incorporate that on the boat starboard and Port and then about six different metal dowel rods that are really quite small. I'm assuming connecting from the motor to the propellers however, I don't see a clear way to splice the motor cables plugging those in. That's interesting. I don't know how do you do that? It's the best way solderless you know with these thin wires you want it to be secure. I'm assuming I have some pins to press it and hold it. You want something mechanical to hold it in and then I have clips for wire clips for splicing. I have three of those and then I have female to female jumpers and then male to male jumpers and I have four mounting brackets. Oh and then what I really don't understand is the Arduino controller. It looks like it takes USB B port not c. I don't know. My battery right now is to USBC so I think I might need a different battery pack. I'm assuming that's the battery port and then I have two little small chips. I have no idea what these little guys do. It says out one out two out three out four UL and then on the top left it says in4n3 ground VCC and then in2 and then these came with the little string of you know little metal wires that are on the plastic clip, so I'm assuming I just like nail that thing in to a specific spot on my solderless board. Let's update the plan accordingly so really easy for my kids to put together</blockquote>
+                    <p class="pout"><strong>What happened:</strong> The AI looked at a photo of the real parts and caught 3 surprises: the ESP32's plug is micro-USB, not USB-C (a $7 cable fixes it, not a new battery); the motor driver's pins come loose and have to be soldered on; and the pins are in a different order than it had drawn. It redrew the wiring to match, added red/green/yellow navigation lights to the code, and wrote a no-solder way to join the motor wires.</p>
           </li>
       <li>
       <div class="pmeta"><strong>#11 &middot; Dad</strong>
         &middot; Sep 17, 10:08pm</div>
-      <blockquote class="ptext">I do feel like I might have to redo the battery packs to be the simple USB B version because I don&#039;t that&#039;s what this mean board that I purchased takes in on this Arduino. Everything is like USBC but I like the old school you know it&#039;s just a power source it&#039;s i&#039;m just curious if there&#039;s anything else I should buy as a backup and then my last question is like how do you make this thing go 10 times faster I&#039;m assuming I have to increase the motors and then the battery pack and that&#039;s about it like all the other technology is the same? Like what about if I wanna make this into a 30 mile an hour that&#039;s maybe too fast I would say like a 10 mile an hour hovercraft made out of recycled materials that&#039;s my question as a dad. Kai&#039;s about to start prompting tomorrow so I just wanna prep everything in advance I would like to have some working motors if I have to splice the USB cable from the Mark Rover battery I can I also have some old double A battery banks that I think might work for this I&#039;ll attach a photo is one of those ones just matters about the voltage outright so how many batteries are going out I connect the black and the red wire and that&#039;s it</blockquote>
-                    <p class="pout"><strong>What happened:</strong> Learned that the battery doesn&#039;t have to change, just the cable. Old AA holders can run the motors (count the cells: 4 AA = 6 V is the sweet spot). And going 10x faster isn&#039;t &#039;bigger motors&#039;: air drag grows so fast that 10x the speed needs roughly 100x the power, which means a whole different kind of motor, battery and prop.</p>
+      <blockquote class="ptext">I do feel like I might have to redo the battery packs to be the simple USB B version because I don't that's what this mean board that I purchased takes in on this Arduino. Everything is like USBC but I like the old school you know it's just a power source it's i'm just curious if there's anything else I should buy as a backup and then my last question is like how do you make this thing go 10 times faster I'm assuming I have to increase the motors and then the battery pack and that's about it like all the other technology is the same? Like what about if I wanna make this into a 30 mile an hour that's maybe too fast I would say like a 10 mile an hour hovercraft made out of recycled materials that's my question as a dad. Kai's about to start prompting tomorrow so I just wanna prep everything in advance I would like to have some working motors if I have to splice the USB cable from the Mark Rover battery I can I also have some old double A battery banks that I think might work for this I'll attach a photo is one of those ones just matters about the voltage outright so how many batteries are going out I connect the black and the red wire and that's it</blockquote>
+                    <p class="pout"><strong>What happened:</strong> Learned that the battery doesn't have to change, just the cable. Old AA holders can run the motors (count the cells: 4 AA = 6 V is the sweet spot). And going 10x faster isn't 'bigger motors': air drag grows so fast that 10x the speed needs roughly 100x the power, which means a whole different kind of motor, battery and prop.</p>
           </li>
       <li>
       <div class="pmeta"><strong>#12 &middot; Dad</strong>
         &middot; Sep 17, 10:14pm</div>
-      <blockquote class="ptext">Give me any of the things you think I should buy for Amazon right now in particular that battery to motor connection I don&#039;t think I have that adapter and then anything else for the future after this. Just research on Amazon and then let me know the list</blockquote>
+      <blockquote class="ptext">Give me any of the things you think I should buy for Amazon right now in particular that battery to motor connection I don't think I have that adapter and then anything else for the future after this. Just research on Amazon and then let me know the list</blockquote>
                     <p class="pout"><strong>What happened:</strong> Researched Amazon and found the simplest battery-to-motor connection is a 4-AA battery holder with a switch: no cutting a USB cable, 6 V instead of 5 V, and the switch doubles as a motor kill switch. Also found the right cables, resistors, a multimeter for measuring volts, and a soldering kit.</p>
           </li>
       <li>
@@ -150,7 +150,7 @@
       <div class="pmeta"><strong>#14 &middot; Dad</strong>
         &middot; Sep 17, 10:28pm</div>
       <blockquote class="ptext">i just plugged it into my usb.. find the esp32 or whatever and figure it out</blockquote>
-                    <p class="pout"><strong>What happened:</strong> Plugged the ESP32 into the computer and it didn&#039;t show up: Windows was missing the driver for the USB chip on the board (a CP2102). Installed it, identified the chip, installed the ESP32 tools, and uploaded the boat&#039;s code for the first time.</p>
+                    <p class="pout"><strong>What happened:</strong> Plugged the ESP32 into the computer and it didn't show up: Windows was missing the driver for the USB chip on the board (a CP2102). Installed it, identified the chip, installed the ESP32 tools, and uploaded the boat's code for the first time.</p>
           </li>
       <li>
       <div class="pmeta"><strong>#15 &middot; Dad</strong>
@@ -161,20 +161,20 @@
       <li>
       <div class="pmeta"><strong>#16 &middot; Dad</strong>
         &middot; Sep 19, 8:32am</div>
-      <blockquote class="ptext">Need to find some YouTube videos that I can have them watch. Really quick to see how to connect this all together. It&#039;s also a bummer that we ended up needing a soldering iron. I thought the whole point of this was to not have it soldered but it&#039;s clear. Obviously you need to is how the wiring is. I&#039;m still a little confused with how to cut some of the wires like for the motors, trimming them back and still hot to plug things into the esp. I think them seeing some cool videos will help inspire and not overwhelm</blockquote>
+      <blockquote class="ptext">Need to find some YouTube videos that I can have them watch. Really quick to see how to connect this all together. It's also a bummer that we ended up needing a soldering iron. I thought the whole point of this was to not have it soldered but it's clear. Obviously you need to is how the wiring is. I'm still a little confused with how to cut some of the wires like for the motors, trimming them back and still hot to plug things into the esp. I think them seeing some cool videos will help inspire and not overwhelm</blockquote>
                     <p class="pout"><strong>What happened:</strong> Found short YouTube videos (about 20 minutes in all) on breadboards, soldering, the motor driver and joining wires, plus a few airboat builds for ideas, checked that each link works, and put them at the top of the Wiring page.</p>
           </li>
       <li>
       <div class="pmeta"><strong>#17 &middot; Dad</strong>
         &middot; Sep 19, 9:05am</div>
       <blockquote class="ptext">You need to add him to have access. You have my authority. Go ahead</blockquote>
-                    <p class="pout"><strong>What happened:</strong> Gave Kai&#039;s Slack account permission to talk to the AI, but only in the #boat channel.</p>
+                    <p class="pout"><strong>What happened:</strong> Gave Kai's Slack account permission to talk to the AI, but only in the #boat channel.</p>
           </li>
       <li>
       <div class="pmeta"><strong>#18 &middot; Dad</strong>
         &middot; Sep 19, 9:10am</div>
       <blockquote class="ptext">now answer the question and review the attachment</blockquote>
-                    <p class="pout"><strong>What happened:</strong> Weighed up the bottles: small bottles are fine, and two long &#039;bottle snakes&#039; beat a big raft. Also covered tape, deck and fin ideas.</p>
+                    <p class="pout"><strong>What happened:</strong> Weighed up the bottles: small bottles are fine, and two long 'bottle snakes' beat a big raft. Also covered tape, deck and fin ideas.</p>
           </li>
       <li>
       <div class="pmeta"><strong>#19 &middot; Dad</strong>
@@ -197,14 +197,14 @@
       <li>
       <div class="pmeta"><strong>#22 &middot; Dad</strong>
         &middot; Sep 19, 9:57am</div>
-      <blockquote class="ptext">So I have this and I&#039;m about to solder on these points on the driver board for the motors. I just want to make sure it&#039;s in the right spot now.. I&#039;m curious if I need two of these on the board or if just one of these is good enough for the you know motor that&#039;s going forward and back and then left right?</blockquote>
+      <blockquote class="ptext">So I have this and I'm about to solder on these points on the driver board for the motors. I just want to make sure it's in the right spot now.. I'm curious if I need two of these on the board or if just one of these is good enough for the you know motor that's going forward and back and then left right?</blockquote>
                     <p class="pout"><strong>What happened:</strong> Checked a photo of the motor driver on the breadboard: right spot (straddling the middle gap), and only ONE driver is needed because it has two channels, one per motor. Steering comes from spinning one prop faster than the other.</p>
           </li>
       <li>
       <div class="pmeta"><strong>#23 &middot; Dad</strong>
         &middot; Sep 19, 10:03am</div>
       <blockquote class="ptext">what heat setting on it should i set it too? its at 400</blockquote>
-                    <p class="pout"><strong>What happened:</strong> Picked a soldering temperature and explained why hotter isn&#039;t better: too hot burns the flux off before the solder can flow.</p>
+                    <p class="pout"><strong>What happened:</strong> Picked a soldering temperature and explained why hotter isn't better: too hot burns the flux off before the solder can flow.</p>
           </li>
       <li>
       <div class="pmeta"><strong>#24 &middot; Dad</strong>
@@ -228,25 +228,25 @@
       <div class="pmeta"><strong>#27 &middot; Dad</strong>
         &middot; Sep 19, 10:29am</div>
       <blockquote class="ptext">this will come today.. is this fine? can i do anything in meantime? let it cool down? unscrew it? use sandpaper to clean it? https://www.amazon.com/Thermaltronics-FBA_TMT-TC-2-Lead-Tinner-Container/dp/B00NS4J6BY/ref=sr_1_6</blockquote>
-                    <p class="pout"><strong>What happened:</strong> Checked Dad&#039;s tip tinner (a good one) and said what NOT to do while waiting: don&#039;t sand the tip, because that strips the plating that makes solder stick.</p>
+                    <p class="pout"><strong>What happened:</strong> Checked Dad's tip tinner (a good one) and said what NOT to do while waiting: don't sand the tip, because that strips the plating that makes solder stick.</p>
           </li>
       <li>
       <div class="pmeta"><strong>#28 &middot; Dad</strong>
         &middot; Sep 19, 10:35am</div>
-      <blockquote class="ptext">Can I at least you know plug some of this together and use the you know little metal clips for the motors to then plug into the solid jumper wires to the board? I&#039;m just curious on where each one goes. All of your diagrams have been pretty confusing the star. I&#039;m just plugging it in on a power source so that we can at least test how this works over Wi-Fi and verifying that you know our controller works as expected?</blockquote>
-                    <p class="pout"><strong>What happened:</strong> Wrote a pin-by-pin wiring list by label instead of a diagram, and found a test that needs no wiring at all: the ESP32&#039;s own blue light turns on when the tablet says go and off when the tablet goes quiet.</p>
+      <blockquote class="ptext">Can I at least you know plug some of this together and use the you know little metal clips for the motors to then plug into the solid jumper wires to the board? I'm just curious on where each one goes. All of your diagrams have been pretty confusing the star. I'm just plugging it in on a power source so that we can at least test how this works over Wi-Fi and verifying that you know our controller works as expected?</blockquote>
+                    <p class="pout"><strong>What happened:</strong> Wrote a pin-by-pin wiring list by label instead of a diagram, and found a test that needs no wiring at all: the ESP32's own blue light turns on when the tablet says go and off when the tablet goes quiet.</p>
           </li>
       <li>
       <div class="pmeta"><strong>#29 &middot; Dad</strong>
         &middot; Sep 19, 10:40am</div>
-      <blockquote class="ptext">How am I supposed to plug things into the esp32 makes no sense. I thought it&#039;d be on the breadboard and then I&#039;m connecting a wire into that area on the breadboard</blockquote>
-                    <p class="pout"><strong>What happened:</strong> Dad was right: the ESP32 goes IN the breadboard. The catch is it&#039;s so wide that only one side has a free hole beside its pins, so the AI moved the driver&#039;s ON switch and the lights to pins on that side (a code change) and drew a real breadboard picture with every wire going from one numbered hole to another.</p>
+      <blockquote class="ptext">How am I supposed to plug things into the esp32 makes no sense. I thought it'd be on the breadboard and then I'm connecting a wire into that area on the breadboard</blockquote>
+                    <p class="pout"><strong>What happened:</strong> Dad was right: the ESP32 goes IN the breadboard. The catch is it's so wide that only one side has a free hole beside its pins, so the AI moved the driver's ON switch and the lights to pins on that side (a code change) and drew a real breadboard picture with every wire going from one numbered hole to another.</p>
           </li>
       <li>
       <div class="pmeta"><strong>#30 &middot; Dad</strong>
         &middot; Sep 19, 10:53am</div>
-      <blockquote class="ptext">i plugged it back in... i bought resistors you mentioned too that are coming today for the lights.. would be cool addition to have.. but nice if we didnt need to plug them in... review the mockup image you did.. its quite good... idk how we can improve it and even make it into a step by step sheet for them to follow on their own. like lego instruction style.. good tool/skill for future little electronics projects i&#039;ll do with kai</blockquote>
-                    <p class="pout"><strong>What happened:</strong> Made LEGO-style build steps: 11 pages, each showing the whole board with earlier parts faded, the new wire glowing, and the exact hole named at both ends, plus a check before the next step. It&#039;s drawn from one description of the circuit, so it can be reused for the next project. Also loaded the new code onto the ESP32.</p>
+      <blockquote class="ptext">i plugged it back in... i bought resistors you mentioned too that are coming today for the lights.. would be cool addition to have.. but nice if we didnt need to plug them in... review the mockup image you did.. its quite good... idk how we can improve it and even make it into a step by step sheet for them to follow on their own. like lego instruction style.. good tool/skill for future little electronics projects i'll do with kai</blockquote>
+                    <p class="pout"><strong>What happened:</strong> Made LEGO-style build steps: 11 pages, each showing the whole board with earlier parts faded, the new wire glowing, and the exact hole named at both ends, plus a check before the next step. It's drawn from one description of the circuit, so it can be reused for the next project. Also loaded the new code onto the ESP32.</p>
           </li>
       <li>
       <div class="pmeta"><strong>#31 &middot; Dad</strong>
@@ -263,7 +263,7 @@
       <li>
       <div class="pmeta"><strong>#33 &middot; Dad</strong>
         &middot; Sep 19, 11:22am</div>
-      <blockquote class="ptext">oops i see its already printable.. i think we need better icon&#039;s added in.. idk what free library if icons might help clarify things.. or emoji.. for the jumper wire, batteries, etc? idk.. feel this can look nicer / easier to read... and make it kid friendly.. funny memes or a halloween google font for some of the header text? idk</blockquote>
+      <blockquote class="ptext">oops i see its already printable.. i think we need better icon's added in.. idk what free library if icons might help clarify things.. or emoji.. for the jumper wire, batteries, etc? idk.. feel this can look nicer / easier to read... and make it kid friendly.. funny memes or a halloween google font for some of the header text? idk</blockquote>
                     <p class="pout"><strong>What happened:</strong> Made the booklet more kid-friendly: pictures of every part in its real colours, a spooky Halloween font, and a joke on every step.</p>
           </li>
       <li>
@@ -293,55 +293,55 @@
       <li>
       <div class="pmeta"><strong>#38 &middot; Dad</strong>
         &middot; Sep 19, 11:43am</div>
-      <blockquote class="ptext">going to do a2.. simplify that.. no longer doing 2L bottle.. they&#039;re doing 8 of the small bottles in each pontoon side.. i&#039;m worried with all the weight of this.. and all the duct tape they used.. and that these motors will go very slow with how much this all weighs now... i think this is good for prototype 1 tho and having this fail and then they improve it... just curious which motors and batterries i may need to switch to? I have 2 of these old huge battery packs? Is this too much? Do I need bigger motors instead?</blockquote>
+      <blockquote class="ptext">going to do a2.. simplify that.. no longer doing 2L bottle.. they're doing 8 of the small bottles in each pontoon side.. i'm worried with all the weight of this.. and all the duct tape they used.. and that these motors will go very slow with how much this all weighs now... i think this is good for prototype 1 tho and having this fail and then they improve it... just curious which motors and batterries i may need to switch to? I have 2 of these old huge battery packs? Is this too much? Do I need bigger motors instead?</blockquote>
                     <p class="pout"><strong>What happened:</strong> Picked hanging the fans off the back edge. Learned that 8 AA batteries (12 V) is too much for the motor driver, and that the next step is to measure the thrust and maybe switch to bigger 130-size motors.</p>
           </li>
       <li>
       <div class="pmeta"><strong>#39 &middot; Dad</strong>
         &middot; Sep 19, 12:33pm</div>
-      <blockquote class="ptext">the boat site&#039;s ?p=control Feel that this can all be improved it&#039;d be cool to see now the now percentage of power in each of the two propellers and the FWD top header is kind of in a weird spot. In that so it would be cool to toggle on and off you know sound effects when you&#039;re driving at I don&#039;t really understand the all stop or reset boat if that&#039;s even really needed I don&#039;t think we&#039;ve changed very much just yet I think we could maybe have a yeah how you have a trim center setting and then even like what other settings or knobs do you think we could change Like the sensitivity or something you know the turning mechanism so it&#039;s more sensitive to turning or you know acceleration I don&#039;t know what else but it&#039;d be nice to play around and have any of these settings save as a cookie to the session so on reload they stay</blockquote>
-                    <p class="pout"><strong>What happened:</strong> The control page now shows each fan&#039;s power as a % with a spinning prop, has a sound on/off button, and has tuning knobs (trim, steering strength, steering feel, throttle response, top speed, flip/swap fans) that stay saved after a reload.</p>
+      <blockquote class="ptext">the boat site's ?p=control Feel that this can all be improved it'd be cool to see now the now percentage of power in each of the two propellers and the FWD top header is kind of in a weird spot. In that so it would be cool to toggle on and off you know sound effects when you're driving at I don't really understand the all stop or reset boat if that's even really needed I don't think we've changed very much just yet I think we could maybe have a yeah how you have a trim center setting and then even like what other settings or knobs do you think we could change Like the sensitivity or something you know the turning mechanism so it's more sensitive to turning or you know acceleration I don't know what else but it'd be nice to play around and have any of these settings save as a cookie to the session so on reload they stay</blockquote>
+                    <p class="pout"><strong>What happened:</strong> The control page now shows each fan's power as a % with a spinning prop, has a sound on/off button, and has tuning knobs (trim, steering strength, steering feel, throttle response, top speed, flip/swap fans) that stay saved after a reload.</p>
           </li>
       <li>
       <div class="pmeta"><strong>#40 &middot; Dad</strong>
         &middot; Sep 19, 12:35pm</div>
-      <blockquote class="ptext">how much faster / stronger are those motors then the ones i got? i feel like we should put 4 motors on this.. can i with what i have or no? EUDAX 6 Set Mini Generator Motors 3V-12V DC Motor Electric Motor with Propellers Fan Leaf for DIY Electronic Toys Wind Turbine Hand Cranked Power Generator Model School Project Educational Physics Experiment This is a multi-functional beginner&#039;s Kit. It can be driven by wind, gears and pulleys to generate current to light up LEDs. It can also be driven by solar panels or batteries to make various solar and electric toys. Designed Beginner Kit:6 Pcs mini Generator motor,6 Pcs Motor Mounting Bracket Holder,6 Pcs 2mm Shaft Propeller(3 Pcs 4 Vanes and 3 Pcs 3 Vanes,Color random),9 Pcs LED(Red,Yellow,Green),6 Pcs Quick Connector,Color English Manual. This set can be used in engineering class, science experiments, School student lab projects, STEM experiments, etc. It has enough accessories so that you can complete many interesting projects with your family and friends. *Features:* -Color:Silver -Voltage:DC 3V-12V -Rated Speed:1500-6500 RPM -Motor Body Diameter:24mm/0.94&quot; -Motor Height:22.21mm/0.87&quot; -Shaft Size:8.25x2.0mm/0.32&quot;x0.08&quot;(L*D) -Line length：14cm/5.51in *Package including:* 6 x Generator DC Motor 6 x Motor Mounting Bracket Holder 6 x Quick Connector 9 x LED(Red,Green,Yellow) 3 x Plastic Propellers(4 Vanes,Random Color) 3 x Plastic Propellers(3 Vanes,Random Color) 1 x Color English Manual</blockquote>
+      <blockquote class="ptext">how much faster / stronger are those motors then the ones i got? i feel like we should put 4 motors on this.. can i with what i have or no? EUDAX 6 Set Mini Generator Motors 3V-12V DC Motor Electric Motor with Propellers Fan Leaf for DIY Electronic Toys Wind Turbine Hand Cranked Power Generator Model School Project Educational Physics Experiment This is a multi-functional beginner's Kit. It can be driven by wind, gears and pulleys to generate current to light up LEDs. It can also be driven by solar panels or batteries to make various solar and electric toys. Designed Beginner Kit:6 Pcs mini Generator motor,6 Pcs Motor Mounting Bracket Holder,6 Pcs 2mm Shaft Propeller(3 Pcs 4 Vanes and 3 Pcs 3 Vanes,Color random),9 Pcs LED(Red,Yellow,Green),6 Pcs Quick Connector,Color English Manual. This set can be used in engineering class, science experiments, School student lab projects, STEM experiments, etc. It has enough accessories so that you can complete many interesting projects with your family and friends. *Features:* -Color:Silver -Voltage:DC 3V-12V -Rated Speed:1500-6500 RPM -Motor Body Diameter:24mm/0.94&quot; -Motor Height:22.21mm/0.87&quot; -Shaft Size:8.25x2.0mm/0.32&quot;x0.08&quot;(L*D) -Line length：14cm/5.51in *Package including:* 6 x Generator DC Motor 6 x Motor Mounting Bracket Holder 6 x Quick Connector 9 x LED(Red,Green,Yellow) 3 x Plastic Propellers(4 Vanes,Random Color) 3 x Plastic Propellers(3 Vanes,Random Color) 1 x Color English Manual</blockquote>
                     <p class="pout"><strong>What happened:</strong> Learned our motors are rated up to 12 V, so 6 AA (9 V) gives about twice the push. Four fans fit on one driver by wiring two motors per side together.</p>
           </li>
       <li>
       <div class="pmeta"><strong>#41 &middot; Dad</strong>
         &middot; Sep 19, 12:48pm</div>
-      <blockquote class="ptext">learn up.. Hey I need to update our documentation accordingly I would not want to buy another battery pack it&#039;s kind of ridiculous I have the 8 double A battery holders it stinks that I can&#039;t use that for this it&#039;s just going to give too much power to the esp32 via usb or what? was wanting to use the little rechargable hackpack battery packs too.. but it seems we got rid of those too for something else? Is there a way with our code that we&#039;ve been adding on to the ESP to basically allow it to have the two additional motors and that it can just sense if they&#039;re connected or not and then you know adjust for the speed and everything accordingly or like yeah just don&#039;t know how the wiring diagram needs to change as well in our PDF for how and if we wire in the additionals to the little muscle chip.. if it has enough in/outs for the 4 motors?</blockquote>
+      <blockquote class="ptext">learn up.. Hey I need to update our documentation accordingly I would not want to buy another battery pack it's kind of ridiculous I have the 8 double A battery holders it stinks that I can't use that for this it's just going to give too much power to the esp32 via usb or what? was wanting to use the little rechargable hackpack battery packs too.. but it seems we got rid of those too for something else? Is there a way with our code that we've been adding on to the ESP to basically allow it to have the two additional motors and that it can just sense if they're connected or not and then you know adjust for the speed and everything accordingly or like yeah just don't know how the wiring diagram needs to change as well in our PDF for how and if we wire in the additionals to the little muscle chip.. if it has enough in/outs for the 4 motors?</blockquote>
                     <p class="pout"><strong>What happened:</strong> Kept the old 8-AA holder: load 6 AA plus 2 dummy cells for 9 V. Added an optional step 12 and a plan page for 4 fans, with no code change.</p>
           </li>
       <li>
       <div class="pmeta"><strong>#42 &middot; Dad</strong>
         &middot; Sep 19, 12:52pm</div>
-      <blockquote class="ptext">Yeah I assume we obviously need to be controlling it via it&#039;s own web page so you need to build that out accordingly</blockquote>
+      <blockquote class="ptext">Yeah I assume we obviously need to be controlling it via it's own web page so you need to build that out accordingly</blockquote>
                     <p class="pout"><strong>What happened:</strong> The boat now serves the whole control page itself at http://192.168.4.1, built automatically from the same files as the website, so the two can never disagree.</p>
           </li>
       <li>
       <div class="pmeta"><strong>#43 &middot; Dad</strong>
         &middot; Sep 19, 1:06pm</div>
       <blockquote class="ptext">you should be able to test this on your own with PW cli.. its not loading for me</blockquote>
-                    <p class="pout"><strong>What happened:</strong> Testing it for real found two bugs: the pad&#039;s knob started in the wrong corner, and a public https website is not allowed to talk to a gadget on your own Wi-Fi, so only the boat&#039;s own page can drive it.</p>
+                    <p class="pout"><strong>What happened:</strong> Testing it for real found two bugs: the pad's knob started in the wrong corner, and a public https website is not allowed to talk to a gadget on your own Wi-Fi, so only the boat's own page can drive it.</p>
           </li>
       <li>
       <div class="pmeta"><strong>#44 &middot; Dad</strong>
         &middot; Sep 19, 1:16pm</div>
-      <blockquote class="ptext">can&#039;t you do this? Do it</blockquote>
-                    <p class="pout"><strong>What happened:</strong> The boat now remembers the tuning knobs itself, so every tablet gets the same trim, and it answers the checks a tablet makes so it won&#039;t say &#039;no internet&#039; and drop the Wi-Fi.</p>
+      <blockquote class="ptext">can't you do this? Do it</blockquote>
+                    <p class="pout"><strong>What happened:</strong> The boat now remembers the tuning knobs itself, so every tablet gets the same trim, and it answers the checks a tablet makes so it won't say 'no internet' and drop the Wi-Fi.</p>
           </li>
       <li>
       <div class="pmeta"><strong>#45 &middot; Dad</strong>
         &middot; Sep 20, 7:17am</div>
-      <blockquote class="ptext">yeah, the tablet he has is Wi-Fi only so I don&#039;t think it&#039;ll complain because it doesn&#039;t have cellular. And then lastly, I am curious is there a way to deploy this code and like refix it via Wi-Fi or does it need to be plugged in via USB whenever I want to update the code?</blockquote>
+      <blockquote class="ptext">yeah, the tablet he has is Wi-Fi only so I don't think it'll complain because it doesn't have cellular. And then lastly, I am curious is there a way to deploy this code and like refix it via Wi-Fi or does it need to be plugged in via USB whenever I want to update the code?</blockquote>
                     <p class="pout"><strong>What happened:</strong> Added updating the code over Wi-Fi: no USB cable needed. The boat only switches to new code once the whole file arrives, it proves which code it is running with a fingerprint, and a wrong password is refused.</p>
           </li>
       <li>
       <div class="pmeta"><strong>#46 &middot; Dad</strong>
         &middot; Sep 20, 7:28am</div>
-      <blockquote class="ptext">I don&#039;t know what your thoughts are for learning up on this so that for all my other coding projects we could possibly handle things this way too? Seems a lot easier than having to constantly replug it in and wait for it to sink. I have like several of these boards and I&#039;m planning on doing different things with this. Obviously just seems like really helpful and I just created a new PHP 74 project for kai. http://Kyd.net said my son can potentially start programming through you with each of these different devices and ideas that he has</blockquote>
+      <blockquote class="ptext">I don't know what your thoughts are for learning up on this so that for all my other coding projects we could possibly handle things this way too? Seems a lot easier than having to constantly replug it in and wait for it to sink. I have like several of these boards and I'm planning on doing different things with this. Obviously just seems like really helpful and I just created a new PHP 74 project for kai. http://Kyd.net said my son can potentially start programming through you with each of these different devices and ideas that he has</blockquote>
                     <p class="pout"><strong>What happened:</strong> Turned everything we learned on the boat into a reusable kit, so any new ESP32 gadget starts with its own Wi-Fi, its own control page, settings saved on the device, and updates over Wi-Fi - one command instead of a week of fiddling.</p>
           </li>
     </ol>
@@ -359,7 +359,7 @@
 
 <footer>
   built by Kai + a teammate + Dad + Bugsy &middot; talk to this site in Slack <code>#boat</code> &middot;
-  Oct 29, 2026 12:59am</footer>
+  Oct 29, 2026 7:32am</footer>
 
 </body>
 </html>

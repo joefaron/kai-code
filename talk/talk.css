@@ -152,10 +152,10 @@ ul.list li::before { content: ""; position: absolute; left: .2em; top: .82em; wi
   background: linear-gradient(180deg, #ffe45c, #ffb21e); box-shadow: 0 4px 0 #1b1030, 0 0 18px rgba(255,190,40,.35); }
 .snd button:active { transform: skew(-8deg) translateY(3px); box-shadow: 0 1px 0 #1b1030; }
 .snd button.off { background: linear-gradient(180deg, #4a5270, #2c324a); color: #9aa6c4; box-shadow: 0 4px 0 #11152a; text-decoration: line-through 2px; }
-.talker { position: fixed; right: 1.4vw; bottom: 4.5vh; z-index: 30; width: clamp(96px, 12vw, 190px); pointer-events: none;
+.talker { position: fixed; right: 1.4vw; bottom: 4.5vh; z-index: 30; width: clamp(110px, 14vw, 230px); pointer-events: none;
   --lv: 0; opacity: 0; transform: translateY(120%) rotate(8deg); transition: opacity .25s, transform .45s cubic-bezier(.3, 1.6, .5, 1); }
-.talker.on { opacity: 1; transform: translateY(calc(var(--lv) * -10px)) rotate(calc(-4deg + var(--lv) * 7deg)) scale(calc(1 + var(--lv) * .06)); transition: opacity .25s, transform .06s linear; }
-.talker img { width: 100%; display: block; filter: drop-shadow(0 8px 18px rgba(0,0,0,.6)); }
+.talker.on { opacity: 1; transform: translateY(calc(var(--lv) * -4px)) rotate(-3deg); transition: opacity .25s, transform .06s linear; }
+.talker canvas { width: 100%; display: block; filter: drop-shadow(0 8px 18px rgba(0,0,0,.6)); }
 body.presenter .snd, body.presenter .talker { display: none; }
 
 /* presenter window (?presenter) */
@@ -175,7 +175,7 @@ body.presenter .pv { display: block; }
   .shade { background: linear-gradient(0deg, rgba(6,9,20,.95) 0%, rgba(6,9,20,.9) var(--cover, 55%), rgba(6,9,20,0) calc(var(--cover, 55%) + 12%)); }
   .recipe, .builder, .split { grid-template-columns: 1fr; }
   .pics img, .pics video { height: calc(var(--h, 22vh) * var(--fit, 1)); }
-  .talker { bottom: 4vh; width: 24vw; }
+  .talker { bottom: 4vh; width: 28vw; }
   .snd button { font-size: .9rem; }
 }
 /* phone held sideways / short window: less padding, a little more width for the words */
