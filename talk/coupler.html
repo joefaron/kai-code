@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The shaft coupler, v1 to v5</title>
+<style>
+html,body{margin:0;height:100%;background:#070a14;overflow:hidden;font-family:Segoe UI,system-ui,sans-serif;color:#eef3ff}
+canvas{display:block;width:100vw;height:100vh;touch-action:none;cursor:grab}
+#title{position:fixed;left:4vw;top:4vh;font-weight:800;font-size:clamp(18px,3.2vh,34px)}
+#title small{display:block;font-weight:400;font-size:clamp(12px,1.8vh,18px);color:#9aa6c4;margin-top:.5vh}
+#steps{position:fixed;left:4vw;top:14vh;display:flex;flex-direction:column;gap:1vh}
+#steps button{all:unset;cursor:pointer;display:flex;align-items:center;gap:.8em;font-size:clamp(13px,2vh,20px);color:#7f8aa8;padding:.45em .8em;border-radius:.6em;transition:all .3s}
+#steps button b{display:inline-grid;place-items:center;width:2.1em;height:2.1em;border-radius:50%;background:#18203a;color:#cdd6f0;font-size:.85em}
+#steps button.on{color:#fff;background:rgba(255,255,255,.07)}
+#steps button.on b{background:var(--c);color:#070a14}
+#cap{position:fixed;left:4vw;right:4vw;bottom:5vh;max-width:760px;padding:1.6vh 2vw 1.8vh;background:rgba(7,10,20,.78);border-left:.9vh solid var(--c,#3ad0ff);border-radius:1vh;transition:border-color .4s}
+#cap h2{margin:0;font-size:clamp(18px,3.4vh,36px);font-weight:800}
+#cap .spec{color:#9aa6c4;font-size:clamp(12px,1.9vh,19px);margin-top:.4vh}
+#cap .verdict{margin-top:.9vh;font-size:clamp(14px,2.4vh,24px);font-weight:700;color:var(--c)}
+#ctl{position:fixed;right:3vw;top:4vh;display:flex;gap:.6em}
+#ctl button{all:unset;cursor:pointer;font-size:clamp(12px,1.7vh,16px);padding:.5em .9em;border-radius:2em;background:#18203a;color:#cdd6f0}
+#ctl button.on{background:#3ad0ff;color:#070a14}
+@media (max-width:700px){#steps{top:auto;bottom:30vh;flex-direction:row;flex-wrap:wrap}#steps button span{display:none}}
+</style>
+<script type="importmap">{ "imports": { "three": "./vendor/three.module.js" } }</script>
+</head>
+<body>
+<!--
+  Five versions of the 3D-printed coupler that joins the boat motor's 2 mm shaft to the
+  2 mm steel prop rod. Each STL (media/3d/coupler/v1..v5.stl, rendered from 3d/*.scad)
+  dissolves into a cloud of points that flies into the shape of the next version.
+  The model is cut in half so you can see the holes; drag to turn it.
+-->
+<canvas id="stage"></canvas>
+<div id="title">The shaft coupler, v1 &rarr; v5<small>five prints to join a 2&nbsp;mm motor shaft to a 2&nbsp;mm steel rod</small></div>
+<div id="steps"></div>
+<div id="ctl"><button id="cut" class="on">Cut in half</button><button id="rod" class="on">Show shafts</button><button id="play" class="on">Auto-play</button></div>
+<div id="cap"><h2></h2><div class="spec"></div><div class="verdict"></div></div>
+<script type="module">
+import * as THREE from 'three';
+import { STLLoader } from './vendor/STLLoader.js';
+
+const VERSIONS = [
+  { file: 'v1', name: 'Spiral', spec: '32 mm long · 12 mm across · 2.2 mm holes', verdict: 'The rod slid straight through.', c: '#ff6b6b' },
+  { file: 'v2', name: 'Short spiral', spec: '16 mm long · holes narrow from 2.1 to 2.0 mm', verdict: 'Way too tight: printed holes come out smaller than drawn.', c: '#ff6b6b' },
+  { file: 'v3', name: 'Tall spiral, wider holes', spec: '32 mm long · holes narrow from 2.4 to 2.2 mm', verdict: 'Better holes, but the spiral is only decoration. Slow to print.', c: '#ffb84d' },
+  { file: 'v4', name: 'Plain tube, deep funnel', spec: '10 mm across · 4.4 mm funnel at each end', verdict: 'Mostly zigzag infill inside. Forced on, it shredded.', c: '#ffb84d' },
+  { file: 'v5', name: 'Crush ribs', spec: '7 mm across · loose 2.6 mm hole · 3 ribs reach in to 2.0 mm · solid middle', verdict: 'The ribs shave to fit the steel rod. Prints as solid walls.', c: '#4ade80' },
+];
+const N = 9000;              // points in the morph cloud
+const HOLD = 4.2, MORPH = 2.2;
+
+const canvas = document.getElementById('stage');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.localClippingEnabled = true;
+renderer.toneMapping = THREE.NeutralToneMapping; renderer.toneMappingExposure = 1.15;
+const scene = new THREE.Scene();
+scene.fog = new THREE.Fog(0x070a14, 160, 320);
+const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 500);
+camera.position.set(0, 4, 78);
+
+scene.add(new THREE.HemisphereLight(0xdfe8ff, 0x302030, 1.8));
+const key = new THREE.DirectionalLight(0xffffff, 2.2); key.position.set(30, 40, 50); scene.add(key);
+const rim = new THREE.DirectionalLight(0x3ad0ff, 1.4); rim.position.set(-40, 10, -30); scene.add(rim);
+
+
+
+
+
+const turn = new THREE.Group(); scene.add(turn);
+const cutPlane = new THREE.Plane(new THREE.Vector3(0, 0, -1), 0);   // hides the half facing the camera
+
+const pla = (side, color) => new THREE.MeshStandardMaterial({ color, roughness: .55, metalness: .02, side, clippingPlanes: [cutPlane], transparent: true, opacity: 1 });
+
+// steel shafts: motor shaft from below, prop rod from above (2 mm, real scale)
+const steel = new THREE.MeshStandardMaterial({ color: 0xe4ebf3, roughness: .3, metalness: .55, transparent: true });
+const shaftGeo = new THREE.CylinderGeometry(1, 1, 30, 24);
+const rodTop = new THREE.Mesh(shaftGeo, steel), rodBot = new THREE.Mesh(shaftGeo, steel);
+turn.add(rodTop, rodBot);
+
+// --- load + prepare each version -------------------------------------------------
+const loader = new STLLoader();
+const load = (f) => new Promise((ok, bad) => loader.load(`../media/3d/coupler/${f}.stl`, ok, undefined, bad));
+
+function prepare(geo) {
+  geo.rotateX(-Math.PI / 2);               // STL z-up -> three y-up
+  geo.computeBoundingBox();
+  const bb = geo.boundingBox, cy = (bb.min.y + bb.max.y) / 2;
+  geo.translate(0, -cy, 0);
+  geo.computeVertexNormals();
+  return { geo, len: bb.max.y - bb.min.y };
+}
+
+// area-weighted points on the surface, then ordered (height band, then angle) so that
+// point i of one version lands on a sensible spot of the next
+function samplePoints(geo, len) {
+  const p = geo.attributes.position, tri = p.count / 3, areas = new Float32Array(tri);
+  const a = new THREE.Vector3(), b = new THREE.Vector3(), c = new THREE.Vector3();
+  let total = 0;
+  for (let i = 0; i < tri; i++) {
+    a.fromBufferAttribute(p, i * 3); b.fromBufferAttribute(p, i * 3 + 1); c.fromBufferAttribute(p, i * 3 + 2);
+    total += new THREE.Triangle(a, b, c).getArea(); areas[i] = total;
+  }
+  let seed = 7; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const pts = [];
+  for (let k = 0; k < N; k++) {
+    const r = rnd() * total;
+    let lo = 0, hi = tri - 1;
+    while (lo < hi) { const m = (lo + hi) >> 1; if (areas[m] < r) lo = m + 1; else hi = m; }
+    a.fromBufferAttribute(p, lo * 3); b.fromBufferAttribute(p, lo * 3 + 1); c.fromBufferAttribute(p, lo * 3 + 2);
+    let u = rnd(), v = rnd(); if (u + v > 1) { u = 1 - u; v = 1 - v; }
+    const x = a.x + (b.x - a.x) * u + (c.x - a.x) * v, y = a.y + (b.y - a.y) * u + (c.y - a.y) * v, z = a.z + (b.z - a.z) * u + (c.z - a.z) * v;
+    const band = Math.floor((y / len + .5) * 48), ang = Math.atan2(z, x), rad = Math.hypot(x, z);
+    pts.push({ x, y, z, key: band * 100 + (ang + Math.PI) * 10 + rad * .01 });
+  }
+  pts.sort((p, q) => p.key - q.key);
+  const out = new Float32Array(N * 3);
+  pts.forEach((q, i) => { out[i * 3] = q.x; out[i * 3 + 1] = q.y; out[i * 3 + 2] = q.z; });
+  return out;
+}
+
+const models = [];
+for (const v of VERSIONS) {
+  const { geo, len } = prepare(await load(v.file));
+  const g = new THREE.Group();
+  const front = new THREE.Mesh(geo, pla(THREE.FrontSide, 0xf2b8a2));
+  const back = new THREE.Mesh(geo, pla(THREE.BackSide, 0xd98a6c));   // inside walls read as the cut face
+  g.add(front, back); g.visible = false; turn.add(g);
+  models.push({ ...v, g, mats: [front.material, back.material], len, pts: samplePoints(geo, len) });
+}
+
+// the morph cloud
+const cloudGeo = new THREE.BufferGeometry();
+const cloudPos = new Float32Array(N * 3);
+cloudGeo.setAttribute('position', new THREE.BufferAttribute(cloudPos, 3));
+const cloudMat = new THREE.PointsMaterial({ size: .32, color: 0xffd2bf, transparent: true, opacity: 0, depthWrite: false, blending: THREE.AdditiveBlending });
+const cloud = new THREE.Points(cloudGeo, cloudMat); turn.add(cloud);
+
+// --- UI ---------------------------------------------------------------------------
+const steps = document.getElementById('steps');
+VERSIONS.forEach((v, i) => {
+  const b = document.createElement('button');
+  b.style.setProperty('--c', v.c);
+  b.innerHTML = `<b>v${i + 1}</b><span>${v.name}</span>`;
+  b.onclick = () => go(i);
+  steps.appendChild(b);
+});
+const cap = document.getElementById('cap');
+function caption(i) {
+  const v = models[i];
+  cap.style.setProperty('--c', v.c);
+  cap.querySelector('h2').textContent = `v${i + 1} · ${v.name}`;
+  cap.querySelector('.spec').textContent = v.spec;
+  cap.querySelector('.verdict').textContent = v.verdict;
+  [...steps.children].forEach((b, k) => b.classList.toggle('on', k === i));
+}
+const toggle = (id, fn) => { const b = document.getElementById(id); b.onclick = () => fn(b.classList.toggle('on')); };
+let cutOn = true, rodOn = true, auto = true;
+toggle('cut', (on) => { cutOn = on; });
+toggle('rod', (on) => { rodOn = on; });
+toggle('play', (on) => { auto = on; phaseT = 0; });
+
+// drag to turn
+let spin = 0, drag = null, tilt = .12;
+canvas.addEventListener('pointerdown', (e) => { drag = { x: e.clientX, y: e.clientY, s: spin, t: tilt }; canvas.setPointerCapture(e.pointerId); canvas.style.cursor = 'grabbing'; });
+canvas.addEventListener('pointermove', (e) => { if (!drag) return; spin = drag.s + (e.clientX - drag.x) * .01; tilt = Math.max(-.6, Math.min(.9, drag.t + (e.clientY - drag.y) * .006)); });
+canvas.addEventListener('pointerup', () => { drag = null; canvas.style.cursor = 'grab'; });
+
+// --- state machine: hold a version, then morph to the next --------------------------
+let cur = 0, next = null, phaseT = 0;
+const ease = (t) => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+function show(i) { models.forEach((m, k) => { m.g.visible = k === i; m.mats.forEach((mt) => mt.opacity = 1); }); cloudMat.opacity = 0; caption(i); }
+function go(i) { if (i === cur && next === null) return; if (next !== null) { cur = next; } next = i; phaseT = 0; models[cur].g.visible = true; }
+show(0);
+
+function placeShafts(len, alpha) {
+  // each shaft pokes ~14 mm into its end (half that on the short v2)
+  const inside = Math.min(14, len * .44);
+  rodTop.position.y = len / 2 - inside + 15; rodBot.position.y = -(len / 2 - inside + 15);
+  steel.opacity = alpha; rodTop.visible = rodBot.visible = alpha > .01;
+}
+let shaftLen = models[0].len;
+
+function resize() {
+  const w = innerWidth, h = innerHeight;
+  renderer.setSize(w, h, false); camera.aspect = w / h;
+  camera.position.z = w < h ? 175 : 112; camera.updateProjectionMatrix();
+  turn.position.x = w > h ? 14 : 0; turn.position.y = w > h ? 3 : 8;
+}
+addEventListener('resize', resize); resize();
+
+const clock = new THREE.Clock();
+renderer.setAnimationLoop(() => {
+  const dt = Math.min(clock.getDelta(), .05);
+  if (!drag) spin += dt * .35;
+  turn.rotation.set(tilt, spin, 0);
+  cutPlane.constant = cutOn ? 0 : 1e4;
+  phaseT += dt;
+
+  if (next === null) {
+    if (auto && phaseT > HOLD) go((cur + 1) % models.length);
+  } else {
+    const A = models[cur], B = models[next];
+    const t = Math.min(1, phaseT / MORPH), e = ease(t);
+    // solid A fades out over the first 25%, solid B fades in over the last 25%
+    const outA = 1 - Math.min(1, t / .25), inB = Math.max(0, (t - .75) / .25);
+    A.g.visible = outA > 0; A.mats.forEach((m) => m.opacity = outA);
+    B.g.visible = inB > 0; B.mats.forEach((m) => m.opacity = inB);
+    cloudMat.opacity = Math.sin(Math.PI * Math.min(1, t * 1.05)) * .95;
+    const swirl = Math.sin(Math.PI * e) * 1.2, burst = Math.sin(Math.PI * e) * 5;
+    for (let i = 0; i < N; i++) {
+      const j = i * 3;
+      let x = A.pts[j] + (B.pts[j] - A.pts[j]) * e, y = A.pts[j + 1] + (B.pts[j + 1] - A.pts[j + 1]) * e, z = A.pts[j + 2] + (B.pts[j + 2] - A.pts[j + 2]) * e;
+      const r = Math.hypot(x, z) + burst * (.4 + .6 * ((i * 7919) % 97) / 97), ang = Math.atan2(z, x) + swirl * (1 + y / 40);
+      cloudPos[j] = Math.cos(ang) * r; cloudPos[j + 1] = y; cloudPos[j + 2] = Math.sin(ang) * r;
+    }
+    cloudGeo.attributes.position.needsUpdate = true;
+    shaftLen = A.len + (B.len - A.len) * e;
+    if (t > .5 && cap.dataset.v !== String(next)) { cap.dataset.v = next; caption(next); }
+    if (t >= 1) { cur = next; next = null; phaseT = 0; show(cur); }
+  }
+  placeShafts(shaftLen, rodOn ? (next === null ? 1 : .25) : 0);
+  renderer.render(scene, camera);
+});
+window.ready = true;
+</script>
+</body>
+</html>

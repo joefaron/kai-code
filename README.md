@@ -81,7 +81,7 @@ worked before testing them, until we made "test before you say done" a rule. Rea
 | `boat/` | The boat site (PHP + rendered `.html`), `boat/arduino/` = the chip's code, `boat/data/` = parts, steps, prompts as JSON |
 | `talk/` | "Build anything. You + AI.": slides with live three.js scenes and sound |
 | `game/` | Pocket game console: games are one C file, tested on the PC by a robot player |
-| `3d/`, `media/3d/` | OpenSCAD parts: shaft coupler, motor holders, fit-test strip |
+| `3d/`, `media/3d/` | OpenSCAD parts: shaft coupler, motor holders, fit-test strip. [`talk/coupler.html`](https://joefaron.github.io/kai-code/talk/coupler.html) morphs the coupler from v1 to v5 in 3D (`3d/coupler_v5.scad` is the current one) |
 | `pages/`, `index.php` | The project site (also rendered to `.html` for GitHub Pages) |
 | `tools/` | `static-site.mjs` (PHP -> HTML), `helm-video.mjs` (films the app), `build-pdf.mjs` (booklets) |
 
