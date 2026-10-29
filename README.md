@@ -6,7 +6,7 @@
 <p align="center">
   <b><a href="https://joefaron.github.io/kai-code/talk/">▶ Open the talk (grades 6-8)</a></b> &nbsp;·&nbsp;
   <b><a href="https://joefaron.github.io/kai-code/talk/kids.html">▶ Kids version, with narration</a></b> &nbsp;·&nbsp;
-  <a href="media/video/talk-tour.mp4">🎬 Full walkthrough video (1:45)</a>
+  <a href="https://joefaron.github.io/kai-code/media/video/talk-tour.mp4">🎬 Full walkthrough video (1:45)</a>
 </p>
 <p align="center"><sub>Runs live in your browser: arrow keys to move, <b>F</b> full screen, <b>P</b> presenter notes.</sub></p>
 
