@@ -1,5 +1,15 @@
 # Kai Code: build a Wi-Fi airboat (and more) with an AI helper
 
+<p align="center">
+  <a href="https://joefaron.github.io/kai-code/talk/"><img src="media/video/talk-preview.gif" width="720" alt="The talk: one 3D boat evolving from fans to flat props to tilted props"></a>
+</p>
+<p align="center">
+  <b><a href="https://joefaron.github.io/kai-code/talk/">▶ Open the talk (grades 6-8)</a></b> &nbsp;·&nbsp;
+  <b><a href="https://joefaron.github.io/kai-code/talk/kids.html">▶ Kids version, with narration</a></b> &nbsp;·&nbsp;
+  <a href="media/video/talk-tour.mp4">🎬 Full walkthrough video (1:45)</a>
+</p>
+<p align="center"><sub>Runs live in your browser: arrow keys to move, <b>F</b> full screen, <b>P</b> presenter notes.</sub></p>
+
 A 6th grader (Kai), his dad and an AI helper built a phone-controlled airboat for a school
 boat race, and we're giving all of it away (MIT license): the parts list, the step-by-step
 wiring booklet, the chip's code, the steering app, a 3D model, the talk Kai gave his
