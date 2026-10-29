@@ -6,7 +6,7 @@
    Font: "Bangers" by Vernon Adams, SIL Open Font License 1.1 (fonts/Bangers-OFL.txt),
    from github.com/google/fonts, subset to A-Z 0-9 + punctuation (so HudFont text is UPPERCASE).
    =========================================================================== */
-@font-face{font-family:"HudFont";src:url(/assets/fonts/bangers-hud.woff2) format("woff2");font-display:swap}
+@font-face{font-family:"HudFont";src:url(fonts/bangers-hud.woff2) format("woff2");font-display:swap}
 
 .gamehud{
   --ghost:#3ef0ff; --pumpkin:#ffb020; --bad:#ff3b4f;

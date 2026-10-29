@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>S.S. Jack-o'-Lantern &middot; STEM Boat Challenge</title>
+<link rel="stylesheet" href="./assets/app.css?v=12">
+</head>
+<body>
+
+<header class="top">
+  <div class="brand">
+    <span class="pump">&#127875;</span>
+    <div>
+      <h1>S.S. Jack-o'-Lantern</h1>
+      <p class="sub">6th Grade STEM Boat Challenge &middot; a calm beach</p>
+    </div>
+  </div>
+    <div class="count hot">
+    <strong>2</strong><span>days to launch</span>
+  </div>
+  </header>
+
+<nav class="tabs">
+  <a href="index.html" class="">Mission</a>
+  <a href="design.html" class="on">Design</a>
+  <a href="parts.html" class="">Parts</a>
+  <a href="plan.html" class="">Boat Plan</a>
+  <a href="steps.html" class="">Build Steps</a>
+  <a href="wiring.html" class="">Wiring</a>
+  <a href="control.html" class="">Control</a>
+  <a href="log.html" class="">Build Log</a>
+  <a href="prompts.html" class="">AI Prompts</a>
+  <a href="https://github.com/joefaron/kai-code">Code on GitHub &#8599;</a>
+</nav>
+
+<main>
+<p class="tradeoff">&#128203; Building it? The exploded drawing and the step-by-step order are on
+the <a href="steps.html">Build Steps</a> page.</p>
+
+<section>
+  <h2>Why an airboat</h2>
+  <p>The obvious build is a submerged propeller on a shaft coming out of the back of the
+  hull. It is also the hardest thing on this list to make waterproof: the shaft has to spin
+  <em>and</em> keep water out, which needs a stuffing tube, grease and a lot of fiddling.
+  One leak and the motor and battery are done.</p>
+  <p>An <strong>airboat</strong> deletes that whole problem. The propellers sit in the air
+  above the deck. Nothing rotates below the waterline, so there is no seal to fail and
+  nothing that can shed plastic into the water. The beach is flat and protected, which is
+  the one condition where an airboat is actually the <em>better</em> boat &mdash; it would be
+  a bad choice in surf or wind chop.</p>
+  <p class="tradeoff"><strong>The trade-off, said plainly:</strong> an airboat is slower and
+  more wind-sensitive than a prop boat, and two spinning props need guards so nobody's
+  fingers get near them. If the race is a straight sprint and there's a breeze, a submerged
+  prop wins. We think a boat that definitely <em>runs</em> beats a boat that is theoretically
+  faster.</p>
+</section>
+
+<section>
+  <h2>Steering with no rudder</h2>
+  <p>Two motors, one on each side. Run them at different speeds and the boat turns &mdash;
+  same idea as a tank or a skid-steer. That removes the rudder, the servo, the linkage and
+  a second failure point. The tablet interface on the <a href="control.html">Control</a> page
+  already does the math: one thumb position becomes two motor speeds.</p>
+  <pre class="code">left  = throttle + steering
+right = throttle - steering
+(then clamp both to -100 .. 100)</pre>
+</section>
+
+<section>
+  <h2>How the tablet talks to the boat</h2>
+  <p><strong>There is no Wi-Fi at the beach, and there doesn't need to be.</strong> The
+  ESP32 runs in <em>Access Point</em> mode: the boat <em>is</em> the Wi-Fi network. The
+  tablet joins <code>SS-JACKOLANTERN-v2.2</code>, opens <code>http://192.168.4.1</code>, and the
+  control page is served by the boat itself. No internet, no router, no phone hotspot.</p>
+  <p>This site (the boat site) is the workshop: design it here, test the interface here with
+  the simulator, then flash the same HTML onto the ESP32 so the beach version is offline.</p>
+  <div class="diagram">
+    <div class="box">Tablet<br><small>joins boat's Wi-Fi</small></div>
+    <div class="arrow">&rarr; HTTP /drive?l=&amp;r= &rarr;</div>
+    <div class="box">ESP32<br><small>AP + web server</small></div>
+    <div class="arrow">&rarr; PWM &rarr;</div>
+    <div class="box">DRV8833<br><small>motor driver</small></div>
+    <div class="arrow">&rarr;</div>
+    <div class="box">2 &times; motor<br><small>+ prop</small></div>
+  </div>
+</section>
+
+
+<section class="callout">
+  <h3>&#128246; Why Wi-Fi and not Bluetooth</h3>
+  <p>Bluetooth sounds like the obvious choice for a remote control, and it's the wrong one
+  here. ESP32 Wi-Fi reaches roughly <strong>150&ndash;240&nbsp;m line-of-sight</strong>;
+  plain BLE is more like <strong>10&ndash;30&nbsp;m</strong>. On top of that, an Android
+  tablet's browser cannot open a classic Bluetooth serial connection at all &mdash; only BLE
+  GATT, through a fussy Web Bluetooth permission flow, which would mean writing an actual app.
+  Wi-Fi AP needs no app, no pairing and no install: join the network, open the page.
+  <br><br><strong>The thing that actually costs range is water.</strong> 2.4&nbsp;GHz is
+  absorbed by it, so mount the ESP32 a few inches <em>up</em> on a mast rather than flat on
+  the deck, and don't put it in a metal or foil-lined box. That matters more than the radio
+  you pick.</p>
+</section>
+
+<section>
+  <h2>Hull</h2>
+  <ul class="ticks">
+    <li><strong>Shape:</strong> flat-bottom punt / catamaran. Two sealed 2L bottles as side
+    pontoons under a corrugated-plastic deck is the cheapest stable platform that exists,
+    and it is genuinely recycled material.</li>
+    <li><strong>Size:</strong> about 14&ndash;18 in long. Big enough to carry the battery box
+    steadily, small enough to carry to the beach in one hand.</li>
+    <li><strong>Buoyancy math:</strong> 1 liter of displaced water holds up about 1 kg. Two
+    2L bottles = ~4 kg of lift. The whole boat will weigh well under 1 kg, so it floats high
+    even swamped &mdash; that's the "floats independently" criterion, proven with numbers.</li>
+    <li><strong>Halloween:</strong> jack-o'-lantern face on the bow, a small LED inside on
+    the ESP32, black + orange deck. Costs nothing and it's a judged category.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Will it actually work? The numbers</h2>
+  <p>We couldn't find anyone who had published measured thrust for this exact little motor and
+  prop, so these are <strong>physics estimates</strong> &mdash; and the first job when the parts
+  arrive is to replace every one of them with a real measurement (see the tests below).</p>
+  <table class="nums">
+    <tr><th>Question</th><th>Estimate</th><th>How we got it</th></tr>
+    <tr><td>Push from one fan</td><td>~9&ndash;17 g</td>
+      <td>Momentum theory for an 80&nbsp;mm prop turning 0.25&ndash;0.6&nbsp;W of motor power into moving air.</td></tr>
+    <tr><td>Top speed, calm water</td><td>~0.5&ndash;0.8 mph</td>
+      <td>Where two fans' push equals the water drag on two half-sunk bottles. A slow walk: about 25&nbsp;m in 70&ndash;100 seconds.</td></tr>
+    <tr><td>Headwind that stops it dead</td><td>~10 mph</td>
+      <td>Air drag on everything above the water grows with wind speed <em>squared</em>. At 5&nbsp;mph it barely matters; at 10&nbsp;mph it cancels the fans.</td></tr>
+    <tr><td>Crosswind that could tip it</td><td>~30+ mph</td>
+      <td>Wind's tipping force vs. the boat's weight acting across a 20&nbsp;cm-wide catamaran. 10&times; safety margin at 10&nbsp;mph, 2.6&times; at 20&nbsp;mph.</td></tr>
+  </table>
+  <p class="tradeoff"><strong>What the numbers say:</strong> this boat will <em>not</em> tip over
+  &mdash; the catamaran is the right call. Its real enemy is being <strong>pushed backwards by a
+  headwind</strong>, not capsizing. So every design choice below is about staying low, light and
+  small above the water.</p>
+</section>
+
+<section>
+  <h2>Should it have a sail?</h2>
+  <p><strong>No.</strong> A sail only helps when the wind blows the way you want to go, and we
+  don't know which way the race course runs. On any other heading it pushes the boat sideways,
+  fights the steering, and adds exactly the thing the numbers say is dangerous: more area above
+  the water. The fans <em>are</em> our sail &mdash; one that points wherever we want.</p>
+  <p>The one sail worth building is the <strong>backup</strong>: a small folded sail in the bag
+  that clips on if the electronics die at the beach, so the boat still finishes.</p>
+</section>
+
+<section>
+  <h2>The layout</h2>
+  <ul class="ticks">
+    <li><strong>Pontoons wide apart:</strong> bottle centres about 20&nbsp;cm (8&nbsp;in) apart.
+    Wider = harder to tip, but harder to turn. 20&nbsp;cm is the balance.</li>
+    <li><strong>Heaviest thing lowest and in the middle:</strong> the power bank goes flat on
+    the deck, centred between the bottles. Never up high.</li>
+    <li><strong>Fans at the back, as far apart as the deck allows:</strong> the further apart
+    they are, the more turning force the same speed difference makes. Mount them just above the
+    deck &mdash; high enough to clear spray, low enough not to act like a sail.</li>
+    <li><strong>Air must blow backwards:</strong> if a fan blows the wrong way, swap its two
+    wires. Don't fix it in the code.</li>
+    <li><strong>Brain box on a short riser:</strong> the ESP32 is light, so a few inches up is
+    free &mdash; and it's better for Wi-Fi range.</li>
+    <li><strong>Two small fins under the back:</strong> a flat boat skids sideways in a breeze.
+    A 3&nbsp;cm plastic fin under the back of each bottle keeps it tracking straight. Test with
+    and without &mdash; fins also make it turn more slowly.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Tests to run when the parts arrive</h2>
+  <ol class="steps tests">
+    <li><strong>Thrust (kitchen scale):</strong> tape one motor and prop to a small block, blowing
+    air <em>up</em>, standing on a kitchen scale. Zero the scale, turn it on: the reading goes up
+    by the thrust in grams. Try 1 prop vs the other kind. Write down the numbers.</li>
+    <li><strong>Power bank stays on:</strong> ESP32 plugged in, motors off, 10 minutes. Some banks
+    switch themselves off when not much power is being used.</li>
+    <li><strong>Leak test:</strong> paper towel in the closed, empty box, hold it under water for
+    60 seconds. Dry towel = pass.</li>
+    <li><strong>Tip test:</strong> in the bathtub, push down on one side with a finger on the
+    kitchen scale until the other bottle lifts. More grams = more stable.</li>
+    <li><strong>Wind test:</strong> hair dryer on <em>cool</em>, from the front, then the side.
+    Does it hold its heading? Does it drift? Try with and without the fins.</li>
+    <li><strong>Speed test:</strong> time it over 2&nbsp;m in a pool or the tub. Compare with the
+    estimate above &mdash; were we right?</li>
+  </ol>
+</section>
+
+<section class="callout">
+  <h3>&#128161; Fail-safe to build in from day one</h3>
+  <p>The ESP32 sketch stops both motors if it hasn't heard from the tablet in 800&nbsp;ms.
+  Walk out of range and the boat coasts to a stop instead of driving off across the harbor.
+  Also tie 30&nbsp;ft of fishing line to the bow for the first water tests.</p>
+</section>
+
+<section>
+  <h2>Waterproofing: what actually has to be dry</h2>
+  <p>This is the part people get backwards. Because it's an airboat, <strong>nothing is
+  submerged and nothing spins through the hull</strong> &mdash; so the box does not have to
+  survive being underwater. It has to survive <em>splash</em> and <em>one capsize</em>, long
+  enough to get the boat back. That is a much easier problem, and it is why the design is
+  built this way.</p>
+  <ul class="ticks">
+    <li><strong>Dry box:</strong> a latching IP67 project box with a rubber gasket and a clear
+    lid. The clear lid matters twice: judges can see the electronics, and Kai can see at a
+    glance whether water got in.</li>
+    <li><strong>The only holes:</strong> four motor wires leaving the box. Drill undersized,
+    push the wires through, fill with marine silicone or hot glue, and <em>strain-relieve</em>
+    them &mdash; zip-tie the wire to the box inside so a tug can't pull the seal open.</li>
+    <li><strong>Mount it high:</strong> the box goes on the deck, not down between the
+    pontoons where spray collects. It's also better for Wi-Fi range.</li>
+    <li><strong>Plastic only:</strong> ABS is invisible to 2.4&nbsp;GHz. Never put the ESP32
+    in a metal or foil-lined box &mdash; that's a Faraday cage and the range goes to nothing.</li>
+    <li><strong>Batteries live outside:</strong> the 6&times;AA pack is wider than the box's
+    interior, and you want to swap cells without breaking the seal anyway. Zip-loc bag, taped
+    shut, velcroed to the deck. If it gets wet you've lost a $1 pack, not the boat.</li>
+    <li><strong>Test it empty:</strong> before any electronics go in, put a folded paper towel
+    in the closed box and hold it under water for 60 seconds. Dry towel = you're done. This is
+    a real engineering test and it belongs in the write-up.</li>
+  </ul>
+</section>
+
+<section class="callout">
+  <h3>&#128268; Power: a USB power bank, not a battery pack</h3>
+  <p>The first plan was a 6&times;AA NiMH pack. Then we found a spare <strong>USB-C power
+  bank</strong> in a CrunchLabs Hack Pack box, and it is not just cheaper &mdash; it is
+  <em>better engineering</em>. A battery pack&rsquo;s voltage <em>sags</em> the instant the
+  motors pull current, and if it sags far enough the ESP32&rsquo;s regulator gives up and the
+  board reboots mid-drive. (That trap is real: a rechargeable NiMH cell is 1.2&nbsp;V, not
+  1.5&nbsp;V, so a 4&times;AA pack is 4.8&nbsp;V, not 6&nbsp;V &mdash; right on the edge.) A
+  power bank puts out a <strong>regulated 5&nbsp;V</strong> no matter what the motors do, so
+  the problem simply stops existing.</p>
+  <p>Wiring: one port runs a normal USB cable to the ESP32. The second port runs a
+  <em>cut</em> USB cable &mdash; red to the driver&rsquo;s VM, black to its GND. Both ports
+  share the bank&rsquo;s ground, so the grounds are already tied.</p>
+  <p><strong>Update (Sep 19):</strong> the motors now run from our old <strong>8&times;AA holder</strong>, loaded with
+  <strong>6 AA + 2 dummy cells</strong> = 9&nbsp;V (about 2&times; the push of 5&nbsp;V). Eight real AA would be 12&nbsp;V,
+  over the driver&rsquo;s 10.8&nbsp;V limit. The ESP32 stays on the power bank, so the extra volts never reach it.</p>
+  <p><strong>The one thing to test first:</strong> some power banks switch themselves off when
+  the current drawn drops below about 50&ndash;100&nbsp;mA. An ESP32 running a Wi-Fi access
+  point draws roughly 120&ndash;160&nbsp;mA, which normally keeps the bank awake &mdash; but
+  leave it idling on the bench for ten minutes and make sure it stays on <em>before</em> you
+  trust it on the water. If it cuts out under motor start-up instead, one 1000&nbsp;&micro;F
+  capacitor across the 5&nbsp;V line fixes it.</p>
+</section>
+</main>
+
+<footer>
+  built by Kai + a teammate + Dad + Bugsy &middot; talk to this site in Slack <code>#boat</code> &middot;
+  Oct 29, 2026 12:06am</footer>
+
+</body>
+</html>

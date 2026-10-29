@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>S.S. Jack-o'-Lantern &middot; STEM Boat Challenge</title>
+<link rel="stylesheet" href="./assets/app.css?v=12">
+</head>
+<body>
+
+<header class="top">
+  <div class="brand">
+    <span class="pump">&#127875;</span>
+    <div>
+      <h1>S.S. Jack-o'-Lantern</h1>
+      <p class="sub">6th Grade STEM Boat Challenge &middot; a calm beach</p>
+    </div>
+  </div>
+    <div class="count hot">
+    <strong>2</strong><span>days to launch</span>
+  </div>
+  </header>
+
+<nav class="tabs">
+  <a href="index.html" class="">Mission</a>
+  <a href="design.html" class="">Design</a>
+  <a href="parts.html" class="on">Parts</a>
+  <a href="plan.html" class="">Boat Plan</a>
+  <a href="steps.html" class="">Build Steps</a>
+  <a href="wiring.html" class="">Wiring</a>
+  <a href="control.html" class="">Control</a>
+  <a href="log.html" class="">Build Log</a>
+  <a href="prompts.html" class="">AI Prompts</a>
+  <a href="https://github.com/joefaron/kai-code">Code on GitHub &#8599;</a>
+</nav>
+
+<main>
+<section>
+  <h2>Shopping list</h2>
+  <p class="lede">Roughly <strong>$76</strong> for everything
+  needed to make it run, plus about $28 of optional spares. Prices are ballpark US retail as
+  of Sept 2026 &mdash; check before ordering, and buying the multi-packs is usually cheaper
+  than the single.</p>
+
+  <table class="parts">
+    <tr><th>Part</th><th>Qty</th><th class="r">Est. $</th><th>Why it's on the list</th></tr>
+        <tr class="">
+      <td><strong>ESP32 dev board, ESP-WROOM-32 (3-pack)</strong>
+                    <br><small>Amazon B0C7C2HQ7P</small></td>
+      <td>1</td>
+      <td class="r">$16</td>
+      <td>The brain + the Wi-Fi access point. The Hack Pack's Arduino Nano cannot do this - it has no Wi-Fi radio at all, so this is the one thing that must be bought.</td>
+    </tr>
+        <tr class="">
+      <td><strong>DRV8833 dual motor driver (6-pack)</strong>
+                    <br><small>Amazon B0DB8CX8LK</small></td>
+      <td>1</td>
+      <td class="r">$8</td>
+      <td>The ESP32's pins can't drive motors. This chip does, both motors, both directions.</td>
+    </tr>
+        <tr class="">
+      <td><strong>Mini DC motors 3-12V with brackets + props (6 sets)</strong>
+                    <br><small>Amazon B096ZKFHPT</small></td>
+      <td>1</td>
+      <td class="r">$14</td>
+      <td>2 mm shaft, 24 mm can. Bought mainly for the MOUNTING BRACKETS - scavenged motors have nowhere to bolt to.</td>
+    </tr>
+        <tr class="">
+      <td><strong>80 mm 4-blade props, 2 mm shaft (20-pack)</strong>
+                    <br><small>Amazon B0DQQ2K9TH</small></td>
+      <td>1</td>
+      <td class="r">$8</td>
+      <td>The kit's little fan leaves are wind-turbine blades, not thrust props. These actually push air - and the extra diameter is what makes 5V from a power bank enough.</td>
+    </tr>
+        <tr class="">
+      <td><strong>400-point breadboards (4-pack)</strong>
+                    <br><small>Amazon B07PCJP9DY</small></td>
+      <td>1</td>
+      <td class="r">$10</td>
+      <td>Bench testing only. A breadboard on a moving boat shakes its wires out - solder before it goes in the water.</td>
+    </tr>
+        <tr class="">
+      <td><strong>Dupont jumper wires, 120 pcs</strong>
+                    <br><small>Amazon B01EV70C78</small></td>
+      <td>1</td>
+      <td class="r">$7</td>
+      <td>Wire it up with no soldering the first time.</td>
+    </tr>
+        <tr class="">
+      <td><strong>USB-C power bank</strong>
+                    <br><small>Hack Pack box</small></td>
+      <td>1</td>
+      <td class="r">free</td>
+      <td>FREE - already own it (CrunchLabs Hack Pack ships one with each build). Regulated 5V, so the ESP32 can never brown out. This replaced the whole $43 battery + charger + holder stack.</td>
+    </tr>
+        <tr class="">
+      <td><strong>USB-C to micro-USB cables (2-pack)</strong>
+                    <br><small>Amazon / any store</small></td>
+      <td>1</td>
+      <td class="r">$7</td>
+      <td>The ESP32's plug is micro-USB, the bank is USB-C. Cable 1 powers (and programs) the ESP32. Cable 2 gets its micro end cut off: red = +5V to the driver's VCC, black = GND. Must be C-to-micro, not C-to-A - a USB-C bank only turns its power on when the cable says a device is attached.</td>
+    </tr>
+        <tr class="">
+      <td><strong>220 ohm resistors (a few; any 150-330 ohm works)</strong>
+                    <br><small>Amazon resistor assortment</small></td>
+      <td>1</td>
+      <td class="r">$6</td>
+      <td>One per LED. Without it the LED pulls too much current and burns out in a second.</td>
+    </tr>
+        <tr class="">
+      <td><strong>Red, green, yellow LEDs</strong>
+                    <br><small>Came in the box</small></td>
+      <td>1</td>
+      <td class="r">free</td>
+      <td>Navigation lights: red on port (left), green on starboard (right), yellow on the stern blinks while waiting for the tablet. Judges like a real-boat detail.</td>
+    </tr>
+        <tr class="">
+      <td><strong>Lever wire clips (3)</strong>
+                    <br><small>Came in the box</small></td>
+      <td>1</td>
+      <td class="r">free</td>
+      <td>Join the thin motor leads to jumper wires with no solder. Fold the bare end over so it's thick enough to grip, then tug-test it.</td>
+    </tr>
+        <tr class="opt">
+      <td><strong>Soldering iron (only if you don't have one)</strong>
+          <span class="tag">optional</span>          <br><small>Amazon basic kit</small></td>
+      <td>1</td>
+      <td class="r">$20</td>
+      <td>The motor driver comes with its pins loose. They have to be soldered into its 12 holes, or it won't make reliable contact in the breadboard. It's the only soldering in the build.</td>
+    </tr>
+        <tr class="opt">
+      <td><strong>63/37 rosin-core solder 0.8 mm + tip tinner</strong>
+          <span class="tag">optional</span>          <br><small>Amazon B075WB98FJ + B0195V52J8</small></td>
+      <td>1</td>
+      <td class="r">$17</td>
+      <td>The solder that came with the iron kit (tin-copper, lead-free) melts at 227 C and beads up instead of sticking. 63/37 melts at 183 C and flows easily, which makes it the beginner-friendly choice. Tip tinner revives a tip that has gone black. It contains lead, so wash hands after and no snacks at the bench.</td>
+    </tr>
+        <tr class="">
+      <td><strong>Dry box: clamp-lid or screw-top food container</strong>
+                    <br><small>Kitchen drawer</small></td>
+      <td>1</td>
+      <td class="r">free</td>
+      <td>FREE - nothing on this boat is submerged, so the box only has to beat splash and one capsize. A clear kitchen container with a gasket lid does that.</td>
+    </tr>
+        <tr class="">
+      <td><strong>Hull: 2L bottles, corrugated sign board, hot glue</strong>
+                    <br><small>Recycling bin / garage</small></td>
+      <td>1</td>
+      <td class="r">free</td>
+      <td>Recycled - free, and it's a judged category.</td>
+    </tr>
+        <tr class="">
+      <td><strong>Prop guards (craft mesh / splatter screen)</strong>
+                    <br><small>Kitchen drawer</small></td>
+      <td>1</td>
+      <td class="r">free</td>
+      <td>Two spinning props at kid height. Non-negotiable.</td>
+    </tr>
+        <tr class="">
+      <td><strong>Marine silicone or hot glue for the wire holes</strong>
+                    <br><small>Garage</small></td>
+      <td>1</td>
+      <td class="r">free</td>
+      <td>Two motor wires leave the box. That is the only hole in the system - seal it and strain-relieve it.</td>
+    </tr>
+        <tr class="opt">
+      <td><strong>1000 uF capacitor</strong>
+          <span class="tag">optional</span>          <br><small>Junk drawer / Amazon $1</small></td>
+      <td>1</td>
+      <td class="r">$1</td>
+      <td>Optional: if the power bank trips on motor start-up, one capacitor across its 5V output smooths the spike. Salvage one from any dead electronics.</td>
+    </tr>
+        <tr class="">
+      <td><strong>8xAA battery holder with ON/OFF switch + leads (already owned)</strong>
+                    <br><small>Amazon B07L9M6VZK</small></td>
+      <td>1</td>
+      <td class="r">free</td>
+      <td>The motor battery. Red lead to the driver's VCC, black to GND (tied to the ESP32's GND). Load 6 AA + 2 dummy cells (a wooden dowel wrapped in foil, or a wire joining the two springs) = 9 V. NEVER 8 real AA: 12 V breaks the driver (limit 10.8 V). 8 NiMH rechargeables = 9.6 V also works but is close. The switch is a physical motor kill switch. The ESP32 stays on the power bank.</td>
+    </tr>
+        <tr class="tot"><td colspan="2">Required total</td><td class="r">$76</td><td></td></tr>
+  </table>
+</section>
+
+<section class="callout">
+  <h3>&#9889; Why AA NiMH and not a LiPo</h3>
+  <p>Every RC tutorial reaches for a 2S LiPo because it's lighter and punchier. A LiPo also
+  catches fire if it's punctured, over-discharged, or charged unattended &mdash; which is a
+  bad combination with a 6th grader, a hot glue gun and a boat that might swamp. Four NiMH
+  AAs give 4.8&ndash;6V, weigh almost nothing on a boat this size, cost less, and the worst
+  case if they get wet is that they stop working. Take the weight penalty.</p>
+</section>
+
+
+<section class="callout">
+  <h3>&#128722; Exactly what to search for</h3>
+  <p style="margin-bottom:8px">Ordering today? These are the search strings that land on the
+  right part, plus the one spec that actually matters for each:</p>
+  <ul class="ticks" style="margin-top:6px">
+    <li><code>ESP32 development board 3 pack</code> &mdash; want the plain <strong>ESP32-WROOM-32</strong>
+    (not S3, not C3, not "ESP32-CAM"). USB-C is nicer. Buy the 3-pack.</li>
+    <li><code>DRV8833 motor driver module 2 pack</code> &mdash; a <em>breakout board</em> with screw or
+    header pins, not a bare chip. L298N also works but wastes ~2V of a 6V battery as heat.</li>
+    <li><code>DC 3-6V motor with propeller DIY kit</code> or <code>130 motor fan blade kit</code> &mdash;
+    <strong>check the shaft: 2mm.</strong> Buying a motor and a prop separately is the classic
+    way to end up with a prop that won't fit. Get them as a matched kit.</li>
+    <li><code>AA battery holder with switch and leads</code> &mdash; wants bare wire leads, not a
+    barrel plug. We already had an 8&times;AA one: load <strong>6 AA + 2 dummy cells</strong> (9&nbsp;V).
+    8 real AA = 12&nbsp;V, which breaks the driver.</li>
+    <li><code>Dupont jumper wires male to female</code> + a <code>170 point mini breadboard</code>
+    &mdash; so the first build needs no soldering.</li>
+  </ul>
+  <p style="margin-top:10px"><strong>Buy two of everything small</strong> (board, driver, motors).
+  Spares cost a few dollars now and are impossible to get the night before the beach.</p>
+</section>
+
+<section>
+  <h2>What to do the day it all arrives</h2>
+  <ol class="steps">
+    <li>Plug the ESP32 into USB. Flash the blink example. <em>Prove the toolchain works before anything is glued.</em></li>
+    <li>Flash the boat sketch. Join the <code>SS-JACKOLANTERN-v2.2</code> Wi-Fi from a phone, open <code>192.168.4.1</code>, see the controls.</li>
+    <li>Wire one motor. Make it spin both directions from the tablet. Then the second.</li>
+    <li>Tape everything to a piece of cardboard and drive it across the kitchen floor.</li>
+    <li>Only now start building the actual hull.</li>
+  </ol>
+</section>
+</main>
+
+<footer>
+  built by Kai + a teammate + Dad + Bugsy &middot; talk to this site in Slack <code>#boat</code> &middot;
+  Oct 29, 2026 12:06am</footer>
+
+</body>
+</html>

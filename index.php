@@ -30,7 +30,6 @@ if (is_file($projFile)) { $PROJECTS = json_decode(file_get_contents($projFile), 
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="robots" content="noindex,nofollow">
 <title>Kai Code</title>
 <link rel="stylesheet" href="/assets/app.css?v=1">
 </head>
@@ -50,6 +49,8 @@ if (is_file($projFile)) { $PROJECTS = json_decode(file_get_contents($projFile), 
 <?php foreach ($PAGES as $slug => $label): ?>
   <a href="/?p=<?= $slug ?>" class="<?= $slug === $PAGE ? 'on' : '' ?>"><?= $label ?></a>
 <?php endforeach; ?>
+  <a href="boat/">&#128674; Boat</a>
+  <a href="https://github.com/joefaron/kai-code">Code on GitHub &#8599;</a>
 </nav>
 
 <main>

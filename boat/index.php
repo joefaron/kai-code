@@ -37,7 +37,6 @@ foreach ($PARTS as $p) { if (empty($p['optional'])) { $total += $p['price'] * $p
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="robots" content="noindex,nofollow">
 <title>S.S. Jack-o'-Lantern &middot; STEM Boat Challenge</title>
 <link rel="stylesheet" href="/assets/app.css?v=12">
 </head>
@@ -51,15 +50,22 @@ foreach ($PARTS as $p) { if (empty($p['optional'])) { $total += $p['price'] * $p
       <p class="sub">6th Grade STEM Boat Challenge &middot; a calm beach</p>
     </div>
   </div>
+  <?php if ($days >= 0): ?>
   <div class="count <?= $days <= 7 ? 'hot' : '' ?>">
     <strong><?= $days ?></strong><span>days to launch</span>
   </div>
+  <?php else: /* race day has passed: show what it costs to build one instead */ ?>
+  <div class="count">
+    <strong>$<?= round($total) ?></strong><span>to build one</span>
+  </div>
+  <?php endif; ?>
 </header>
 
 <nav class="tabs">
 <?php foreach ($PAGES as $slug => $label): ?>
   <a href="/?p=<?= $slug ?>" class="<?= $slug === $PAGE ? 'on' : '' ?>"><?= $label ?></a>
 <?php endforeach; ?>
+  <a href="https://github.com/joefaron/kai-code">Code on GitHub &#8599;</a>
 </nav>
 
 <main>

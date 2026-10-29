@@ -4,7 +4,7 @@
     "emoji": "🚤",
     "status": "built + tested on water",
     "note": "Recycled-bottle catamaran with two air propellers. The ESP32 makes its own Wi-Fi network and serves a tablet steering page; steer by spinning one fan faster than the other.",
-    "url": "https://github.com/joefaron/kai-code/tree/main/boat",
+    "url": "boat/",
     "code": "boat/"
   },
   {

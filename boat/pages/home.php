@@ -5,6 +5,16 @@
   Wi&#8209;Fi so a tablet on the sand can steer it with no internet at all.</p>
 </section>
 
+<!-- Build-your-own path (Joe, 2026-10-29): the public copy of this site is how other families find it. -->
+<section class="card">
+  <h3>&#128295; Build your own</h3>
+  <p>Everything is free and open source: <a href="https://github.com/joefaron/kai-code">github.com/joefaron/kai-code</a>.
+  Go in this order: <a href="/?p=parts">Parts</a> &rarr; <a href="/?p=design">Design</a> &rarr;
+  <a href="/?p=steps">Build Steps</a> &rarr; <a href="/?p=wiring">Wiring</a> &rarr;
+  <a href="https://github.com/joefaron/kai-code/tree/main/boat/arduino">the chip's code</a> &rarr;
+  <a href="/?p=control">Control</a> (has a simulator: try it now). Curious how we asked the AI? <a href="/?p=prompts">AI Prompts</a>.</p>
+</section>
+
 <div class="cards">
   <div class="card">
     <h3>&#128205; Where</h3>
