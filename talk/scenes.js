@@ -439,6 +439,145 @@ function sceneDunk() {
   };
 }
 
+// ---------- the three prototypes, as ONE model that evolves ----------
+// m = 1: the airboat (16 little bottles taped into a raft, two fans up in the air)
+// m = 2: props in the water, but the motors sit flat with foam jammed under them
+// m = 3: two 1 L bottles + the printed 45-degree holders (the real boat)
+// In between it morphs: fans fly off, motors drop in, foam pops out, bottles swap.
+function protoModel() {
+  const S = .14, outer = new THREE.Group(), g = new THREE.Group(); g.scale.setScalar(S); outer.add(g);
+  const { bottleR: R, bottleZ, deckT, motorX, motorZ } = BOAT;
+  const seg = (m, a, b) => ease(Math.min(1, Math.max(0, (m - a) / (b - a))));
+  const lerp = THREE.MathUtils.lerp;
+  // 16 half-size bottles in two rows of 8, wrapped in duct tape
+  const small = [...Array(16)].map((_, i) => { const b = bottle(); b.scale.setScalar(.5); b.userData.home = new THREE.Vector3((i < 8 ? -1 : 1) * 7.6, R / 2, (i % 8 - 3.5) * 4); g.add(b); return b; });
+  const tape = [-12, -3, 3, 12].map(x => { const t = box(1.8, R + .3, 33, mat(0x8d939a, { metalness: .4, roughness: .5 })); t.userData.home = new THREE.Vector3(x, R / 2, 0); g.add(t); return t; });
+  const big = [-1, 1].map(s => { const b = bottle(); b.userData.s = s; g.add(b); return b; });
+  const deck = yardSign(); g.add(deck);
+  const tb = togoBox(); g.add(tb);
+  // prototype 1's fans: a motor on a tall post, blowing backwards
+  const fans = [-6, 6].map(z => {
+    const f = new THREE.Group(), post = box(1, 7, 1, mat(0x495057)); post.position.y = 3.5; f.add(post);
+    const m = motor(C.cyan); m.scale.setScalar(4); m.rotation.y = -Math.PI / 2; m.position.y = 7.5; f.add(m);
+    const blur = new THREE.Mesh(new THREE.CircleGeometry(1.2, 32), glow(0x9fe6ff, { opacity: .25, side: THREE.DoubleSide, depthWrite: false })); blur.position.z = .62; m.add(blur);
+    f.userData = { z, prop: m.userData.prop }; g.add(f); return f;
+  });
+  const tails = motorZ.map(z => { const t = longTail(); t.userData.z = z; g.add(t); return t; });
+  const foam = motorZ.map(z => { const f = box(3.4, 1.4, 2.8, mat(0xf2d24b, { roughness: .95 })); f.userData.z = z; g.add(f); return f; });
+  outer.userData.set = m => {
+    const fansOut = seg(m, 1.05, 1.45), tailsIn = seg(m, 1.35, 1.85), foamF = seg(m, 1.6, 1.9) * (1 - seg(m, 2.05, 2.3)), foamOut = seg(m, 2.05, 2.3);
+    const smallOut = seg(m, 2.1, 2.5), bigIn = seg(m, 2.3, 2.7);
+    const deckY = lerp(R, 2 * R, bigIn) + deckT;
+    small.forEach(b => { b.position.copy(b.userData.home).add(new THREE.Vector3(0, -10 * smallOut, Math.sign(b.userData.home.z) * 30 * smallOut)); b.visible = smallOut < 1; });
+    tape.forEach(t => { t.position.copy(t.userData.home).y -= 10 * smallOut; t.visible = smallOut < .6; });
+    big.forEach(b => { b.position.set(0, R, b.userData.s * (bottleZ + (1 - bigIn) * 40)); b.visible = bigIn > 0; });
+    deck.position.y = deckY - deckT / 2; deck.scale.z = lerp(1.35, 1, bigIn);
+    tb.position.set(BOAT.boxX, deckY, 0);
+    fans.forEach(f => { f.position.set(-12, deckY + fansOut * 30, f.userData.z); f.visible = fansOut < 1; });
+    const lift = 1.4 * foamF;
+    foam.forEach(f => { f.position.set(motorX + .6, deckY + .7, f.userData.z + Math.sign(f.userData.z) * 25 * foamOut); f.scale.setScalar(Math.max(.001, foamF + foamOut)); f.visible = foamF + foamOut > .01 && foamOut < 1; });
+    tails.forEach((t, i) => {
+      t.position.set(motorX, deckY + lift + (1 - tailsIn) * (25 + i * 4), t.userData.z); t.visible = tailsIn > 0;
+      t.rotation.z = -.12 * foamF; // the foam never sits flat: the motor leans
+      t.userData.tail.rotation.z = Math.PI + THREE.MathUtils.degToRad(lerp(22, BOAT.tilt, seg(m, 2.55, 2.95)));
+    });
+    // how deep it sits: the airboat rides way up high, the 1 L bottles sit lower
+    outer.userData.waterY = (m < 2 ? lerp(1, 1.5, seg(m, 1, 2)) : lerp(1.5, BOAT.water, bigIn)) * S;
+  };
+  outer.userData.fanProps = fans.map(f => f.userData.prop);
+  outer.userData.fansOn = () => fans[0].visible && fans[0].position.y < 20;
+  outer.userData.props = tails.map(t => t.userData.prop);
+  outer.userData.tailsOn = () => tails[0].visible;
+  outer.userData.led = tb.userData.led;
+  outer.userData.set(1);
+  return outer;
+}
+
+const PROTO = [
+  ['1  fans', 'FAIL: fans push air, so it crawls', '#ff5a5a'],
+  ['2  flat props', 'FAIL: flat props barely touch, foam wobbles', '#ff5a5a'],
+  ['3  tilted 45°', 'WORKS: tilted props bite the water', '#7ce07c'],
+];
+// stage 1/2/3: fly in, morph from the version before, then show why it failed or worked.
+// stage 'all' (kids deck): loop through all three.
+function sceneProto(stage) {
+  return () => {
+    const outer = new THREE.Group(), path = new THREE.Group(); outer.add(path);
+    const boat = protoModel(); path.add(boat);
+    const sea = water(9); outer.add(sea);
+    // one particle pool: air streaks, splashes, bubbles, wake. Lives in the scene, not the boat, so a wake stays behind.
+    const N = 1400, pos = new Float32Array(N * 3).fill(-999), col = new Float32Array(N * 3), P = [...Array(N)].map(() => ({ x: 0, y: -999, z: 0, vx: 0, vy: 0, vz: 0, age: 9, kind: 0, life: 1 }));
+    const geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.BufferAttribute(pos, 3)); geo.setAttribute('color', new THREE.BufferAttribute(col, 3));
+    const dot = paint(32, 32, x => { x.fillStyle = '#fff'; x.beginPath(); x.arc(16, 16, 14, 0, 7); x.fill(); });
+    outer.add(new THREE.Points(geo, new THREE.PointsMaterial({ size: .12, vertexColors: true, map: dot, alphaTest: .4, transparent: true, depthWrite: false })));
+    let next = 0;
+    const spawn = (p0, v, kind, life) => { const p = P[next++ % N]; Object.assign(p, { x: p0.x, y: p0.y, z: p0.z, vx: v.x, vy: v.y, vz: v.z, age: 0, kind, life }); };
+    const tint = { air: new THREE.Color(0x9fe6ff), drop: new THREE.Color(0xeaf7ff), sea: new THREE.Color(0x1971c2) }, c = new THREE.Color();
+    const names = PROTO.map(([n], i) => { const l = label(n, { size: .3 }); l.position.set(-2.2 + i * 2.2, 3.05, 0); outer.add(l); return l; });
+    const verdicts = PROTO.map(([, v, color]) => { const l = label(v, { color, size: .34 }); l.position.set(0, 2.45, 0); outer.add(l); return l; });
+    const all = stage === 'all', LOOP = 27;
+    const mAt = s => {
+      if (!all) return stage === 1 ? 1 : stage - 1 + ease(Math.min(1, Math.max(0, (s - 1.4) / 3.2)));
+      s %= LOOP;
+      return s < 6 ? 1 : s < 9 ? 1 + ease((s - 6) / 3) : s < 15 ? 2 : s < 18 ? 2 + ease((s - 15) / 3) : s < 25 ? 3 : 3 - 2 * ease((s - 25) / 2);
+    };
+    const v = new THREE.Vector3(), w = new THREE.Vector3(), back = new THREE.Vector3();
+    let t0 = 0, last = 0, ang = 0;
+    return {
+      group: outer, cam: [4, 3.6, 10.5], look: [-2.9, .5, 0],
+      enter(t) { t0 = t; last = t; ang = 0; },
+      update(t) {
+        const s = t - t0, dt = Math.min(.05, Math.max(0, t - last)); last = t;
+        const m = mAt(s), w1 = Math.max(0, 1 - Math.abs(m - 1) * 2), w2 = Math.max(0, 1 - Math.abs(m - 2) * 2), w3 = Math.max(0, 1 - Math.abs(m - 3) * 2);
+        boat.userData.set(m);
+        // the boat holds still (stern toward us, away from the text) and the water streams past:
+        // the airboat crawls, the flat-prop one wobbles along, the real one goes
+        const spd = m <= 2 ? .15 + .45 * (m - 1) : .6 + 2.2 * (m - 2);
+        ang = Math.PI + .4 + w2 * Math.sin(t * .9) * .12;
+        path.rotation.y = ang;
+        boat.position.y = -boat.userData.waterY + Math.sin(t * 1.4) * .02;
+        boat.rotation.x = w2 * (Math.sin(t * 2.1) * .09 + Math.sin(t * 3.3 + 1) * .05) - w3 * .05; // wobble (v2), lean into the turn (v3)
+        boat.rotation.z = w2 * Math.sin(t * 1.7) * .05;
+        boat.userData.fanProps.forEach(p => (p.rotation.z = t * 40));
+        boat.userData.props.forEach((p, i) => (p.rotation.x = t * (m > 2.6 ? 30 : 18) * (i < 2 ? 1 : -1)));
+        boat.userData.led.material.opacity = .4 + .6 * (Math.sin(t * 6) > 0);
+        outer.updateMatrixWorld(true);
+        back.set(-Math.cos(ang), 0, Math.sin(ang)); // the boat's "behind", in scene space
+        const local = o => outer.worldToLocal(o.getWorldPosition(v));
+        if (boat.userData.fansOn()) for (const p of boat.userData.fanProps) { // air streaks: lots of wind, almost no push
+          const a = local(p).clone();
+          for (let i = 0; i < 2; i++) spawn(a.clone().add(w.set(0, (Math.random() - .5) * .5, (Math.random() - .5) * .5)), back.clone().multiplyScalar(3 + Math.random()), 0, .8);
+        }
+        if (boat.userData.tailsOn() && m > 1.8) boat.userData.props.forEach(p => {
+          const a = local(p).clone();
+          if (m < 2.5) { // flat: the blade tips only slap the surface now and then
+            if (a.y < .12 && Math.random() < .5) spawn(w.set(a.x, 0, a.z), v.set((Math.random() - .5) * .8, 1.2 + Math.random() * 1.6, (Math.random() - .5) * .8).add(back.clone().multiplyScalar(.6)), 1, 1);
+          } else if (a.y < 0) { // 45 degrees: under water, churning, spraying, leaving bubbles + a wake
+            spawn(w.set(a.x, 0, a.z), back.clone().multiplyScalar(1 + Math.random()).add(v.set((Math.random() - .5) * .6, 1 + Math.random() * 1.4, (Math.random() - .5) * .6)), 1, 1);
+            spawn(a, back.clone().multiplyScalar(1.5 + Math.random()), 2, 1.2);
+            if (Math.random() < .6) spawn(w.set(a.x + (Math.random() - .5) * .3, .02, a.z + (Math.random() - .5) * .3), back.clone().multiplyScalar(spd), 3, 2.5);
+          }
+        });
+        // flecks of foam on the water, drifting past at the boat's speed
+        for (let i = 0; i < 2; i++) { const r = Math.sqrt(Math.random()) * 6, th = Math.random() * 6.28; spawn(w.set(1 + Math.cos(th) * r, .01, Math.sin(th) * r), back.clone().multiplyScalar(spd), 4, 3); }
+        P.forEach((p, i) => {
+          p.age += dt;
+          if (p.age > p.life) p.y = -999;
+          else if (p.kind === 1) { p.vy -= 9 * dt; if (p.y < 0 && p.vy < 0) p.y = -999; } // droplets fall back in
+          else if (p.kind === 2) p.vy = .4;                                             // bubbles drift up
+          p.x += p.vx * dt; p.y += p.vy * dt; p.z += p.vz * dt;
+          const k = Math.min(1, p.age / p.life);
+          c.copy(p.kind === 0 ? tint.air : tint.drop).lerp(tint.sea, p.kind === 0 ? k * .9 : p.kind === 3 ? k : p.kind === 4 ? 1 - Math.sin(k * Math.PI) * .6 : k * .3);
+          pos[i * 3] = p.x; pos[i * 3 + 1] = p.y; pos[i * 3 + 2] = p.z; col[i * 3] = c.r; col[i * 3 + 1] = c.g; col[i * 3 + 2] = c.b;
+        });
+        geo.attributes.position.needsUpdate = true; geo.attributes.color.needsUpdate = true;
+        [w1, w2, w3].forEach((wv, i) => { names[i].material.opacity = .28 + .72 * wv; verdicts[i].material.opacity = Math.max(0, wv * 1.5 - .5); });
+        sea.userData.tick(t);
+      }
+    };
+  };
+}
+
 // a calm backdrop for the photo slides: still water and a few bubbles drifting up
 function sceneCalm() {
   const g = new THREE.Group(), sea = water(12); sea.position.set(4, -2.5, -2); g.add(sea);
@@ -844,7 +983,7 @@ export function createStage(canvas, opts = {}) {
     boat: { BOAT, bottle, yardSign, zipTie, longTail, water },   // the real boat's parts, in cm (the wiring movie ends on it)
   };
 
-  const BUILDERS = { brain: sceneBrain, ai: sceneAI, projects: sceneProjects, recipe: sceneRecipe, web: sceneWeb, coupler: sceneCoupler, shop: sceneShop, wiring: sceneWiring, flash: sceneFlash, game: sceneGame, wrong: sceneWrong, boat: sceneBoat, dunk: sceneDunk, calm: sceneCalm, safe: sceneSafe, open: sceneOpen, you: sceneYou, end: sceneBrain, ...opts.scenes };
+  const BUILDERS = { brain: sceneBrain, ai: sceneAI, projects: sceneProjects, recipe: sceneRecipe, web: sceneWeb, coupler: sceneCoupler, shop: sceneShop, wiring: sceneWiring, flash: sceneFlash, game: sceneGame, wrong: sceneWrong, boat: sceneBoat, dunk: sceneDunk, proto1: sceneProto(1), proto2: sceneProto(2), proto3: sceneProto(3), protos: sceneProto('all'), calm: sceneCalm, safe: sceneSafe, open: sceneOpen, you: sceneYou, end: sceneBrain, ...opts.scenes };
   const scenes = {};
   let i = 0;
   const build = (name) => {

@@ -1,34 +1,34 @@
 // Spiral shaft coupler: EUDAX motor shaft (2 mm) -> long steel prop rod (2 mm).
 // Replaces the red silicone tube in the long-tail boat (media/longtail-boat.svg).
-// Print standing up, no supports. Press both shafts in hard: it's meant to be a JAM fit, no glue.
+// Print standing up, no supports. Push both shafts in.
 //
-// Render:  tmp/openscad-2021.01/openscad.com -o media/3d/shaft_coupler.stl 3d/shaft_coupler.scad
-// Tapered 2.1 -> 2.0:  -D bore_motor=2.1 -D bore_rod=2.1 -D bore_mid=2.0  (plus the short flags below)
-// Other sizes:  add  -D bore_rod=1.8 -D bore_motor=1.8   (pick the number from shaft_fit_test.scad)
+// Render (the defaults ARE the current pick - no flags needed):
+//   tmp/openscad-2021.01/openscad.com --export-format binstl -o media/3d/shaft_coupler.stl 3d/shaft_coupler.scad
 //
-// 2026-10-15: 2.2 let the 2 mm shafts slide straight through (Joe). On Joe's printer the holes print
-// true to size, so a press fit needs a hole a bit SMALLER than the shaft. A 3 mm shaft press-fits a 3.0 hole
-// and floats in a 3.1 one (Ultimaker forum). Small holes shrink more, so 1.9 should jam a 2 mm shaft. The
-// fit-test strip checks 1.7-2.1 at once.
+// FIT HISTORY - the holes print SMALLER than drawn, by a lot. Trust this list, not theory:
+//   2026-10-15  2.2 straight   -> "slid straight through" (Joe)
+//   2026-10-29  2.1 -> 2.0     -> too tight
+//   2026-10-29  2.2 -> 2.1     -> "still way too tight with how it physically prints"
+//   2026-10-29  2.4 -> 2.2     -> current default, not reported on yet
+// The 10-15 "slid through" report doesn't match the later ones (maybe a different print or filament).
+// Go by the latest result and only change bore sizes in 0.1-0.2 steps from Joe's last report.
 
-bore_motor = 1.9;   // motor shaft hole: 0.1 under the 2 mm shaft = jam fit
-bore_rod   = 1.9;   // prop rod hole
-depth_motor = 12;   // how far the motor shaft goes in
+bore_motor = 2.4;   // hole size at the mouth (motor end)
+bore_rod   = 2.4;   // hole size at the mouth (rod end)
+bore_mid   = 2.2;   // >0 = TAPERED: each hole narrows from the mouth size to this a quarter of the
+                    // length in, so the middle half grips at bore_mid. 0 = straight holes.
+depth_motor = 14;   // how far the motor shaft goes in
 depth_rod   = 14;   // how far the rod goes in
-length = 32;        // total length
-core_d = 9;         // solid core diameter (red tube was ~6 mm)
-ridge_d = 12;       // outer diameter across the spiral ridges
+length = 32;        // total length (Joe 10-29: twice the 16 mm short one)
+core_d = 7;         // solid core diameter
+ridge_d = 9.3;      // outer diameter across the spiral ridges
 ridges = 4;         // number of spiral ridges
 twist = 360;        // degrees the spiral turns end to end
-end_d = 12.6;        // smooth collars at each end
-end_h = 3;
-bore_mid = 0;       // >0 = TAPERED bores: each hole starts at bore_motor/bore_rod at the mouth and
-                    // narrows steadily to bore_mid a quarter of the length in, so the middle half
-                    // grips at bore_mid (Joe 2026-10-29: 2.1 at the ends -> 2.0 in the middle)
-dots = 0;          // tiny dimples on the top collar so look-alike sizes can be told apart
+end_d = 10.6;       // smooth collars at each end
+end_h = 2;
+dots = 0;           // tiny dimples on the top collar so look-alike sizes can be told apart
 $fn = 72;
-// 2026-10-15 (Joe): 32 mm was way too tall. Short version, about half size:
-//   -D length=16 -D depth_motor=7 -D depth_rod=7 -D core_d=7 -D ridge_d=9.3 -D end_d=10.6 -D end_h=2 -D twist=180
+// Short 16 mm version: -D length=16 -D depth_motor=7 -D depth_rod=7 -D twist=180
 
 module spiral_body() {
     linear_extrude(height = length, twist = twist, slices = 120, convexity = 6)

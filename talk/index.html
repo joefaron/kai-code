@@ -67,39 +67,23 @@
 </section>
 
 <!-- P1: prototype 1, the airboat -->
-<section class="slide wide" data-scene="calm" data-min="1.5">
-  <div class="split">
-    <div>
-      <p class="kicker r" style="--i:0">prototype 1 &middot; the airboat</p>
-      <h2 class="r" style="--i:1"><span class="tag fail">FAIL</span>Fans in the air</h2>
-      <div class="prompt r" style="--i:2"><span class="who">we asked</span>"Make a boat for a 6th grade project. A tablet controls the motors and the steering. It needs to be waterproof."</div>
-      <div class="prompt ai r" style="--i:3"><span class="who">ai said</span>An <b>airboat</b>: fans on top, so nothing underwater can leak.</div>
-      <div class="prompt bad r" style="--i:4"><span class="who">the problem</span><b>Really slow.</b> 16 little bottles and lots of duct tape made it heavy, and it floated way up high. The fans were just pushing air.</div>
-    </div>
-    <div class="pics r" style="--i:3;--n:2;--h:56vh">
-      <figure><img src="../media/proto/v1-airboat.jpg" alt="Prototype 1 floating in the hot tub"><figcaption>prototype 1: hot tub test</figcaption></figure>
-      <figure><img src="../media/proto/parts.jpg" alt="All the parts on the table"><figcaption>day 1: the parts</figcaption></figure>
-    </div>
-  </div>
-  <aside class="notes">Air is about 800 times lighter than water, so a little fan barely pushes the boat. The AI even predicted it: about 0.6 to 1 mph. We built it anyway, because you learn more from a real test than from guessing.</aside>
+<section class="slide" data-scene="proto1" data-min="1.5">
+  <p class="kicker r" style="--i:0">prototype 1 &middot; the airboat</p>
+  <h2 class="r" style="--i:1"><span class="tag fail">FAIL</span>Fans in the air</h2>
+  <div class="prompt r" style="--i:2"><span class="who">we asked</span>"Make a boat for a 6th grade project. A tablet controls the motors and the steering. It needs to be waterproof."</div>
+  <div class="prompt ai r" style="--i:3"><span class="who">ai said</span>An <b>airboat</b>: fans on top, so nothing underwater can leak.</div>
+  <div class="prompt bad r" style="--i:4"><span class="who">the problem</span><b>Really slow.</b> 16 little bottles and lots of duct tape made it heavy, and it floated way up high. The fans were just pushing air.</div>
+  <aside class="notes">Watch the 3D: the fans blow a ton of air and the boat barely creeps around the circle. Air is about 800 times lighter than water, so a little fan barely pushes the boat. The AI even predicted it: about 0.6 to 1 mph. We built it anyway, because you learn more from a real test than from guessing.</aside>
 </section>
 
 <!-- P2: prototype 2, props in the water -->
-<section class="slide wide" data-scene="calm" data-min="1.5">
-  <div class="split">
-    <div>
-      <p class="kicker r" style="--i:0">prototype 2 &middot; props in the water</p>
-      <h2 class="r" style="--i:1"><span class="tag fail">FAIL</span>Better, but wobbly</h2>
-      <div class="prompt r" style="--i:2"><span class="who">we asked</span>"It's just really slow. You get so much more power and speed when you stick a propeller in the water, right?"</div>
-      <div class="prompt ai r" style="--i:3"><span class="who">ai said</span>Yes: a prop in the water gets <b>way more push</b> from the same little motor.</div>
-      <div class="prompt bad r" style="--i:4"><span class="who">the problem</span>Still too many bottles. And the motors sat <b>flat</b>, so the props didn't reach down into the water. We jammed foam under them to tilt them. Not good.</div>
-    </div>
-    <div class="pics r" style="--i:3;--n:2;--h:56vh">
-      <figure><img src="../media/proto/v2-props-in-water.jpg" alt="Prototype 2 with props at the edge"><figcaption>prototype 2</figcaption></figure>
-      <figure><img src="../media/proto/v2-sent-to-ai.jpg" alt="The photo we sent to the AI: foam wedged under the motor"><figcaption>the photo we sent the AI</figcaption></figure>
-    </div>
-  </div>
-  <aside class="notes">Point at the photo on the right: we drew on it and sent it to the AI. Red box = the motor holder, green = the foam we jammed under it. A picture plus "this is what's wrong" is one of the best prompts there is.</aside>
+<section class="slide" data-scene="proto2" data-min="1.5">
+  <p class="kicker r" style="--i:0">prototype 2 &middot; props in the water</p>
+  <h2 class="r" style="--i:1"><span class="tag fail">FAIL</span>Better, but wobbly</h2>
+  <div class="prompt r" style="--i:2"><span class="who">we asked</span>"It's just really slow. You get so much more power and speed when you stick a propeller in the water, right?"</div>
+  <div class="prompt ai r" style="--i:3"><span class="who">ai said</span>Yes: a prop in the water gets <b>way more push</b> from the same little motor.</div>
+  <div class="prompt bad r" style="--i:4"><span class="who">the problem</span>Still too many bottles. And the motors sat <b>flat</b>, so the props didn't reach down into the water. We jammed <b class="o">foam</b> under them to tilt them. Not good.</div>
+  <aside class="notes">The 3D morphs from prototype 1: the fans fly off, the motors drop in, the yellow foam wedges slide under them. The props only slap the surface now and then, and the boat wobbles. We took a photo of it, drew a red box on the holder and a green one on the foam, and sent that to the AI. A picture plus "this is what's wrong" is one of the best prompts there is.</aside>
 </section>
 
 <!-- P3: the fix, a 3D-printed 45-degree holder -->
@@ -116,29 +100,22 @@
 </section>
 
 <!-- P4: prototype 3, the one that works -->
-<section class="slide wide" data-scene="calm" data-min="2">
-  <div class="split">
-    <div>
-      <p class="kicker r" style="--i:0">prototype 3 &middot; the one that works</p>
-      <h2 class="r" style="--i:1"><span class="tag win">WORKS</span>Two big bottles. Props at 45&deg;.</h2>
-      <ul class="list r" style="--i:2">
-        <li><b class="c">Two 1&#8209;liter bottles</b> instead of 16 little ones: lighter, and it sits lower.</li>
-        <li>The printed <b class="o">45&deg; holders</b> aim the steel rods down, so the props bite the water.</li>
-        <li><b class="red">The pencil battery.</b> The battery box holds 8 AAs = 12&nbsp;V, too much for the motor driver. So 2 slots got a <b>pencil, cut with a hacksaw and wrapped in foil</b>: it passes the power through without adding any. 6 real batteries = <b>9&nbsp;V</b>.</li>
-      </ul>
-      <p class="lesson r" style="--i:3">Fewer batteries in a row = lower voltage.</p>
-    </div>
-    <div class="pics r" style="--i:3;--n:2;--h:52vh">
-      <figure><img src="../media/proto/v3-final.jpg" alt="Prototype 3 in the water"><figcaption>prototype 3</figcaption></figure>
-      <figure><img src="../media/proto/v3-final-close.jpg" alt="Close-up: blue 45 degree holders and rods splashing"><figcaption>45&deg; holders, props splashing</figcaption></figure>
-    </div>
-  </div>
-  <aside class="notes">Batteries in a row add up: each AA is 1.5 V, so 8 is 12 V. The motor driver tops out around 10.8 V, so we needed fewer. The foil pencil is a "dummy cell": just a wire shaped like a battery.
+<section class="slide" data-scene="proto3" data-min="2">
+  <p class="kicker r" style="--i:0">prototype 3 &middot; the one that works</p>
+  <h2 class="r" style="--i:1"><span class="tag win">WORKS</span>Two big bottles. Props at 45&deg;.</h2>
+  <ul class="list r" style="--i:2">
+    <li><b class="c">Two 1&#8209;liter bottles</b> instead of 16 little ones: lighter, and it sits lower.</li>
+    <li>The printed <b class="o">45&deg; holders</b> aim the steel rods down, so the props bite the water.</li>
+    <li><b class="red">The pencil battery.</b> The battery box holds 8 AAs = 12&nbsp;V, too much for the motor driver. So 2 slots got a <b>pencil, cut with a hacksaw and wrapped in foil</b>: it passes the power through without adding any. 6 real batteries = <b>9&nbsp;V</b>.</li>
+  </ul>
+  <p class="lesson r" style="--i:3">Fewer batteries in a row = lower voltage.</p>
+  <aside class="notes">The 3D morphs one last time: the little bottles and tape sink away, two big bottles slide in, and the holders tilt to 45 degrees. Now the props are under water, it leaves a wake, and it actually goes.
+  Batteries in a row add up: each AA is 1.5 V, so 8 is 12 V. The motor driver tops out around 10.8 V, so we needed fewer. The foil pencil is a "dummy cell": just a wire shaped like a battery.
   Safety: foil can short a battery if it touches the wrong spot, so a grown-up does this. Low-voltage AA stuff is pretty safe, and real electronics have fuses, which melt on purpose before anything catches fire. Never bypass a fuse: a coin stuck where a fuse goes can (and did, in our family) set a TV on fire.</aside>
 </section>
 
 <!-- P5: the team -->
-<section class="slide wide" data-scene="calm" data-min="0.5">
+<section class="slide wide" data-scene="proto3" data-min="0.5">
   <div class="split">
     <div>
       <p class="kicker r" style="--i:0">the builders</p>
@@ -146,9 +123,6 @@
       <p class="r" style="--i:2">Two 6th graders, one AI helper, three boats. Built it, tested it in the hot tub, fixed it, did it again.</p>
       <p class="dim r" style="--i:3">Next time: even more of the questions come from the builders, not Dad.</p>
       <p class="lesson r" style="--i:4">Every version taught us what the next one needed.</p>
-    </div>
-    <div class="pics r" style="--i:3;--n:1;--h:62vh">
-      <figure><img src="../media/proto/v3-final.jpg" alt="the finished boat"></figure>
     </div>
   </div>
   <aside class="notes">Quick one. Let Kai and a friend take a bow. Then: "Here's how the final boat goes together" (next slide builds it in 3D).</aside>
@@ -376,6 +350,6 @@
 
 <div class="zoom" id="zoom"><img alt=""></div>
 
-<script type="module" src="slides.js?v=8"></script>
+<script type="module" src="slides.js?v=13"></script>
 </body>
 </html>
